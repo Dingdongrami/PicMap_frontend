@@ -4,6 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
+import { MyPage } from './screens/MyPage'; // MyPage 추가
+import { SafeAreaView } from 'react-native';
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     IropkeBatang: require('./assets/fonts/IropkeBatangM.ttf'),
@@ -15,8 +18,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>테스트테스트테스트테스트테스트테스트테스트테스트</Text>
       <StatusBar style="auto" />
+      <SafeAreaView>
+        <MyPage />
+      </SafeAreaView>
     </View>
   );
 }
