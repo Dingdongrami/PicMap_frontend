@@ -34,12 +34,14 @@ export const styles = StyleSheet.create({
   usernameText: {
     fontFamily: 'IropkeBatang',
     fontSize: 13,
+    color: COLORS.brown7,
   },
   onelineText: {
     fontFamily: 'IropkeBatang',
     fontSize: 12,
     marginTop: 13,
     marginBottom: 15,
+    color: COLORS.brown7,
   },
   buttonWrapper: {
     flexDirection: 'row',
