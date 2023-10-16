@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'; // useState 추가
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
 
 import { MyPage } from './screens/MyPage'; // MyPage 추가
 import { SafeAreaView } from 'react-native';
@@ -13,7 +12,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
@@ -32,9 +31,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    fontFamily: 'IropkeBatang',
-    fontSize: 15,
   },
 });

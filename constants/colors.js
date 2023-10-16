@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   beige: '#FCFCF2',
   brown1: '#F5F5F4',
   brown2: '#E7E5E4',
@@ -16,5 +16,3 @@ const COLORS = {
   pink2_40: 'rgba(255, 238, 48, 0.4)',
   brown2_80: 'rgba(231, 229, 228, 0.8)',
 };
-
-export default COLORS;
