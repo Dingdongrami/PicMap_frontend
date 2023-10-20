@@ -2,6 +2,7 @@
   "expo": {
     "name": "PicMap",
     "slug": "PicMap",
+    "scheme": "PicMap-routing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,11 +26,15 @@
       "package": "com.dingdong.picmap"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router"
     ],
+    "experiment": {
+      "typedRoutes": true
+    },
     "extra": {
       "router": {
         "origin": false
