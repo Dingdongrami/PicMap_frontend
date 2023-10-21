@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     borderWidth: 1,
+    marginTop: 50
   },
   map: {
     width: "100%",
