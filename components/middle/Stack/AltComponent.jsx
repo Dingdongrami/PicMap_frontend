@@ -1,5 +1,5 @@
 import { Post, Circle, Map } from '../../../screens/mycomponent';
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Middle } from '../Middle';
 
@@ -17,7 +17,8 @@ const Label = ({ label }) => {
 
 export const AltComponent = () => {
   return(
-    <Tab.Navigator
+    <View style={{ flex: 1 }}>
+      <Tab.Navigator
       initialRouteName="Post"
       screenOptions={({ route }) => ({
         // tabBarOptions: (props) => <Middle {...props} /> ,
@@ -29,13 +30,21 @@ export const AltComponent = () => {
           color: '#000000',
           fontSize: 15,
           alignItems: 'center',
-          marginBottom: 12
+          fontFamily: 'IropkeBatang',
+          marginBottom: 12,
         },
+        tabBarStyle:{
+          position: 'absolute',
+          top: 0,
+          zIndex: 1,
+        }
       })}
     >
       <Tab.Screen name="Post" component={Post} />
       <Tab.Screen name="Map" component={Map}/>
       <Tab.Screen name="Circle" component={Circle} />
     </Tab.Navigator>
+    </View>
+
   );
 };
