@@ -37,6 +37,7 @@ export const AltComponent = () => {
           position: 'absolute',
           top: 0,
           zIndex: 1,
+          borderTopWidth: 1
         }
       })}
     >
