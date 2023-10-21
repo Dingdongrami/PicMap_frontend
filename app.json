@@ -16,14 +16,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyAjnI7celPmQ6A6Aa2gkiaKvlHO8cK-2NA"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.dingdong.picmap"
+      "package": "com.dingdong.picmap",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCjT7KXZ3bIQ58gxSZQxSnVkP-yg_uNoHw"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png",
