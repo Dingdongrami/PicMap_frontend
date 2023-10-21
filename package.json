@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.10",
+    "@react-navigation/devtools": "^6.0.20",
     "@react-navigation/drawer": "^6.6.4",
     "@react-navigation/material-top-tabs": "^6.6.5",
     "@react-navigation/native": "^6.1.9",
@@ -30,7 +31,8 @@
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "react-native-flipper": "^0.212.0"
   },
   "private": true
 }
