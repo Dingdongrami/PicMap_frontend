@@ -1,10 +1,11 @@
 import { Text, View, FlatList, SafeAreaView,  } from 'react-native';
 import { styles } from './styles';
-import { CircleRoom } from '../../components/circle';
+import { CircleRoom } from '../../components/circle/CircleRoom';
 import { useState } from 'react';
+import { CreateCircleBtn } from '../createCircle/CreateCircleBtn';
 
 export const Circle = () => {
-  // const [ data, setData ] = useState(Array(10).fill({}));
+  // const [ data, setData ] = useState([]);
   const data = [
     { name: '써클1' },
     { name: '써클2' },
@@ -21,13 +22,14 @@ export const Circle = () => {
 
   return(
     <SafeAreaView style={styles.container}>
-        <FlatList 
-          data={data}
-          renderItem={({item}) => <CircleRoom item={item} />}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
-          showVerticalScrollIndicator={false}
-        />
+      <FlatList 
+        data={data}
+        renderItem={({item}) => <CircleRoom item={item} />}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        showVerticalScrollIndicator={false}
+      />
+        <CreateCircleBtn />
     </SafeAreaView>
-  )
-}
+  );
+};
