@@ -2,6 +2,7 @@
   "expo": {
     "name": "PicMap",
     "slug": "PicMap",
+    "scheme": "PicMap-routing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +16,40 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyAjnI7celPmQ6A6Aa2gkiaKvlHO8cK-2NA"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.dingdong.picmap",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCjT7KXZ3bIQ58gxSZQxSnVkP-yg_uNoHw"
+        }
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiment": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "feec4ec4-1321-45da-9c8b-f65ce9793c60"
+      }
     }
   }
 }
