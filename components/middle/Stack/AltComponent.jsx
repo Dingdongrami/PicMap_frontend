@@ -2,6 +2,7 @@ import { Post, Circle, Map } from '../../../screens/mycomponent';
 import { SafeAreaView, Text, View } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Middle } from '../Middle';
+import { CircleStack } from '../../circle/Stack/CircleStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,12 +38,13 @@ export const AltComponent = () => {
           position: 'absolute',
           top: 0,
           zIndex: 1,
+          borderTopWidth: 1
         }
       })}
     >
       <Tab.Screen name="Post" component={Post} />
       <Tab.Screen name="Map" component={Map}/>
-      <Tab.Screen name="Circle" component={Circle} />
+      <Tab.Screen name="Circle" component={CircleStack} />
     </Tab.Navigator>
     </View>
 
