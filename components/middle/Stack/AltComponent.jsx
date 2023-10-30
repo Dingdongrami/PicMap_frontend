@@ -34,7 +34,7 @@ export const AltComponent = ({ navigation }) => {
             color: '#44403C',
             fontSize: 15,
             fontFamily: 'IropkeBatang',
-            marginBottom: 10,
+            marginBottom: 9,
           },
           tabBarIndicatorStyle: {
             display: 'none',
