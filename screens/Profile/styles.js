@@ -90,6 +90,8 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: '#78716C',
     fontFamily: 'IropkeBatang',
+    marginTop: 10,
+    marginBottom: 2,
   },
   longInput: {
     width: 327,
