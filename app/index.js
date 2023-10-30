@@ -3,16 +3,14 @@ import { StyleSheet, Text, View, Image, SafeAreaView, Platform, StatusBar } from
 import { useFonts } from 'expo-font';
 import { AltScreen } from '../components/header/Stack/AltScreen';
 
-export default function App(){
+export default function App() {
   const [fontsLoaded] = useFonts({
     IropkeBatang: require('../assets/fonts/IropkeBatangM.ttf'),
   });
   if (!fontsLoaded) {
     return null;
   }
-  return(
-    <AltScreen/>
-  );
+  return <AltScreen />;
 }
 
 const styles = StyleSheet.create({
@@ -26,4 +24,3 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
-

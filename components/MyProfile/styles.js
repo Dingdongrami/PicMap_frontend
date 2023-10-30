@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   profileContainer: {
@@ -7,14 +6,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 100,
-    marginVertical: 7,
-    marginHorizontal: 5.5,
+    paddingTop: 3,
+    paddingBottom: 15,
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
   },
   profileImage: {
     width: 86,
     height: 86,
     borderRadius: '50%',
-    borderColor: COLORS.brown7,
+    borderColor: '#44403C',
     borderWidth: 0.5,
   },
   rightWrapper: {
@@ -34,14 +35,14 @@ export const styles = StyleSheet.create({
   usernameText: {
     fontFamily: 'IropkeBatang',
     fontSize: 13,
-    color: COLORS.brown7,
+    color: '#44403C',
   },
   onelineText: {
     fontFamily: 'IropkeBatang',
     fontSize: 12,
     marginTop: 13,
     marginBottom: 15,
-    color: COLORS.brown7,
+    color: '#44403C',
   },
   buttonWrapper: {
     flexDirection: 'row',
@@ -53,12 +54,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 3,
     width: 'auto',
-    backgroundColor: COLORS.pink1,
+    backgroundColor: '#FFECEA',
   },
   buttonText: {
     fontFamily: 'IropkeBatang',
     fontSize: 11.5,
-    color: COLORS.brown7,
+    color: '#44403C',
   },
   editImage: {
     width: 13,
