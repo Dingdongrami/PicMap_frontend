@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Search, TimeLine } from '../../../screens';
+import { EditProfile, Search, TimeLine } from '../../../screens';
 import { Header } from '../Header';
 import { AltComponent } from '../../middle/Stack/AltComponent';
 
@@ -15,6 +15,7 @@ export const AltScreen = () => {
       <Stack.Screen name="MyPage" component={AltComponent} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="TimeLine" component={TimeLine} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 };

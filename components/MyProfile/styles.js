@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     height: 100,
     paddingTop: 3,
     paddingBottom: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     backgroundColor: 'white',
   },
   profileImage: {
