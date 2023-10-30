@@ -1,52 +1,87 @@
 import { Post, Circle, Map } from '../../../screens/mycomponent';
-import { SafeAreaView, Text, View } from "react-native";
+import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Middle } from '../Middle';
 import { CircleStack } from '../../circle/Stack/CircleStack';
+import MyProfile from '../../MyProfile/MyProfile';
 
 const Tab = createBottomTabNavigator();
 
 const Label = ({ label }) => {
-  return(
+  return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-    <Text style={{ color: '#44403C'}}>
-      {label}
-    </Text>
-  </View>
-  )
-}
+      <Text style={{ color: '#44403C' }}>{label}</Text>
+    </View>
+  );
+};
 
 export const AltComponent = () => {
-  return(
+  return (
     <View style={{ flex: 1 }}>
+      <MyProfile />
       <Tab.Navigator
-      initialRouteName="Post"
-      screenOptions={({ route }) => ({
-        // tabBarOptions: (props) => <Middle {...props} /> ,
-        headerShown: false,
-        tabBarIcon: () => null,
-        tabBarLabel: route.name,
-        tabBarActiveBackgroundColor: '#FFE3E0',
-        tabBarLabelStyle:{
-          color: '#000000',
-          fontSize: 15,
-          alignItems: 'center',
-          fontFamily: 'IropkeBatang',
-          marginBottom: 12,
-        },
-        tabBarStyle:{
-          position: 'absolute',
-          top: 0,
-          zIndex: 1,
-          borderTopWidth: 1
-        }
-      })}
-    >
-      <Tab.Screen name="Post" component={Post} />
-      <Tab.Screen name="Map" component={Map}/>
-      <Tab.Screen name="Circle" component={CircleStack} />
-    </Tab.Navigator>
+        initialRouteName="Post"
+        screenOptions={({ route }) => ({
+          // tabBarOptions: (props) => <Middle {...props} /> ,
+          headerShown: false,
+          tabBarIcon: () => null,
+          tabBarLabel: route.name,
+          tabBarActiveBackgroundColor: '#FFE3E0',
+          tabBarLabelStyle: {
+            color: '#44403C',
+            fontSize: 15,
+            fontFamily: 'IropkeBatang',
+            marginBottom: 10,
+          },
+          tabBarIndicatorStyle: {
+            display: 'none',
+          },
+          tabBarStyle: {
+            position: 'absolute',
+            top: 0,
+            zIndex: 1,
+            height: 42,
+          },
+        })}>
+        <Tab.Screen
+          name="Post"
+          component={Post}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={Map}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderLeftWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Circle"
+          component={CircleStack}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderLeftWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
+      </Tab.Navigator>
     </View>
-
   );
 };

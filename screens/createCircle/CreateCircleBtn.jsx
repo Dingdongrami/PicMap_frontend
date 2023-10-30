@@ -3,16 +3,16 @@ import { useNavigation } from '@react-navigation/native';
 
 export const CreateCircleBtn = () => {
   const navigation = useNavigation();
-  
+
   const handleButton = () => {
     alert('써클등록 화면으로 이동합니다.');
     navigation.navigate('CircleCreate');
   };
 
-  return(
-    <View style={styles.overlay} >
+  return (
+    <View style={styles.overlay}>
       <TouchableOpacity onPress={handleButton}>
-        <Image source={require('../../assets/icons/function_add_btn.png')} style={{ width:55, height:55}} />
+        <Image source={require('../../assets/icons/function_add_btn.png')} style={{ width: 55, height: 55 }} />
       </TouchableOpacity>
     </View>
   );
@@ -21,12 +21,10 @@ export const CreateCircleBtn = () => {
 const styles = StyleSheet.create({
   overlay: {
     position: 'absolute',
-    top: 507,
     left: 23,
-    right: 312,
-    bottom: 16,
+    bottom: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
-  }
-})
+    flex: 1,
+  },
+});
