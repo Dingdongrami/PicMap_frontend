@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { COLORS } from '../../constants/colors';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   circleRoom: {
@@ -15,8 +14,8 @@ export const styles = StyleSheet.create({
     height: 164,
     borderRadius: 15,
     borderWidth: 0.5,
-    // borderBottomColor: COLORS.brown7,
-    borderBottomColor: '#44403C'
+    // borderBottomColor: '#44403C',
+    borderBottomColor: '#44403C',
   },
   circleName: {
     display: 'flex',
@@ -26,6 +25,6 @@ export const styles = StyleSheet.create({
   },
   circleNameText: {
     fontFamily: 'IropkeBatang',
-    backgroundColor: '#FFECEA'
-  }
-})
+    backgroundColor: '#FFECEA',
+  },
+});

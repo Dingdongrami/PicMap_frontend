@@ -1,10 +1,10 @@
-import { Text, View } from 'react-native';
-import { styles } from './styles';
+import { StyleSheet, Text, View } from 'react-native';
 import { Marker, POVIDER_GOOGLE, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapView from 'react-native-maps';
+import { styles } from './styles';
 
 export const Map = () => {
-  return(
+  return (
     <View style={styles.container}>
       {/* <Text>Map</Text> */}
       <MapView
@@ -15,9 +15,8 @@ export const Map = () => {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-        provider={PROVIDER_GOOGLE}
-      >
-        <Marker 
+        provider={PROVIDER_GOOGLE}>
+        <Marker
           coordinate={{
             latitude: 37.580112,
             longitude: 126.977166,
@@ -28,5 +27,5 @@ export const Map = () => {
         />
       </MapView>
     </View>
-  )
-}
+  );
+};

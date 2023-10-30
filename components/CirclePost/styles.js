@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '#constants/colors';
 
 export const styles = StyleSheet.create({
   circle: {
@@ -7,21 +6,21 @@ export const styles = StyleSheet.create({
     height: 225,
     borderRadius: 20,
     borderWidth: 0.5,
-    borderColor: COLORS.brown7,
-    marginBottom: 24,
+    borderColor: '#44403C',
+    marginTop: 24,
   },
   circleName: {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: 25.2,
-    borderBottomColor: COLORS.brown7,
+    borderBottomColor: '#44403C',
     borderBottomWidth: 0.5,
   },
   circleNameText: {
     fontFamily: 'IropkeBatang',
     fontSize: 13,
-    color: COLORS.brown7,
+    color: '#44403C',
   },
   photoContainer: {
     flexDirection: 'row',
