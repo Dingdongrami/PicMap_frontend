@@ -15,10 +15,13 @@ const Label = ({ label }) => {
   );
 };
 
-export const AltComponent = () => {
+export const AltComponent = ({ navigation }) => {
+  const onPressEditProfile = () => {
+    navigation.navigate('EditProfile');
+  };
   return (
     <View style={{ flex: 1 }}>
-      <MyProfile />
+      <MyProfile onPress={onPressEditProfile} />
       <Tab.Navigator
         initialRouteName="Post"
         screenOptions={({ route }) => ({
