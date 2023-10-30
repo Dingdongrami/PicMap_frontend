@@ -1,4 +1,4 @@
-import { Text, View, FlatList, SafeAreaView } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles';
 import { CircleRoom } from '../../../components/circle/CircleRoom';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ export const Circle = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={data}
         renderItem={({ item }) => <CircleRoom item={item} />}
@@ -30,6 +30,6 @@ export const Circle = () => {
         showsVerticalScrollIndicator={false}
       />
       <CreateCircleBtn />
-    </SafeAreaView>
+    </View>
   );
 };
