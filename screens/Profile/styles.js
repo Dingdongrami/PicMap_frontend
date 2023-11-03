@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -103,5 +103,18 @@ export const styles = StyleSheet.create({
     color: '#44403C',
     borderBottomColor: '#D6D3D1',
     borderBottomWidth: 0.5,
+  },
+  gallery: {
+    width: 24.5,
+    height: 24.5,
+    margin: 2,
+  },
+  camera: {
+    width: 20,
+    margin: 4,
+  },
+  trash: {
+    width: 24,
+    margin: 1,
   },
 });
