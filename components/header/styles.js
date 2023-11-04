@@ -11,8 +11,8 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   image: {
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
     borderRadius: 500,
     borderColor: '#44403C',
     borderWidth: 0.5,

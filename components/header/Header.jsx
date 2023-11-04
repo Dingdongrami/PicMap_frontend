@@ -19,7 +19,7 @@ export const Header = ({ navigation, title }) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
           {user?.profileImage ? (
-            <Image source={user.profileImage} style={styles.image} />
+            <Image source={user?.profileImage} style={styles.image} contentFit="fill" />
           ) : (
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
