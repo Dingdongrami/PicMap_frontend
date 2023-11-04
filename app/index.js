@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
-import { AltScreen } from '../components/header/Stack/AltScreen';
+import { AltScreen } from '../components/Header/Stack/AltScreen';
 import { RecoilRoot } from 'recoil';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,20 +13,10 @@ export default function App() {
     return null;
   }
   return (
-    <RecoilRoot>
-      <AltScreen />
-    </RecoilRoot>
+    <RootSiblingParent>
+      <RecoilRoot>
+        <AltScreen />
+      </RecoilRoot>
+    </RootSiblingParent>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-  text: {
-    fontFamily: 'IropkeBatang',
-    fontSize: 15,
-  },
-});
