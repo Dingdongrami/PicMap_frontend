@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { styles } from './styles';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
+import { Image } from 'expo-image';
 
 const MyProfile = ({ onPress }) => {
   const [user, setUser] = useRecoilState(userState);
   return (
     <View style={styles.profileContainer}>
       {user.profileImage ? (
-        <Image source={user.profileImage} style={styles.image} resizeMode="contain" />
+        <Image source={user?.profileImage} style={styles.image} contentFit="contain" />
       ) : (
         <View style={styles.noImageWrapper}>
-          <Image source={user?.profileImage} style={styles.noImage} />
+          <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
         </View>
       )}
       <View style={styles.rightWrapper}>

@@ -6,6 +6,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center', // 가로축
     backgroundColor: '#fff',
   },
+  image: {
+    width: 290,
+    height: 290,
+    borderRadius: 500,
+    marginTop: 20,
+    marginBottom: 14,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
+  },
   noImageWrapper: {
     justifyContent: 'center',
     alignItems: 'center',

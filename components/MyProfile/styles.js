@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    height: 100,
+    height: 110,
     paddingTop: 7,
     paddingBottom: 18,
     paddingHorizontal: 20,
@@ -81,6 +81,6 @@ export const styles = StyleSheet.create({
   friendsImage: {
     width: 15,
     height: 15,
-    resizeMode: 'contain',
+    contentFit: 'contain',
   },
 });
