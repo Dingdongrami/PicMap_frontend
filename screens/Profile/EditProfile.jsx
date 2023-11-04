@@ -158,7 +158,7 @@ export const EditProfile = ({ navigation }) => {
     <View style={styles.container}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
       {user?.profileImage ? (
-        <Image source={user?.profileImage} style={styles.image} contentFit="contain" />
+        <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />

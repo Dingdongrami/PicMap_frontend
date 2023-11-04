@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
     color: '#44403C',
   },
   onelineText: {
+    width: 218,
     fontFamily: 'IropkeBatang',
     fontSize: 12,
     marginTop: 13,
