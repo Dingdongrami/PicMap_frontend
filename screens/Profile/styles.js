@@ -6,7 +6,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center', // 가로축
     backgroundColor: '#fff',
   },
-  image: {
+  noImageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 500,
     width: 290,
     height: 290,
@@ -14,6 +16,10 @@ export const styles = StyleSheet.create({
     marginBottom: 14,
     borderColor: '#44403C',
     borderWidth: 0.5,
+  },
+  noImage: {
+    width: 49,
+    height: 52,
   },
   pinkButton: {
     flexDirection: 'row',
