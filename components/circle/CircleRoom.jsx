@@ -25,15 +25,15 @@ export const CircleRoom = ({ item }) => {
     toggleModal();
   };
 
-  const joinCircle = item => {
+  const joinCircle = () => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
-    data.forEach(circle => {
+    /* data.forEach(circle => {
       if (circle.id === item.id) {
         circle.join = true;
       }
-    });
+    }); */
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     Toast.show('가입 성공', {
