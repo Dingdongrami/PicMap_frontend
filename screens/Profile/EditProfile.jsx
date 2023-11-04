@@ -1,15 +1,26 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TextInput } from 'react-native';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 import { styles } from './styles';
 import { BottomModal } from '../../components/Modal/Modal';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../stores/user-store';
 
 export const EditProfile = ({ navigation }) => {
+  const [user, setUser] = useRecoilState(userState);
+  const [preUser, setPreUser] = useState(user);
+
   const [isModalVisible, setModalVisible] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  const onPressMyPage = () => {
+  const onPressConfirm = () => {
+    navigation.navigate('MyPage');
+  };
+  const onPressCancel = () => {
+    setUser(preUser);
     navigation.navigate('MyPage');
   };
   const onPressEditUsername = () => {
@@ -55,7 +66,13 @@ export const EditProfile = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
-      <Image style={styles.image} />
+      {user?.profileImage ? (
+        <Image source={user?.profileImage} style={styles.image} />
+      ) : (
+        <View style={styles.noImageWrapper}>
+          <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
+        </View>
+      )}
       <Pressable style={styles.pinkButton} onPress={toggleModal}>
         <Text style={styles.buttonText}>프로필 편집</Text>
       </Pressable>
@@ -66,6 +83,7 @@ export const EditProfile = ({ navigation }) => {
           </View>
           <TextInput
             style={styles.input}
+            value={user?.username}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="사용자 이름"
@@ -81,6 +99,7 @@ export const EditProfile = ({ navigation }) => {
           </View>
           <TextInput
             style={styles.input}
+            value={user?.introduction}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="한줄소개"
@@ -89,10 +108,10 @@ export const EditProfile = ({ navigation }) => {
           />
         </View>
       </Pressable>
-      <Pressable style={styles.saveButton} onPress={onPressMyPage}>
+      <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>완료</Text>
       </Pressable>
-      <Pressable style={styles.cancelButton} onPress={onPressMyPage}>
+      <Pressable style={styles.cancelButton} onPress={onPressCancel}>
         <Text style={styles.label}>취소</Text>
       </Pressable>
     </View>

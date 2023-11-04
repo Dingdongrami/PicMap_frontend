@@ -10,10 +10,24 @@ export const styles = StyleSheet.create({
     paddingRight: 8,
     paddingVertical: 8,
   },
+  image: {
+    width: 24,
+    height: 24,
+    borderRadius: 500,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
+  },
   iconContainer: {
     flexDirection: 'row',
     marginHorizontal: 10,
     justifyContent: 'space-between',
     gap: 13,
+  },
+  profileImage: {
+    width: 24,
+    height: 24,
+    borderRadius: 500,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
   },
 });
