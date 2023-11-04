@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { Text } from 'react-native';
+import { View, Text, Pressable, TextInput, Alert } from 'react-native';
 import { styles } from './styles';
-import { TextInput } from 'react-native';
-import { Pressable } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 
 export const EditUsername = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
   const [preUsername, setPreUsername] = useState(user.username);
+  const MIN_LENGTH = 2; // 최소 글자 수 설정
 
   const onPressConfirm = () => {
-    navigation.navigate('EditProfile');
+    if (user.username.trim().length < MIN_LENGTH) {
+      // 글자 수가 충분하지 않을 때 경고
+      Alert.alert(`사용자 이름은 ${MIN_LENGTH}글자 이상이어야 합니다.`);
+    } else {
+      // 유효성 검사를 통과했을 때만 EditProfile로 네비게이션
+      navigation.navigate('EditProfile');
+    }
   };
 
   const onPressCancel = () => {
@@ -29,10 +32,11 @@ export const EditUsername = ({ navigation }) => {
       <TextInput
         style={styles.longInput}
         value={user.username}
-        onChangeText={text => setUser({ ...user, username: text })}
+        onChangeText={text => setUser({ ...user, username: text.trim() })}
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="사용자 이름"
+        maxLength={10}
       />
       <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>완료</Text>
