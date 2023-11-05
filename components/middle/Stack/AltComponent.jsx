@@ -73,7 +73,7 @@ export const AltComponent = ({ navigation }) => {
         />
         <Tab.Screen
           name="Circle"
-          component={CircleStack}
+          component={Circle}
           options={{
             tabBarItemStyle: {
               height: 42,
