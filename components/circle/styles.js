@@ -14,8 +14,22 @@ export const styles = StyleSheet.create({
     height: 164,
     borderRadius: 15,
     borderWidth: 0.5,
-    // borderBottomColor: '#44403C',
     borderBottomColor: '#44403C',
+    // borderColor: '#44403C',
+  },
+  noImageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    width: 164,
+    height: 164,
+    borderWidth: 0.5,
+    borderBottomColor: '#44403C',
+    // borderColor: '#44403C',
+  },
+  noImage: {
+    width: 45,
+    height: 31,
   },
   circleName: {
     display: 'flex',

@@ -1,4 +1,4 @@
-import { Post, Circle, Map } from '../../../screens/mycomponent';
+import { Post, Circle, Map } from '../../../screens/MyPage';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Middle } from '../Middle';
@@ -15,10 +15,13 @@ const Label = ({ label }) => {
   );
 };
 
-export const AltComponent = () => {
+export const AltComponent = ({ navigation }) => {
+  const onPressEditProfile = () => {
+    navigation.navigate('EditProfile');
+  };
   return (
     <View style={{ flex: 1 }}>
-      <MyProfile />
+      <MyProfile onPress={onPressEditProfile} />
       <Tab.Navigator
         initialRouteName="Post"
         screenOptions={({ route }) => ({
@@ -31,7 +34,7 @@ export const AltComponent = () => {
             color: '#44403C',
             fontSize: 15,
             fontFamily: 'IropkeBatang',
-            marginBottom: 10,
+            marginBottom: 9,
           },
           tabBarIndicatorStyle: {
             display: 'none',
