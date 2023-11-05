@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, TextInput } from 'react-native';
+import { View, Text, Pressable, TextInput, Alert } from 'react-native';
 import { styles } from './styles';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
-import { Alert } from 'react-native';
 
 export const EditIntroduction = ({ navigation }) => {
-  const [user, setUser] = useRecoilState(userState);
-  const [preUserIntroduction, setPreUserIntroduction] = useState(user.introduction);
+  // Recoil 상태를 읽기 전용으로 사용합니다.
+  const user = useRecoilValue(userState);
+  // Recoil 상태를 설정하기 위한 함수만 가져옵니다.
+  const setUser = useSetRecoilState(userState);
+
+  // 로컬 상태를 사용하여 사용자의 입력을 관리합니다.
+  const [introduction, setIntroduction] = useState(user.introduction);
 
   const onPressConfirm = () => {
     // 공백 문자만 있거나 빈 문자열이 아닌지 확인합니다.
-    if (!user.introduction.trim()) {
+    if (!introduction.trim()) {
       Alert.alert('한줄소개를 입력해주세요.');
     } else {
-      setUser({ ...user, introduction: user.introduction.trim() });
-      navigation.navigate('EditProfile');
+      // Recoil 상태를 업데이트합니다.
+      setUser(prevUser => ({ ...prevUser, introduction: introduction.trim() }));
+      navigation.goBack();
     }
   };
 
   const onPressCancel = () => {
-    setUser({ ...user, introduction: preUserIntroduction });
-    navigation.navigate('EditProfile');
+    // 취소 시에는 변경사항 없이 이전 화면으로 돌아갑니다.
+    navigation.goBack();
   };
 
   return (
@@ -31,8 +36,8 @@ export const EditIntroduction = ({ navigation }) => {
       </View>
       <TextInput
         style={styles.longInput}
-        value={user.introduction}
-        onChangeText={text => setUser({ ...user, introduction: text })}
+        value={introduction}
+        onChangeText={setIntroduction} // 직접 로컬 상태를 업데이트합니다.
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="한줄소개"
