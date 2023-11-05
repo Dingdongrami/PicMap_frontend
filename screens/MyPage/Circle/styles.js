@@ -83,6 +83,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 4,
     paddingHorizontal: 3,
-    zIndex: 1,
+    // zIndex: 1,
+  },
+  photoRow: {
+    flexDirection: 'row'
   }
 });
