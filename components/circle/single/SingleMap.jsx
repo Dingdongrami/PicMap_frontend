@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapView from 'react-native-maps';
-import { styles } from './styles';
+import { styles } from "../styles";
 
-export const Map = () => {
-  return (
+export const SingleMap = () => {
+  return(
     <MapView
-      style={styles.map}
+      style={styles.mapContainer}
       initialRegion={{
         latitude: 37.580112,
         longitude: 126.977166,
@@ -19,9 +18,6 @@ export const Map = () => {
           latitude: 37.580112,
           longitude: 126.977166,
         }}
-        pinColor="#2D63E2"
-        title="하이"
-        description="테스트"
       />
     </MapView>
   );

@@ -35,6 +35,33 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+    fontFamily: 'IropkeBatang',
+    fontSize: 13
+  },
+  personBox: {
+    paddingVertical: 2,
+    height: 56,
+    borderWidth: 1,
+    backgroundColor: '#fff'
+  }, 
+  // mapContainer: {
+  //   width: "100%",
+  //   height: 221,
+  // },
+  wrapper: {
+    flexDirection: 'row',
+    marginTop: 30
+  },
+  imageText: {
+    fontFamily: 'IropkeBatang',
+    marginLeft: 16
+  },
+  optionButton:{
+    marginLeft: 309
+  },
+  optionText:{
+    fontFamily: 'IropkeBatang',
+    backgroundColor: '#FFECEA',
+  },
 });
