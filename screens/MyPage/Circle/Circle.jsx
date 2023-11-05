@@ -1,8 +1,8 @@
 import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles';
-import { CircleRoom } from '../../../components/Circle/CircleRoom';
+import { CircleRoom } from '../../../components/circle/CircleRoom';
 import { useEffect, useState } from 'react';
-import { CreateCircleBtn } from '../../../components/Circle/CreateCircleBtn';
+import { CreateCircleBtn } from '../../../components/circle/CreateCircleBtn';
 import { data } from '../../../data/circle-dummy';
 
 export const Circle = () => {
