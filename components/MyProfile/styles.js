@@ -5,18 +5,31 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    height: 100,
-    paddingTop: 3,
-    paddingBottom: 15,
-    paddingHorizontal: 15,
+    height: 110,
+    paddingTop: 7,
+    paddingBottom: 18,
+    paddingHorizontal: 20,
     backgroundColor: 'white',
   },
-  profileImage: {
+  image: {
     width: 86,
     height: 86,
     borderRadius: 500,
     borderColor: '#44403C',
     borderWidth: 0.5,
+  },
+  noImageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 86,
+    height: 86,
+    borderRadius: 500,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
+  },
+  noImage: {
+    width: 25,
+    height: 27,
   },
   rightWrapper: {
     height: '100%',
@@ -38,6 +51,7 @@ export const styles = StyleSheet.create({
     color: '#44403C',
   },
   onelineText: {
+    width: 218,
     fontFamily: 'IropkeBatang',
     fontSize: 12,
     marginTop: 13,
@@ -68,6 +82,6 @@ export const styles = StyleSheet.create({
   friendsImage: {
     width: 15,
     height: 15,
-    resizeMode: 'contain',
+    contentFit: 'contain',
   },
 });
