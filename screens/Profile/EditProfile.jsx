@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { TextInput, View, Text, Pressable, Alert, Linking } from 'react-native';
 import { Image } from 'expo-image';
 import { styles } from './styles';
@@ -16,110 +16,84 @@ import {
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
-  const [preUser, setPreUser] = useState(user);
+  // Profile image is now a local state
+  const [profileImage, setProfileImage] = useState(user.profileImage);
 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const [imagePermissionInformation, requestImagePermission] = useMediaLibraryPermissions(); // 미디어 라이브러리 접근 권한
-  const [cameraPermissionInformation, requestCameraPermission] = useCameraPermissions(); // 카메라 접근 권한
+  // Combine permission states into one state object
+  const [imagePermission, requestImagePermission] = useMediaLibraryPermissions();
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
 
-  async function verifyImagePermissions() {
-    if (imagePermissionInformation.status !== PermissionStatus.GRANTED) {
-      const permissionResponse = await requestImagePermission();
+  // Combine permission checks into one function
+  async function verifyPermissions(permissionInfo, requestPermissionFunc) {
+    if (permissionInfo.status !== PermissionStatus.GRANTED) {
+      const permissionResponse = await requestPermissionFunc();
+      if (permissionResponse.status === PermissionStatus.DENIED) {
+        Alert.alert('권한이 필요합니다.', '설정에서 권한을 허용해주세요.', [
+          { text: '취소', style: 'cancel' },
+          { text: '설정으로 이동', onPress: () => Linking.openSettings() },
+        ]);
+      }
       return permissionResponse.granted;
     }
-
-    if (imagePermissionInformation.status === PermissionStatus.DENIED) {
-      Alert.alert('미디어 라이브러리 권한이 필요합니다.', '설정에서 권한을 허용해주세요.', [
-        { text: '취소', style: 'cancel' },
-        { text: '설정으로 이동', onPress: () => Linking.openSettings() },
-      ]);
-      return false;
-    }
-
     return true;
   }
 
-  async function verifyCameraPermissions() {
-    if (cameraPermissionInformation.status !== PermissionStatus.GRANTED) {
-      const permissionResponse = await requestCameraPermission();
-      return permissionResponse.granted;
-    }
-
-    if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
-      Alert.alert('카메라 권한이 필요합니다.', '설정에서 권한을 허용해주세요.', [
-        { text: '취소', style: 'cancel' },
-        { text: '설정으로 이동', onPress: () => Linking.openSettings() },
-      ]);
-      return false;
-    }
-
-    return true;
-  }
-
+  // Refactor image selection to use local state and then update Recoil on confirm
   async function selectImageHandler() {
-    try {
-      const hasPermission = await verifyImagePermissions();
+    const hasPermission = await verifyPermissions(imagePermission, requestImagePermission);
+    if (!hasPermission) return;
 
-      if (!hasPermission) {
-        return;
-      }
+    const image = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.5,
+    });
 
-      const image = await launchImageLibraryAsync({
-        mediaTypes: MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.5,
-      });
-
-      if (!image.canceled) {
-        setUser({ ...user, profileImage: image.assets[0].uri });
-        setModalVisible(!isModalVisible);
-      }
-    } catch (error) {
-      Alert.alert('미디어 라이브러리를 사용할 수 없습니다.', '다시 시도해주세요.');
-      console.log(error);
+    if (!image.canceled) {
+      setProfileImage(image.assets[0].uri); // Update local state with image uri from assets array
+      setModalVisible(false);
     }
   }
 
+  // Refactor camera usage to use local state and then update Recoil on confirm
   async function takeImageHandler() {
-    try {
-      const hasPermission = await verifyCameraPermissions();
+    const hasPermission = await verifyPermissions(cameraPermission, requestCameraPermission);
+    if (!hasPermission) return;
 
-      if (!hasPermission) {
-        return;
-      }
+    const image = await launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1], // Adjust the aspect ratio if needed
+      quality: 0.5,
+    });
 
-      const image = await launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
-      });
-      if (!image.canceled) {
-        setUser({ ...user, profileImage: image.assets[0].uri });
-        setModalVisible(!isModalVisible);
-      }
-      // console.log(image);
-    } catch (error) {
-      Alert.alert('카메라를 사용할 수 없습니다.', '다시 시도해주세요.');
+    if (!image.canceled) {
+      setProfileImage(image.assets[0].uri); // Update local state with image uri from assets array
+      setModalVisible(false);
     }
   }
 
-  function deleteImageHandler() {
-    setUser({ ...user, profileImage: null });
-    setModalVisible(!isModalVisible);
-  }
+  const deleteImageHandler = useCallback(() => {
+    setProfileImage(null); // Update local state
+    setModalVisible(false);
+  }, []);
 
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setModalVisible(!isModalVisible);
-  };
-  const onPressConfirm = () => {
-    navigation.navigate('MyPage');
-  };
-  const onPressCancel = () => {
-    setUser(preUser);
-    navigation.navigate('MyPage');
-  };
+  }, [isModalVisible]);
+
+  const onPressConfirm = useCallback(() => {
+    setUser({ ...user, profileImage }); // Update Recoil state with new profile image
+    navigation.goBack();
+  }, [user, profileImage, setUser, navigation]);
+
+  const onPressCancel = useCallback(() => {
+    setProfileImage(user.profileImage); // Reset local state to initial Recoil state
+    navigation.goBack();
+  }, [user, navigation]);
+
   const onPressEditUsername = () => {
     navigation.navigate('EditUsername');
   };
@@ -157,8 +131,8 @@ export const EditProfile = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
-      {user?.profileImage ? (
-        <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
+      {profileImage ? (
+        <Image source={profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
