@@ -1,9 +1,9 @@
 import { Pressable, Text, View, Image } from 'react-native';
 import { styles } from './styles';
 
-export const SinglePhoto = () => {
+export const SinglePhotoIcon = () => {
   return(
-    <Pressable>
+    <Pressable >
       <View style={styles.imageContainer}>
         <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />
       </View>
