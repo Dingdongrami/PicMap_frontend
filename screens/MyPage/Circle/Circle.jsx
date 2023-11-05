@@ -6,12 +6,11 @@ import { CreateCircleBtn } from '../../../components/circle/CreateCircleBtn';
 import { data } from '../../../data/circle-dummy';
 
 export const Circle = () => {
-  // const [ data, setData ] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // join: true
 
   useEffect(() => {
     setFilteredData(data.filter(item => item.join === true));
-  }, []);
+  }, [data]);
 
   return (
     <View style={styles.container}>
