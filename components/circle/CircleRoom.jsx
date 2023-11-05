@@ -6,11 +6,13 @@ import Modal from 'react-native-modal';
 import React, { useState } from 'react';
 import { Image } from 'expo-image';
 import Toast from 'react-native-root-toast';
+import { useNavigation } from '@react-navigation/native';
 import { data } from '../../data/circle-dummy';
 
 export const CircleRoom = ({ item }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
   const [isModalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   // Function to handle the modal toggle
   const toggleModal = () => {
@@ -24,6 +26,11 @@ export const CircleRoom = ({ item }) => {
     // For now, we'll assume the user is not a member and just toggle the modal.
     toggleModal();
   };
+
+  //각 써클로 접속하는 함수 
+  const enterCircle = () => {
+    return navigation.navigate('SplashUI');
+  }
 
   const joinCircle = () => {
     toggleModal();
@@ -83,7 +90,7 @@ export const CircleRoom = ({ item }) => {
         </View>
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
-      <Pressable style={styles.circleRoom} onPress={!item.join ? onPressJoin : null}>
+      <Pressable style={styles.circleRoom} onPress={!item.join ? onPressJoin : enterCircle }>
         {item.image ? (
           <Image style={styles.circlePhoto} source={item.Image} />
         ) : (
