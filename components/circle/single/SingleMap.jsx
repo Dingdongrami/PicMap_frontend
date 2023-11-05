@@ -1,7 +1,7 @@
-import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE, View } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import { useState, useRef } from 'react';
-import { styles } from "../styles";
+import { styles } from '../styles';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,6 +9,12 @@ import { useNavigation } from '@react-navigation/native';
 export const SingleMap = () => {
   const [ isZoomed, setIsZoomed ] = useState(false);
   const navigation = useNavigation();
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+
+  const onLayout = (event) => {
+    const { width, height } = event.nativeEvent.layout;
+    setContainerSize({ width, height });
+  };
 
   const pinchRef = useRef(null);
  
@@ -21,26 +27,30 @@ export const SingleMap = () => {
   }
 
   return(
-    <PinchGestureHandler 
-      onGestureEvent={onPinchEvent}
-      ref={pinchRef}>
-      <MapView
-        style={styles.mapContainer}
-        initialRegion={{
-          latitude: 37.580112,
-          longitude: 126.977166,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-        provider={PROVIDER_GOOGLE}
-      >
-        <Marker
-          coordinate={{
+    <View style={styles.container} onLayout={onLayout} >
+      <PinchGestureHandler 
+        onGestureEvent={onPinchEvent}
+        ref={pinchRef}>
+        <MapView
+          style={styles.mapContainer}
+          resizeMode="cover"
+          initialRegion={{
             latitude: 37.580112,
             longitude: 126.977166,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
-        />
-      </MapView>  
-    </PinchGestureHandler>
+          provider={PROVIDER_GOOGLE}
+        >
+          <Marker
+            coordinate={{
+              latitude: 37.580112,
+              longitude: 126.977166,
+            }}
+          />
+        </MapView>  
+      </PinchGestureHandler>
+    </View>
+    
   );
 };

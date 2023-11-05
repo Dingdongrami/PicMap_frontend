@@ -30,7 +30,7 @@ export const SingleCircle = ({ route }) => {
     const yOffset = e.nativeEvent.contentOffset.y;
     if(yOffset > 110){
       setIsMap(false);
-    }else if(yOffset <=0){
+    }else if(yOffset <= 0){
       setIsMap(true);
     }
   };
@@ -54,11 +54,11 @@ export const SingleCircle = ({ route }) => {
           <View style={styles.personBox}> 
             <OthersProfile />
           </View>
-          {/* <PinchGestureHandler 
+          <PinchGestureHandler 
             onGestureEvent={onPinchEvent}
             ref={pinchRef}
           >
-            <SingleMap /> */}
+            {/* <SingleMap /> */}
             {isMap && (
               <MapView
                 style={styles.mapContainer}
@@ -78,7 +78,7 @@ export const SingleCircle = ({ route }) => {
                 />
               </MapView>
             )}
-          {/* </PinchGestureHandler> */}
+          </PinchGestureHandler>
           {/* { isMap && <SingleMap /> } */}
           <View style={styles.wrapper} >
             <Text style={styles.imageText}>사진</Text>
