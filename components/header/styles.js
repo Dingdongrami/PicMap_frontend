@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,12 +6,28 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
+    paddingLeft: 18,
+    paddingRight: 8,
+    paddingVertical: 8,
+  },
+  image: {
+    width: 26,
+    height: 26,
+    borderRadius: 500,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
   },
   iconContainer: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     marginHorizontal: 10,
     justifyContent: 'space-between',
-    gap: 13
-  }
+    gap: 13,
+  },
+  profileImage: {
+    width: 24,
+    height: 24,
+    borderRadius: 500,
+    borderColor: '#44403C',
+    borderWidth: 0.5,
+  },
 });
