@@ -3,7 +3,7 @@ import { styles } from './styles';
 import { styles as modalStyles } from '../Modal/styles';
 import { styles as buttonStyles } from '../../screens/Profile/styles';
 import Modal from 'react-native-modal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'expo-image';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
@@ -29,9 +29,9 @@ export const CircleRoom = ({ item }) => {
 
   //각 써클로 접속하는 함수 
   const enterCircle = () => {
-    return navigation.navigate('SplashUI');
+    return navigation.navigate('SplashUI', {itemId: item.id});
   }
-
+  
   const joinCircle = () => {
     toggleModal();
 
