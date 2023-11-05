@@ -2,6 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EditIntroduction, EditProfile, EditUsername, Search, TimeLine } from '../../../screens';
 import { Header } from '../Header';
 import { AltComponent } from '../../middle/Stack/AltComponent';
+import { CircleCreate } from '../../../screens/CreateCircle/CircleCreate';
+import { CircleCreateName } from '../../../screens/CreateCircle/CircleCreateName';
+import { CircleCreateDesc } from '../../../screens/CreateCircle/CircleCreateDesc';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +21,9 @@ export const AltScreen = () => {
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditUsername" component={EditUsername} />
       <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
+      <Stack.Screen name="CircleCreate" component={CircleCreate} />
+      <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
+      <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
     </Stack.Navigator>
   );
 };
