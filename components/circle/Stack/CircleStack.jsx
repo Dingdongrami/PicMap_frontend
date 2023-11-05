@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { CircleCreate } from '../../../screens/CreateCircle/CircleCreate';
-import { Circle } from '../../../screens/mycomponent';
+import { Circle } from '../../../screens/MyPage';
 
 const Stack = createNativeStackNavigator();
 
