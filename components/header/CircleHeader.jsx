@@ -4,9 +4,11 @@ import { styles } from './styles';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
+import { useNavigation } from '@react-navigation/native';
 
-export const CircleHeader = ({ navigation, title }) => {
+export const CircleHeader = () => {
   const [user, setUser] = useRecoilState(userState);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>PicMap</Text>
