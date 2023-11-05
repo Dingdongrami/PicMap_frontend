@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native';
 import { styles } from './styles';
-import { CircleRoom } from '../../components/Circle/CircleRoom';
+import { CircleRoom } from '../../components/circle/CircleRoom';
 import React, { useEffect, useState } from 'react';
 import { data } from '../../data/circle-dummy';
 
