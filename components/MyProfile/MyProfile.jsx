@@ -1,18 +1,28 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { styles } from './styles';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../stores/user-store';
+import { Image } from 'expo-image';
 
-const MyProfile = () => {
+const MyProfile = ({ onPress }) => {
+  const [user, setUser] = useRecoilState(userState);
   return (
     <View style={styles.profileContainer}>
-      <View style={styles.profileImage}></View>
+      {user.profileImage ? (
+        <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
+      ) : (
+        <View style={styles.noImageWrapper}>
+          <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
+        </View>
+      )}
       <View style={styles.rightWrapper}>
         <View style={styles.iconTextWrapper}>
           <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
-          <Text style={styles.usernameText}>username</Text>
+          <Text style={styles.usernameText}>{user.username}</Text>
         </View>
-        <Text style={styles.onelineText}>한줄 소개</Text>
+        <Text style={styles.onelineText}>{user.introduction}</Text>
         <View style={styles.buttonWrapper}>
-          <Pressable style={styles.pinkButton}>
+          <Pressable style={styles.pinkButton} onPress={onPress}>
             <Image source={require('../../assets/icons/editBtn.png')} style={styles.editImage} />
             <Text style={styles.buttonText}>프로필 편집</Text>
           </Pressable>
