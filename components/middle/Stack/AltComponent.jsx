@@ -2,7 +2,7 @@ import { Post, Circle, Map } from '../../../screens/mycomponent';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Middle } from '../Middle';
-import { CircleStack } from '../../circle/Stack/CircleStack';
+import { CircleStack } from '../../Circle/Stack/CircleStack';
 import MyProfile from '../../MyProfile/MyProfile';
 
 const Tab = createBottomTabNavigator();
