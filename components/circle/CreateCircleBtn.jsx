@@ -1,5 +1,6 @@
-import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Image } from 'expo-image';
 
 export const CreateCircleBtn = () => {
   const navigation = useNavigation();
