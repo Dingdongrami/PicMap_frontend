@@ -24,7 +24,19 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#fff',
     alignItems: 'center',
+    fontFamily: 'IropkeBatang',
     paddingTop: 20.5,
+  },
+  splashText: {
+    color: '#44403C',
+    fontSize: 13,
+    fontFamily: 'IropkeBatang',
+    marginTop: 8
+  },
+  splashImage: {
+    marginTop: 32,
+    height: 24,
+    width: 113
   },
   personCircle: {
     marginHorizontal: 5.5,
@@ -42,12 +54,13 @@ export const styles = StyleSheet.create({
   personBox: {
     paddingVertical: 2,
     height: 56,
-    borderWidth: 1,
-    backgroundColor: '#fff'
+    // borderWidth: 1,
+    backgroundColor: '#fff',
   }, 
   mapContainer: {
     width: "100%",
     height: 221,
+    marginTop: 8
   },
   wrapper: {
     flexDirection: 'row',
@@ -65,9 +78,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFECEA',
   },
   albumContainer: {
+    flex: 1,
     justifyContent: 'center', 
     alignItems: 'center',
     paddingVertical: 4,
-    paddingHorizontal: 3
+    paddingHorizontal: 3,
+    zIndex: 1,
   }
 });
