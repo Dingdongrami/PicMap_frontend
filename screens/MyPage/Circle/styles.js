@@ -45,10 +45,10 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#fff'
   }, 
-  // mapContainer: {
-  //   width: "100%",
-  //   height: 221,
-  // },
+  mapContainer: {
+    width: "100%",
+    height: 221,
+  },
   wrapper: {
     flexDirection: 'row',
     marginTop: 30
@@ -57,11 +57,17 @@ export const styles = StyleSheet.create({
     fontFamily: 'IropkeBatang',
     marginLeft: 16
   },
-  optionButton:{
+  optionButton: {
     marginLeft: 309
   },
-  optionText:{
+  optionText: {
     fontFamily: 'IropkeBatang',
     backgroundColor: '#FFECEA',
   },
+  albumContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    paddingVertical: 4,
+    paddingHorizontal: 3
+  }
 });
