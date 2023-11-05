@@ -2,9 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EditIntroduction, EditProfile, EditUsername, Search, TimeLine } from '../../../screens';
 import { Header } from '../Header';
 import { AltComponent } from '../../middle/Stack/AltComponent';
-import { CircleCreate } from '../../../screens/CreateCircle/CircleCreate';
-import { CircleCreateName } from '../../../screens/CreateCircle/CircleCreateName';
-import { CircleCreateDesc } from '../../../screens/CreateCircle/CircleCreateDesc';
+import { CircleCreate } from '../../../screens/createCircle/CircleCreate';
+import { CircleCreateName } from '../../../screens/createCircle/CircleCreateName';
+import { CircleCreateDesc } from '../../../screens/createCircle/CircleCreateDesc';
 
 const Stack = createNativeStackNavigator();
 
