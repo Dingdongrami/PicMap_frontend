@@ -1,19 +1,21 @@
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View, Image } from 'react-native';
 import { useEffect } from 'react';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
+import { userState } from '../../../stores/user-store';
 import { splashState } from '../../../stores/splash-store';
 
 export const SplashUI = ({ route }) => {
   const [ isReady, setIsReady ] = useRecoilState(splashState);
   const navigation = useNavigation();
+  const [user, setUser] = useRecoilState(userState);
   const { itemId } = route.params;
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('SingleCircle', { itemId });
       setIsReady(true);
-    }, 4000);
+    }, 3000);
   }, []);
   
   //써클 참여자 더미데이터
@@ -30,6 +32,7 @@ export const SplashUI = ({ route }) => {
     { id: 9, name: '장' },
   ];
   const displayPerson = persons.slice(0,4);
+  const countOther = persons.length - 1;
 
   const ListPersons = ({item}) => {
     return(
@@ -50,6 +53,9 @@ export const SplashUI = ({ route }) => {
           showsVerticalScrollIndicator={false}
         />
       </View>
+      <Text style={styles.splashText}>{user.username}님 외 {countOther}명이 있습니다.</Text>
+      {/*애니메이션 추가 구현 필요 */}
+      <Image source={require('../../../assets/icons/loading.png')} style={styles.splashImage} />
     </View>
   );
 };
