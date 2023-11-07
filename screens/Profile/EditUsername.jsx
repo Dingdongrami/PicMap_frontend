@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, TextInput, Alert } from 'react-native';
 import { styles } from './styles';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 
 export const EditUsername = ({ navigation }) => {
-  const [user, setUser] = useRecoilState(userState);
-  const [preUsername, setPreUsername] = useState(user.username);
-  const MIN_LENGTH = 2; // 최소 글자 수 설정
+  // Use Recoil hooks for reading and setting user state separately.
+  const user = useRecoilValue(userState);
+  const setUser = useSetRecoilState(userState);
+
+  // Manage the username input with local state.
+  const [username, setUsername] = useState(user.username);
+  const MIN_LENGTH = 2; // Minimum username length
 
   const onPressConfirm = () => {
-    if (user.username.trim().length < MIN_LENGTH) {
-      // 글자 수가 충분하지 않을 때 경고
+    const trimmedUsername = username.trim();
+    if (trimmedUsername.length < MIN_LENGTH) {
+      // Alert if username doesn't meet the minimum length requirement.
       Alert.alert(`사용자 이름은 ${MIN_LENGTH}글자 이상이어야 합니다.`);
     } else {
-      // 유효성 검사를 통과했을 때만 EditProfile로 네비게이션
+      // Update global state and navigate only if validation passes.
+      setUser(prevUser => ({ ...prevUser, username: trimmedUsername }));
       navigation.navigate('EditProfile');
     }
   };
 
   const onPressCancel = () => {
-    setUser({ ...user, username: preUsername });
+    // No need to reset global state; just navigate back.
     navigation.navigate('EditProfile');
   };
 
@@ -31,8 +37,8 @@ export const EditUsername = ({ navigation }) => {
       </View>
       <TextInput
         style={styles.longInput}
-        value={user.username}
-        onChangeText={text => setUser({ ...user, username: text.trim() })}
+        value={username}
+        onChangeText={setUsername} // Update local state only.
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="사용자 이름"
