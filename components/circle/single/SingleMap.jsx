@@ -1,6 +1,7 @@
-import { Marker, PROVIDER_GOOGLE, View } from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { View } from 'react-native';
 import MapView from 'react-native-maps';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { styles } from '../styles';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -16,7 +17,8 @@ export const SingleMap = () => {
     setContainerSize({ width, height });
   };
 
-  const pinchRef = useRef(null);
+  // const pinchRef = useRef(null);
+  const mapRef = useRef(null);
  
   //지도확대 동작 감지함수
   const onPinchEvent = (e) => {
@@ -26,21 +28,46 @@ export const SingleMap = () => {
     }
   }
 
+  const onMapReady = () => {
+    console.log('onMapReady called'); 
+    if(mapRef.current){
+      mapRef.current.animateToRegion({
+        latitude: 37.580112,
+        longitude: 126.977166,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    }
+  };
+  const handleError = (error) => {
+    console.log('Map error:', error);
+  };
+
+
+  
+  // useEffect(() => {
+  //   if(mapRef.current) {
+  //     mapRef.current.animateToRegion({
+  //       latitude: 37.580112,
+  //       longitude: 126.977166,
+  //       latitudeDelta: 0.01,
+  //       longitudeDelta: 0.01,
+  //     });
+  //   }
+  // }, [mapRef.current]); 
   return(
-    <View style={styles.container} onLayout={onLayout} >
-      <PinchGestureHandler 
-        onGestureEvent={onPinchEvent}
-        ref={pinchRef}>
+    // <View style={styles.container} >
+    //   <PinchGestureHandler 
+    //     onGestureEvent={onPinchEvent}
+    //     ref={pinchRef}>
         <MapView
+          ref={mapRef}
           style={styles.mapContainer}
-          resizeMode="cover"
-          initialRegion={{
-            latitude: 37.580112,
-            longitude: 126.977166,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          }}
+          // resizeMode="cover"
+          onLayout={onMapReady} 
           provider={PROVIDER_GOOGLE}
+          onError={handleError}
+          
         >
           <Marker
             coordinate={{
@@ -49,8 +76,7 @@ export const SingleMap = () => {
             }}
           />
         </MapView>  
-      </PinchGestureHandler>
-    </View>
-    
+    //   </PinchGestureHandler>
+    // </View>
   );
 };
