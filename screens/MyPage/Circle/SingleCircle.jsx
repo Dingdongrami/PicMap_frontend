@@ -1,5 +1,5 @@
 import { View, Text, Pressable, FlatList, ScrollView  } from 'react-native';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -54,12 +54,12 @@ export const SingleCircle = ({ route }) => {
           <View style={styles.personBox}> 
             <OthersProfile />
           </View>
-          <PinchGestureHandler 
+          {/* <PinchGestureHandler 
             onGestureEvent={onPinchEvent}
             ref={pinchRef}
-          >
+          > */}
             {/* <SingleMap /> */}
-            {isMap && (
+            {/* {isMap && (
               <MapView
                 style={styles.mapContainer}
                 initialRegion={{
@@ -78,8 +78,10 @@ export const SingleCircle = ({ route }) => {
                 />
               </MapView>
             )}
-          </PinchGestureHandler>
-          {/* { isMap && <SingleMap /> } */}
+          </PinchGestureHandler> */}          
+          <View style={{width: '100%', height: 221, borderWidth: 1, overflow: 'hidden', }}>
+            { isMap && <SingleMap/> }
+          </View>
           <View style={styles.wrapper} >
             <Text style={styles.imageText}>사진</Text>
             <Pressable style={styles.optionButton}>
