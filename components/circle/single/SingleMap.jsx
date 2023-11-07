@@ -2,7 +2,7 @@ import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { View } from 'react-native';
 import MapView from 'react-native-maps';
 import { useState, useRef, useEffect } from 'react';
-import { styles } from '../styles';
+import { styles } from './styles';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
@@ -17,7 +17,7 @@ export const SingleMap = () => {
     setContainerSize({ width, height });
   };
 
-  // const pinchRef = useRef(null);
+  const pinchRef = useRef(null);
   const mapRef = useRef(null);
  
   //지도확대 동작 감지함수
@@ -36,13 +36,15 @@ export const SingleMap = () => {
         longitude: 126.977166,
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
-      });
+      }, 3 * 1000 );
     }
   };
   const handleError = (error) => {
     console.log('Map error:', error);
   };
-
+  useEffect(()=>{
+    console.log("true");
+  }, []);
 
   
   // useEffect(() => {
@@ -55,28 +57,28 @@ export const SingleMap = () => {
   //     });
   //   }
   // }, [mapRef.current]); 
+
+  
   return(
-    // <View style={styles.container} >
-    //   <PinchGestureHandler 
-    //     onGestureEvent={onPinchEvent}
-    //     ref={pinchRef}>
-        <MapView
-          ref={mapRef}
-          style={styles.mapContainer}
-          // resizeMode="cover"
-          onLayout={onMapReady} 
-          provider={PROVIDER_GOOGLE}
-          onError={handleError}
-          
-        >
-          <Marker
-            coordinate={{
-              latitude: 37.580112,
-              longitude: 126.977166,
-            }}
-          />
-        </MapView>  
-    //   </PinchGestureHandler>
-    // </View>
+    // <PinchGestureHandler  
+    //   onGestureEvent={onPinchEvent}
+    //   ref={pinchRef}>
+      <MapView
+        ref={mapRef}
+        style={styles.mapContainer}
+        // resizeMode="cover"
+        onLayout={onMapReady} 
+        provider={PROVIDER_GOOGLE}
+        onError={handleError}
+        
+      >
+        <Marker
+          coordinate={{
+            latitude: 37.580112,
+            longitude: 126.977166,
+          }}
+        />
+      </MapView>  
+    // </PinchGestureHandler>
   );
 };

@@ -10,6 +10,7 @@ import { SinglePhotoIcon } from '../../../components/circle/album/SinglePhotoIco
 import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
 import { useNavigation } from '@react-navigation/native';
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
 
 export const SingleCircle = ({ route }) => {
   const [ isReady, setIsReady ] = useState(splashState);
@@ -79,7 +80,7 @@ export const SingleCircle = ({ route }) => {
               </MapView>
             )}
           </PinchGestureHandler>          */}
-          <View style={{width: '100%', height: 221, borderWidth: 1, overflow: 'hidden', }}>
+          <View style={{width: '100%', height: 221, borderWidth: 1, flex:1, justifyContent:'center', alignItems:'center'}}>
             { isMap && <SingleMap/> }
           </View>
           <View style={styles.wrapper} >
