@@ -6,7 +6,7 @@ export const CreateCircleBtn = () => {
   const navigation = useNavigation();
 
   const handleButton = () => {
-    alert('써클등록 화면으로 이동합니다.');
+    // alert('써클등록 화면으로 이동합니다.');
     navigation.navigate('CircleCreate');
   };
 

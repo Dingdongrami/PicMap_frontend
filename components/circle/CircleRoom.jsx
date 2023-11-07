@@ -36,11 +36,6 @@ export const CircleRoom = ({ item }) => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
-    /* data.forEach(circle => {
-      if (circle.id === item.id) {
-        circle.join = true;
-      }
-    }); */
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     Toast.show('가입 성공', {
@@ -71,7 +66,7 @@ export const CircleRoom = ({ item }) => {
         <View style={modalStyles.modalContainer}>
           <View style={modalStyles.modalLine} />
           {item?.image ? (
-            <Image style={modalStyles.circleImage} />
+            <Image style={modalStyles.circleImage} source={item?.image} />
           ) : (
             <View style={modalStyles.circleNoImageWrapper}>
               <Image style={modalStyles.circleNoImage} source={require('../../assets/icons/image.png')} />
@@ -90,9 +85,9 @@ export const CircleRoom = ({ item }) => {
         </View>
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
-      <Pressable style={styles.circleRoom} onPress={!item.join ? onPressJoin : enterCircle }>
-        {item.image ? (
-          <Image style={styles.circlePhoto} source={item.Image} />
+      <Pressable style={styles.circleRoom} onPress={!item.join ? onPressJoin : null}>
+        {item?.image ? (
+          <Image style={styles.circlePhoto} source={item?.image} ContentFit="cover" />
         ) : (
           <View style={styles.noImageWrapper}>
             <Image style={styles.noImage} source={require('../../assets/icons/image.png')} />
