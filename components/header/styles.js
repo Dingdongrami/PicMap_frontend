@@ -35,4 +35,9 @@ export const styles = StyleSheet.create({
     width: 18,
     height: 3,
   },
+  backHeader: {
+    marginLeft: 10,
+    width: 25,
+    height: 25
+  }
 });
