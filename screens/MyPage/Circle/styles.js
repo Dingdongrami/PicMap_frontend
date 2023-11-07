@@ -60,7 +60,10 @@ export const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     height: 221,
-    marginTop: 8
+    marginTop: 8,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   wrapper: {
     flexDirection: 'row',
