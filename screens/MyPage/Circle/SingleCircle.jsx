@@ -57,9 +57,9 @@ export const SingleCircle = ({ route }) => {
           {/* <PinchGestureHandler 
             onGestureEvent={onPinchEvent}
             ref={pinchRef}
-          > */}
-            {/* <SingleMap /> */}
-            {/* {isMap && (
+          >
+            <SingleMap />
+            { isMap && (
               <MapView
                 style={styles.mapContainer}
                 initialRegion={{
@@ -78,7 +78,7 @@ export const SingleCircle = ({ route }) => {
                 />
               </MapView>
             )}
-          </PinchGestureHandler> */}          
+          </PinchGestureHandler>          */}
           <View style={{width: '100%', height: 221, borderWidth: 1, overflow: 'hidden', }}>
             { isMap && <SingleMap/> }
           </View>
