@@ -17,4 +17,4 @@ export const CircleStack = () => {
   );
 };
 
-//circle에 대해서 createcirclebtn과 circle create 컴포넌트를달 수 있음
+//circle에 대해서 createcirclebtn과 circle create 컴포넌트를 달 수 있음
