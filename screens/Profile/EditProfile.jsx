@@ -130,7 +130,10 @@ export const EditProfile = ({ navigation }) => {
   );
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
+      showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
       {profileImage ? (
         <Image source={profileImage} style={styles.image} contentFit="cover" />
