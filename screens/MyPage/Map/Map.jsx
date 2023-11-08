@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Marker, POVIDER_GOOGLE, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import { styles } from './styles';
 

@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 10,
     justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 13,
   },
   profileImage: {
@@ -30,4 +31,13 @@ export const styles = StyleSheet.create({
     borderColor: '#44403C',
     borderWidth: 0.5,
   },
+  rightHeader: {
+    width: 18,
+    height: 3,
+  },
+  backHeader: {
+    marginLeft: 10,
+    width: 25,
+    height: 25
+  }
 });
