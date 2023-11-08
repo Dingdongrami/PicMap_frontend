@@ -7,5 +7,6 @@ export const userState = atom({
     username: 'ding_dong',
     introduction: '한줄소개',
     profileImage: '',
+    public: true,
   },
 });

@@ -13,6 +13,7 @@ import {
   MediaTypeOptions,
   launchImageLibraryAsync,
 } from 'expo-image-picker';
+import Checkbox from 'expo-checkbox';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
@@ -171,6 +172,31 @@ export const EditProfile = ({ navigation }) => {
             editable={false} // 편집 불가능하게 설정
             pointerEvents="none"
           />
+        </View>
+      </Pressable>
+      <Pressable>
+        <View style={styles.wrapper}>
+          <View style={styles.labelWrapper}>
+            <Text style={styles.label}>공개 여부</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Checkbox
+              value={user?.public}
+              onValueChange={newValue => setUser({ ...user, public: newValue })}
+              color={user?.public ? '#D6D3D1' : undefined} // 색상은 원하는 대로 설정 가능
+              style={{ margin: 8, borderColor: '#D6D3D1', borderWidth: 1 }}
+            />
+            <Text style={styles.label}>공개</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 28 }}>
+            <Checkbox
+              value={!user?.public}
+              onValueChange={newValue => setUser({ ...user, public: !newValue })}
+              color={!user?.public ? '#D6D3D1' : undefined} // 색상은 원하는 대로 설정 가능
+              style={{ margin: 8, borderColor: '#D6D3D1', borderWidth: 1 }}
+            />
+            <Text style={styles.label}>비공개</Text>
+          </View>
         </View>
       </Pressable>
       <Pressable style={styles.saveButton} onPress={onPressConfirm}>
