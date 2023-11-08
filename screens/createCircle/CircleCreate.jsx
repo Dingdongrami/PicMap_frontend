@@ -232,7 +232,7 @@ export const CircleCreate = () => {
           </View>
         </View>
       </Pressable>
-      <Pressable style={[styles.saveButton, { marginTop: 25 }]} onPress={onPressConfirm}>
+      <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>등록</Text>
       </Pressable>
       <Pressable style={styles.cancelButton} onPress={onPressCancel}>

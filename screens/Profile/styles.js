@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
     height: 60,
     borderRadius: 7,
     backgroundColor: '#FFECEA',
-    marginTop: 30,
+    marginTop: 25,
     marginBottom: 10,
   },
   cancelButton: {
