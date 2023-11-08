@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { TextInput, View, Text, Pressable, Alert, Linking } from 'react-native';
+import { TextInput, View, Text, Pressable, Alert, Linking, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { styles } from './styles';
 import { BottomModal } from '../../components/Modal/Modal';
@@ -130,7 +130,7 @@ export const EditProfile = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ alignItems: 'center', paddingBottom: 40 }}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
       {profileImage ? (
         <Image source={profileImage} style={styles.image} contentFit="cover" />
@@ -205,6 +205,6 @@ export const EditProfile = ({ navigation }) => {
       <Pressable style={styles.cancelButton} onPress={onPressCancel}>
         <Text style={styles.label}>취소</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };

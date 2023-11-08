@@ -13,6 +13,7 @@ export const Post = () => {
         renderItem={({ item, index }) => <CirclePost />}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{alignItems: 'center'}}
       />
     </SafeAreaView>
   );
