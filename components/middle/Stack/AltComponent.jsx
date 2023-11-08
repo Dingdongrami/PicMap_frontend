@@ -44,6 +44,7 @@ export const AltComponent = ({ navigation }) => {
             top: 0,
             zIndex: 1,
             height: 42,
+            elevation: 0, // Add this line to remove shadow on Android
           },
         })}>
         <Tab.Screen
