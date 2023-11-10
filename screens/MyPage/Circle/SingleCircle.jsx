@@ -1,5 +1,5 @@
-import { View, Text, Pressable, FlatList, ScrollView  } from 'react-native';
-import { useState, useRef, useEffect } from 'react';
+import { View, Text, Pressable, ScrollView  } from 'react-native';
+import { useState } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
