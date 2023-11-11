@@ -81,7 +81,7 @@ export const SingleCircle = ({ route }) => {
             </Pressable>
           </View>
           <View style={styles.albumContainer}>
-            <SinglePhotoIcon photoData={groupedData} />
+            <SinglePhotoIcon photoData={groupedData}  isSelected={selection}/>
           </View>
         </ScrollView>
       </View>
