@@ -16,4 +16,7 @@ export const styles = StyleSheet.create({
     width: 45,
     height: 31
   },
+  photoRow: {
+    flexDirection: 'row'
+  },
 })
