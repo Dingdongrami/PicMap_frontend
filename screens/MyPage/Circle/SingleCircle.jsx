@@ -1,5 +1,5 @@
-import { View, Text, Pressable, ScrollView  } from 'react-native';
-import { useState } from 'react';
+import { View, Text, Pressable, ScrollView, StyleSheet  } from 'react-native';
+import { useState, useMemo } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -10,6 +10,7 @@ import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
 export const SingleCircle = ({ route }) => {
   const [ isReady, setIsReady ] = useState(splashState);
   const [ isMap, setIsMap ] = useState(true);
+  const [ selection, setSelection ] = useState(false);
   //써클의 id값 찾아내기
   const { itemId } = route.params;
   const album = Array(90).fill();
@@ -28,6 +29,28 @@ export const SingleCircle = ({ route }) => {
       setIsMap(true);
     }
   };
+  const changeSelection = () => {
+    setSelection(!selection);
+  };
+  const selectOptions = useMemo(
+    () => [
+      {
+        text: '전체 선택',
+        // onPress
+      },
+      {
+        text: '삭제',
+        // onPress
+      },
+      {
+        text: '저장',
+        // onPres
+      },
+      {
+        text: '취소',
+        // onPress
+      }
+  ])
 
   if(!isReady) {
     return <SplashUI />
@@ -44,8 +67,16 @@ export const SingleCircle = ({ route }) => {
           </View>
           <View style={styles.wrapper} >
             <Text style={styles.imageText}>사진</Text>
-            <Pressable style={styles.optionButton}>
-              <Text style={styles.optionText}>선택</Text>
+            <Pressable onPress={changeSelection} >
+              { !selection ? 
+                  <Text style={styles.optionText}>선택</Text>
+                : 
+                <View style={{flexDirection: 'row', marginLeft: 157, gap: 16 }}>
+                  {selectOptions.map((item, index) => (
+                    <Text style={styles.optionText2}>{item.text}</Text>
+                  ))}
+                </View>
+              }
             </Pressable>
           </View>
           <View style={styles.albumContainer}>
