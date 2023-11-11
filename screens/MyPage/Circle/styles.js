@@ -90,7 +90,4 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 3,
     // zIndex: 1,
   },
-  photoRow: {
-    flexDirection: 'row'
-  },
 });

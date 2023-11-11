@@ -30,6 +30,7 @@ export const SingleCircle = ({ route }) => {
     }
   };
   const changeSelection = () => {
+    //item값들의 checkbox도 만들기
     setSelection(!selection);
   };
   const selectOptions = useMemo(
@@ -50,7 +51,7 @@ export const SingleCircle = ({ route }) => {
         text: '취소',
         // onPress
       }
-  ])
+  ]);
 
   if(!isReady) {
     return <SplashUI />
@@ -80,13 +81,7 @@ export const SingleCircle = ({ route }) => {
             </Pressable>
           </View>
           <View style={styles.albumContainer}>
-            {groupedData.map((row, rowIndex) => (
-              <View key={rowIndex} style={styles.photoRow}>
-                {row.map((item, index) => (
-                  <SinglePhotoIcon key={index} />
-                ))}
-              </View>
-            ))}
+            <SinglePhotoIcon photoData={groupedData} />
           </View>
         </ScrollView>
       </View>
