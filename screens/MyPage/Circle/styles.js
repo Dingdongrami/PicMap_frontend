@@ -67,16 +67,18 @@ export const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginTop: 30
+    marginTop: 30,
   },
   imageText: {
     fontFamily: 'IropkeBatang',
-    marginLeft: 16
-  },
-  optionButton: {
-    marginLeft: 309
+    marginLeft: 16,
   },
   optionText: {
+    fontFamily: 'IropkeBatang',
+    backgroundColor: '#FFECEA',
+    marginLeft: 309
+  },
+  optionText2: {
     fontFamily: 'IropkeBatang',
     backgroundColor: '#FFECEA',
   },
@@ -90,5 +92,5 @@ export const styles = StyleSheet.create({
   },
   photoRow: {
     flexDirection: 'row'
-  }
+  },
 });
