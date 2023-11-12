@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 
-export const CircleMapHeader = () => {
+export const CircleDetailHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigation = useNavigation();
   const GoBack = () => {
