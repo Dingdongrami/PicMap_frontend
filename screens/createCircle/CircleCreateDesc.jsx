@@ -5,7 +5,7 @@ import { Alert } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
 
-export const CircleCreateDesc = ({ navigation }) => {
+const CircleCreateDesc = ({ navigation }) => {
   // 전역 상태를 읽기만 합니다.
   const newCircle = useRecoilValue(newCircleState);
 
@@ -51,3 +51,5 @@ export const CircleCreateDesc = ({ navigation }) => {
     </View>
   );
 };
+
+export default CircleCreateDesc;
