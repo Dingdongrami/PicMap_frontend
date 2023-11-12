@@ -18,7 +18,7 @@ import { newCircleState } from '../../stores/circle-store';
 import { data as circleData } from '../../data/circle-dummy';
 import { ScrollView } from 'react-native';
 
-export const CircleCreate = () => {
+const CircleCreate = () => {
   const [newCircle, setNewCircle] = useRecoilState(newCircleState);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -245,3 +245,5 @@ export const CircleCreate = () => {
     </ScrollView>
   );
 };
+
+export default CircleCreate;

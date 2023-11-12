@@ -5,12 +5,12 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { useNavigation } from '@react-navigation/native';
 
-export const CircleMapHeader = () => {
+export const JustGoBackHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigation = useNavigation();
   const GoBack = () => {
     navigation.goBack();
-  }
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={GoBack}>
@@ -29,9 +29,6 @@ export const CircleMapHeader = () => {
           ) : (
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
         </TouchableOpacity>
       </View>
     </View>
