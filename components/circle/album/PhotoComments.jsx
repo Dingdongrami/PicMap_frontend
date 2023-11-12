@@ -18,20 +18,22 @@ export const PhotoComments = () => {
   }
   return(
     <Animated.View style={[comStyle.scrollCon, {height: height}]}  >
-      <Pressable style={comStyle.commuBox} onPress={scrollUp}>
-        <View style={comStyle.commentBox}>
-          <Image source={require('../../../assets/icons/comment.png')} contentFit='cover'/>
-          <Text>25</Text>
-        </View>
-        <View style={comStyle.commentBox}>
-          <Pressable onPress={()=>setHeart(!heart)}>
-            { heart ? 
-              <Image source={require('../../../assets/icons/heart_unfilled.png')} contentFit='cover'/>
-              :
-              <Image source={require('../../../assets/icons/heart_filled.png')} contentFit='cover'/>
-            }
-          </Pressable>
-          <Text>25</Text>
+      <Pressable onPress={scrollUp}>
+        <View style={comStyle.commuBox}>
+          <View style={comStyle.commentBox}>
+            <Image source={require('../../../assets/icons/comment.png')} contentFit='cover'/>
+            <Text>25</Text>
+          </View>
+          <View style={comStyle.commentBox}>
+            <Pressable onPress={()=>setHeart(!heart)}>
+              { heart ? 
+                <Image source={require('../../../assets/icons/heart_unfilled.png')} contentFit='cover'/>
+                :
+                <Image source={require('../../../assets/icons/heart_filled.png')} contentFit='cover'/>
+              }
+            </Pressable>
+            <Text>25</Text>
+          </View>
         </View>
       </Pressable>
     </Animated.View>
