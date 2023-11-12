@@ -41,4 +41,31 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
   },
 
-})
+});
+
+export const comStyle = StyleSheet.create({
+  imageContainer: {
+    flex:1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
+  scrollCon: {
+    borderWidth:0.5,
+    borderColor: '#78716C',
+    backgroundColor: '#fff'
+  },
+  commuBox: {
+    // height: '100%',
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginTop: 16,
+    paddingLeft: 25,
+    gap: 27,
+  },
+  commentBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  }
+});
