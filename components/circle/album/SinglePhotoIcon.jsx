@@ -4,7 +4,7 @@ import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Checkbox from 'expo-checkbox';
 
-export const SinglePhotoIcon = ({photoData, isSelected}) => {
+export const SinglePhotoIcon = ({photoData, isSelected }) => {
   const [ checkedPhotos, setCheckedPhotos ] = useState([]);
   const navigation = useNavigation();
   const clickPhoto = (index) => {
@@ -25,6 +25,7 @@ export const SinglePhotoIcon = ({photoData, isSelected}) => {
                 : 
                 <View style={styles.imageCon4check}>
                   <Checkbox 
+                    key={index}
                     value={checkedPhotos[3*rowIndex+index]}
                     onValueChange={() => {
                       const itemIndex = 3*rowIndex+index;
