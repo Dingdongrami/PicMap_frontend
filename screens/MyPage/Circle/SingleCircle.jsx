@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView, StyleSheet  } from 'react-native';
+import { View, Text, Pressable, ScrollView, Animated, TouchableWithoutFeedback  } from 'react-native';
 import { useState, useMemo } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
@@ -6,11 +6,13 @@ import { styles } from './styles';
 import { SingleMap } from '../../../components/circle/single/SingleMap';
 import { SinglePhotoIcon } from '../../../components/circle/album/SinglePhotoIcon';
 import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
+import { AddMethod } from '../../../components/circle/album/AddMethod';
 
 export const SingleCircle = ({ route }) => {
   const [ isReady, setIsReady ] = useState(splashState);
   const [ isMap, setIsMap ] = useState(true);
   const [ selection, setSelection ] = useState(false);
+  const [ isExpanded, setIsExpanded ] = useState(null);
   //써클의 id값 찾아내기
   const { itemId } = route.params;
   const album = Array(90).fill();
@@ -30,14 +32,14 @@ export const SingleCircle = ({ route }) => {
     }
   };
   const changeSelection = () => {
-    //item값들의 checkbox도 만들기
+    //item값들의 checkbox
     setSelection(!selection);
   };
   const selectOptions = useMemo(
     () => [
       {
         text: '전체 선택',
-        // onPress
+        // onPress: 
       },
       {
         text: '삭제',
@@ -49,7 +51,7 @@ export const SingleCircle = ({ route }) => {
       },
       {
         text: '취소',
-        // onPress
+        onPress: changeSelection
       }
   ]);
 
@@ -68,22 +70,25 @@ export const SingleCircle = ({ route }) => {
           </View>
           <View style={styles.wrapper} >
             <Text style={styles.imageText}>사진</Text>
-            <Pressable onPress={changeSelection} >
               { !selection ? 
+                <Pressable onPress={changeSelection} >
                   <Text style={styles.optionText}>선택</Text>
+                </Pressable>
                 : 
                 <View style={{flexDirection: 'row', marginLeft: 157, gap: 16 }}>
                   {selectOptions.map((item, index) => (
-                    <Text style={styles.optionText2}>{item.text}</Text>
+                    <Pressable onPress={item?.onPress}>
+                      <Text style={styles.optionText2}>{item.text}</Text>
+                    </Pressable>
                   ))}
                 </View>
               }
-            </Pressable>
           </View>
           <View style={styles.albumContainer}>
-            <SinglePhotoIcon photoData={groupedData}  isSelected={selection}/>
+            <SinglePhotoIcon photoData={groupedData} isSelected={selection}/>
           </View>
         </ScrollView>
+        <AddMethod onPress={()=>setIsExpanded(!isExpanded)} expansion={isExpanded} selection={selection} />
       </View>
     );
   }

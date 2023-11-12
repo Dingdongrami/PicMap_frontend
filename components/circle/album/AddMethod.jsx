@@ -1,7 +1,7 @@
 import { View, Pressable, StyleSheet, Image, Animated } from "react-native";
 import { useState, useRef } from "react";
 
-export const AddMethod = ({onPress, expansion}) => {
+export const AddMethod = ({onPress, expansion, selection}) => {
   const imageStyles= [styles.overlay];
   if(expansion){
     const animation = new Animated.Value(expansion ? 0 : 1);
@@ -19,26 +19,27 @@ export const AddMethod = ({onPress, expansion}) => {
     const animatedStyles = { transform: [{ rotate: rotateInterPolate }] };
     imageStyles.push(animatedStyles);
   }
-
-  return(
-    <Pressable onPress={onPress}>
-      { expansion ?
-        <View style={styles.addition}>
-          <Pressable>
-            <Image source={require('../../../assets/icons/album_add.png')} contentFit='cover' style={styles.icon1} />
-          </Pressable>
-          <Pressable>
-            <Image source={require('../../../assets/icons/camera_add.png')} contentFit='cover' style={styles.icon2} />
-          </Pressable>
-        </View>
-        :
-        undefined
-      }
-      <Animated.View style={imageStyles}>
-        <Image source={require('../../../assets/icons/function_add_btn.png')} style={styles.imageStyle} />
-      </Animated.View>
-    </Pressable>
-  );
+  if(!selection) {
+    return(
+      <Pressable onPress={onPress}>
+        { expansion ?
+          <View style={styles.addition}>
+            <Pressable>
+              <Image source={require('../../../assets/icons/album_add.png')} contentFit='cover' style={styles.icon1} />
+            </Pressable>
+            <Pressable>
+              <Image source={require('../../../assets/icons/camera_add.png')} contentFit='cover' style={styles.icon2} />
+            </Pressable>
+          </View>
+          :
+          undefined
+        }
+        <Animated.View style={imageStyles}>
+          <Image source={require('../../../assets/icons/function_add_btn.png')} style={styles.imageStyle} />
+        </Animated.View>
+      </Pressable>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
