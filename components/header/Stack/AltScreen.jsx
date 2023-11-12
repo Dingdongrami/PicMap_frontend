@@ -9,7 +9,8 @@ import { CircleCreate } from '../../../screens/createCircle/CircleCreate';
 import { CircleCreateName } from '../../../screens/createCircle/CircleCreateName';
 import { CircleCreateDesc } from '../../../screens/createCircle/CircleCreateDesc';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
-import { CircleMapHeader } from '../CircleMapHader';
+import { CircleDetailHeader } from '../CircleDetailHeader';
+import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,8 @@ export const AltScreen = () => {
       <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
       <Stack.Screen name="SplashUI" component={SplashUI} options={{headerShown: false}} />
       <Stack.Screen name="SingleCircle" component={SingleCircle} options={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader'} }/>
-      <Stack.Screen name="ZoomInMap" component={ZoomInMap} options={{ header: () => <CircleMapHeader />, headerTitle: 'CircleMapHeader'}} />
+      <Stack.Screen name="ZoomInMap" component={ZoomInMap} options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader'}} />
+      <Stack.Screen name="PhotoCom" component={PhotoCom} options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader'}} />      
       <Stack.Screen name="CircleCreate" component={CircleCreate} />
       <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
       <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
