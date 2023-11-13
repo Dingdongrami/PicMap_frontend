@@ -9,6 +9,7 @@ import {
   CircleCreate,
   CircleCreateDesc,
   CircleCreateName,
+  ReceivedFriendRequest,
 } from '../../../screens';
 import { Header } from '../Header';
 import { CircleHeader } from '../CircleHeader';
@@ -56,6 +57,11 @@ export const AltScreen = () => {
       <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
       <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
       <Stack.Screen name="FriendsList" component={FriendsList} />
+      <Stack.Screen
+        name="ReceivedFriendRequest"
+        component={ReceivedFriendRequest}
+        options={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}
+      />
     </Stack.Navigator>
   );
 };

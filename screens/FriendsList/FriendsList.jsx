@@ -24,6 +24,11 @@ const FriendsList = () => {
     setIsModalVisible(false);
   };
 
+  const navigateToReceived = () => {
+    navigation.navigate('ReceivedFriendRequest');
+    setIsModalVisible(false);
+  };
+
   // 버튼 객체를 별도로 분리
   const removeButton = {
     icon: require('../../assets/icons/remove.png'),
@@ -37,7 +42,7 @@ const FriendsList = () => {
         text: '받은 친구 요청',
         icon: require('../../assets/icons/person_add.png'),
         iconStyle: styles.modalIcon,
-        onPress: () => {},
+        onPress: navigateToReceived,
       },
       {
         text: '친구 삭제',
