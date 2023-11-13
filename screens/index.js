@@ -5,3 +5,4 @@ export { EditUsername } from './Profile/EditUsername';
 export { EditIntroduction } from './Profile/EditIntroduction';
 export { CircleCreate, CircleCreateDesc, CircleCreateName } from './createCircle';
 export { FriendsList } from './FriendsList';
+export { default as ReceivedFriendRequest } from './ReceivedFriendRequest/ReceivedFriendRequest';
