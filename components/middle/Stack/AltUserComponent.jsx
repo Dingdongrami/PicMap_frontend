@@ -1,31 +1,18 @@
-import { Post, Circle, Map } from '../../../screens/MyPage';
+import { Post, Map } from '../../../screens/UserPage';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Middle } from '../Middle';
-import { CircleStack } from '../../circle/Stack/CircleStack';
-import MyProfile from '../../MyProfile/MyProfile';
+import UserProfile from '../../UserProfile/UserProfile';
 
 const Tab = createBottomTabNavigator();
 
-const Label = ({ label }) => {
-  return (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ color: '#44403C' }}>{label}</Text>
-    </View>
-  );
-};
+export const AltUserComponent = ({ route }) => {
+  const onPressFriendRequest = () => {};
 
-export const AltComponent = ({ navigation }) => {
-  const onPressEditProfile = () => {
-    navigation.navigate('EditProfile');
-  };
-  const onPressFriendsList = () => {
-    navigation.navigate('FriendsList');
-  };
+  const user = route.params.user;
 
   return (
     <View style={{ flex: 1 }}>
-      <MyProfile onPressEditProfile={onPressEditProfile} onPressFriendsList={onPressFriendsList} />
+      <UserProfile onPressFriendRequest={onPressFriendRequest} user={user} />
       <Tab.Navigator
         initialRouteName="Post"
         screenOptions={({ route }) => ({
@@ -67,19 +54,6 @@ export const AltComponent = ({ navigation }) => {
         <Tab.Screen
           name="Map"
           component={Map}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Circle"
-          component={Circle}
           options={{
             tabBarItemStyle: {
               height: 42,

@@ -1,15 +1,25 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { EditIntroduction, EditProfile, EditUsername, Search, TimeLine } from '../../../screens';
+import {
+  EditIntroduction,
+  EditProfile,
+  EditUsername,
+  FriendsList,
+  Search,
+  TimeLine,
+  CircleCreate,
+  CircleCreateDesc,
+  CircleCreateName,
+  ReceivedFriendRequest,
+} from '../../../screens';
 import { Header } from '../Header';
 import { CircleHeader } from '../CircleHeader';
 import { AltComponent } from '../../middle/Stack/AltComponent';
 import { SplashUI } from '../../../screens/MyPage/Circle/SplashUI';
 import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
-import { CircleCreate } from '../../../screens/createCircle/CircleCreate';
-import { CircleCreateName } from '../../../screens/createCircle/CircleCreateName';
-import { CircleCreateDesc } from '../../../screens/createCircle/CircleCreateDesc';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
-import { CircleMapHeader } from '../CircleMapHader';
+import { CircleDetailHeader } from '../CircleDetailHeader';
+import { AltUserComponent } from '../../middle/Stack/AltUserComponent';
+import { JustGoBackHeader } from '../JustGoBackHeader';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,20 +29,39 @@ export const AltScreen = () => {
       initialRouteName="MyPage"
       screenOptions={({ navigation }) => ({
         header: props => <Header {...props} />,
+        headerStatusBarHeight: 0,
       })}>
       <Stack.Screen name="MyPage" component={AltComponent} />
+      <Stack.Screen
+        name="UserPage"
+        component={AltUserComponent}
+        options={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}
+      />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="TimeLine" component={TimeLine} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditUsername" component={EditUsername} />
       <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
-      <Stack.Screen name="SplashUI" component={SplashUI} options={{headerShown: false}} />
-      <Stack.Screen name="SingleCircle" component={SingleCircle} options={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader'} }/>
-      <Stack.Screen name="ZoomInMap" component={ZoomInMap} options={{ header: () => <CircleMapHeader />, headerTitle: 'CircleMapHeader'}} />
+      <Stack.Screen name="SplashUI" component={SplashUI} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="SingleCircle"
+        component={SingleCircle}
+        options={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader' }}
+      />
+      <Stack.Screen
+        name="ZoomInMap"
+        component={ZoomInMap}
+        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
+      />
       <Stack.Screen name="CircleCreate" component={CircleCreate} />
       <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
       <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
+      <Stack.Screen name="FriendsList" component={FriendsList} />
+      <Stack.Screen
+        name="ReceivedFriendRequest"
+        component={ReceivedFriendRequest}
+        options={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}
+      />
     </Stack.Navigator>
   );
 };
-

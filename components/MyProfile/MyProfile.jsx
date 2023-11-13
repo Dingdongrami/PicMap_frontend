@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 
-const MyProfile = ({ onPress }) => {
+const MyProfile = ({ onPressEditProfile, onPressFriendsList }) => {
   const [user, setUser] = useRecoilState(userState);
   return (
     <View style={styles.profileContainer}>
@@ -22,12 +22,12 @@ const MyProfile = ({ onPress }) => {
         </View>
         <Text style={styles.onelineText}>{user.introduction}</Text>
         <View style={styles.buttonWrapper}>
-          <Pressable style={styles.pinkButton} onPress={onPress}>
-            <Image source={require('../../assets/icons/editBtn.png')} style={styles.editImage} />
+          <Pressable style={styles.pinkButton} onPress={onPressEditProfile}>
+            <Image source={require('../../assets/icons/edit_btn.png')} style={styles.editImage} />
             <Text style={styles.buttonText}>프로필 편집</Text>
           </Pressable>
-          <Pressable style={styles.pinkButton}>
-            <Image source={require('../../assets/icons/friendsBtn.png')} style={styles.friendsImage} />
+          <Pressable style={styles.pinkButton} onPress={onPressFriendsList}>
+            <Image source={require('../../assets/icons/friends_btn.png')} style={styles.friendsImage} />
             <Text style={styles.buttonText}>친구 목록</Text>
           </Pressable>
         </View>

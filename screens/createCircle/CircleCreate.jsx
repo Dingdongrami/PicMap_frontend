@@ -16,8 +16,9 @@ import {
 import { useRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
 import { data as circleData } from '../../data/circle-dummy';
+import { ScrollView } from 'react-native';
 
-export const CircleCreate = () => {
+const CircleCreate = () => {
   const [newCircle, setNewCircle] = useRecoilState(newCircleState);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -159,7 +160,10 @@ export const CircleCreate = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
+      showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
       {newCircle.image ? (
         <Image source={newCircle.image} style={[styles.image, { borderRadius: 20 }]} contentFit="cover" />
@@ -232,12 +236,14 @@ export const CircleCreate = () => {
           </View>
         </View>
       </Pressable>
-      <Pressable style={[styles.saveButton, { marginTop: 25 }]} onPress={onPressConfirm}>
+      <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>등록</Text>
       </Pressable>
       <Pressable style={styles.cancelButton} onPress={onPressCancel}>
         <Text style={styles.label}>취소</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };
+
+export default CircleCreate;
