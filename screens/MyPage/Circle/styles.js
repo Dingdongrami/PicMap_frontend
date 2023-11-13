@@ -76,7 +76,8 @@ export const styles = StyleSheet.create({
     marginLeft: 16,
   },
   optionButton: {
-    marginLeft: 309,
+    marginLeft: 'auto',
+    marginRight: 16,
   },
   optionText: {
     fontFamily: 'IropkeBatang',
