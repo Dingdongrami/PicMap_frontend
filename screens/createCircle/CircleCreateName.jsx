@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
 
-export const CircleCreateName = ({ navigation }) => {
+const CircleCreateName = ({ navigation }) => {
   const newCircle = useRecoilValue(newCircleState); // recoil 상태 읽기
   const setCircleName = useSetRecoilState(newCircleState);
   const MIN_LENGTH = 2;
@@ -54,3 +54,5 @@ export const CircleCreateName = ({ navigation }) => {
     </View>
   );
 };
+
+export default CircleCreateName;

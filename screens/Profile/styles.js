@@ -3,8 +3,9 @@ import { Dimensions, StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center', // 가로축
+    // alignItems: 'center', // 가로축
     backgroundColor: '#fff',
+    //paddingBottom: 40,
   },
   image: {
     width: 290,
@@ -84,7 +85,7 @@ export const styles = StyleSheet.create({
     height: 60,
     borderRadius: 7,
     backgroundColor: '#FFECEA',
-    marginTop: 30,
+    marginTop: 25,
     marginBottom: 10,
   },
   cancelButton: {

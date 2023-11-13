@@ -8,10 +8,13 @@ import { Image } from 'expo-image';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import { data } from '../../data/circle-dummy';
+import CustomToast from '../CustomToast';
 
 export const CircleRoom = ({ item }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
   const [isModalVisible, setModalVisible] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const navigation = useNavigation();
 
   // Function to handle the modal toggle
@@ -27,32 +30,19 @@ export const CircleRoom = ({ item }) => {
     toggleModal();
   };
 
-  //각 써클로 접속하는 함수 
+  //각 써클로 접속하는 함수
   const enterCircle = () => {
-    return navigation.navigate('SplashUI', {itemId: item.id});
-  }
-  
+    return navigation.navigate('SplashUI', { itemId: item.id });
+  };
+
   const joinCircle = () => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
-    Toast.show('가입 성공', {
-      duration: Toast.durations.SHORT,
-      position: -60,
-      animation: true,
-      delay: 0,
-      backgroundColor: 'rgba(255, 236, 234, 0.80)',
-      textColor: '#44403C',
-      textStyle: { fontFamily: 'IropkeBatang', fontSize: 15 },
-      containerStyle: {
-        paddingVertical: 13,
-        width: 312,
-        borderRadius: 10,
-      },
-      shadow: false,
-    });
+    setToastMessage('가입 성공');
+    setShowToast(true);
   };
 
   return (
@@ -97,6 +87,7 @@ export const CircleRoom = ({ item }) => {
           <Text style={styles.circleNameText}>{item.name}</Text>
         </View>
       </Pressable>
+      <CustomToast text={toastMessage} show={showToast} />
     </>
   );
 };

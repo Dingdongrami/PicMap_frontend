@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { TextInput, View, Text, Pressable, Alert, Linking } from 'react-native';
+import { TextInput, View, Text, Pressable, Alert, Linking, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { styles } from './styles';
 import { BottomModal } from '../../components/Modal/Modal';
@@ -13,6 +13,7 @@ import {
   MediaTypeOptions,
   launchImageLibraryAsync,
 } from 'expo-image-picker';
+import Checkbox from 'expo-checkbox';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
@@ -121,7 +122,7 @@ export const EditProfile = ({ navigation }) => {
         text: '사진 삭제',
         icon: require('../../assets/icons/trash.png'),
         iconStyle: styles.trash,
-        textStyle: { color: 'red' }, // 빨간색 텍스트
+        textStyle: { color: '#E53A40' }, // 빨간색 텍스트
         onPress: deleteImageHandler,
       },
     ],
@@ -129,7 +130,10 @@ export const EditProfile = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
+      showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
       {profileImage ? (
         <Image source={profileImage} style={styles.image} contentFit="cover" />
@@ -173,12 +177,37 @@ export const EditProfile = ({ navigation }) => {
           />
         </View>
       </Pressable>
+      <Pressable>
+        <View style={styles.wrapper}>
+          <View style={styles.labelWrapper}>
+            <Text style={styles.label}>공개 여부</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Checkbox
+              value={user?.public}
+              onValueChange={newValue => setUser({ ...user, public: newValue })}
+              color={user?.public ? '#D6D3D1' : undefined} // 색상은 원하는 대로 설정 가능
+              style={{ margin: 8, borderColor: '#D6D3D1', borderWidth: 1 }}
+            />
+            <Text style={styles.label}>공개</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 28 }}>
+            <Checkbox
+              value={!user?.public}
+              onValueChange={newValue => setUser({ ...user, public: !newValue })}
+              color={!user?.public ? '#D6D3D1' : undefined} // 색상은 원하는 대로 설정 가능
+              style={{ margin: 8, borderColor: '#D6D3D1', borderWidth: 1 }}
+            />
+            <Text style={styles.label}>비공개</Text>
+          </View>
+        </View>
+      </Pressable>
       <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>완료</Text>
       </Pressable>
       <Pressable style={styles.cancelButton} onPress={onPressCancel}>
         <Text style={styles.label}>취소</Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };

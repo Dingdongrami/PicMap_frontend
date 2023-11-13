@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   circle: {
-    width: 337,
+    width: '94%',
     height: 225,
     borderRadius: 20,
     borderWidth: 0.5,
@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
   circleName: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
     height: 25.2,
     borderBottomColor: '#44403C',
     borderBottomWidth: 0.5,
@@ -29,7 +28,7 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   photo: {
-    width: 168,
+    width: '50%',
     height: 99,
   },
 });
