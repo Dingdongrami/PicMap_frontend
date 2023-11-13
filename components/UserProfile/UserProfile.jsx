@@ -12,6 +12,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
 
   const onPressRequest = () => {
     // TODO: 친구요청 로직을 여기에 추가하세요.
+    // 친구요청 중인 상태를 전역 상태로 관리하세요.
 
     // 친구요청 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('친구 요청 완료');
