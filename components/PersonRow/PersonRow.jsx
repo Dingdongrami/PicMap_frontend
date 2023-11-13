@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ const PersonRow = ({ profileImage, user, button }) => {
   const navigation = useNavigation();
 
   const onPressUser = () => {
-    console.log(navigation.getState());
+    // console.log(navigation.getState());
     navigation.navigate('UserPage', { user });
   };
 

@@ -16,7 +16,7 @@ import { AltComponent } from '../../middle/Stack/AltComponent';
 import { SplashUI } from '../../../screens/MyPage/Circle/SplashUI';
 import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
-import { CircleDetailHeader } from '../CircleDetailHader';
+import { CircleDetailHeader } from '../CircleDetailHeader';
 import { AltUserComponent } from '../../middle/Stack/AltUserComponent';
 import { JustGoBackHeader } from '../JustGoBackHeader';
 
@@ -55,11 +55,7 @@ export const AltScreen = () => {
       <Stack.Screen name="CircleCreate" component={CircleCreate} />
       <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
       <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
-      <Stack.Screen
-        name="FriendsList"
-        component={FriendsList}
-        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
-      />
+      <Stack.Screen name="FriendsList" component={FriendsList} />
     </Stack.Navigator>
   );
 };

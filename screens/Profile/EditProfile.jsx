@@ -122,7 +122,7 @@ export const EditProfile = ({ navigation }) => {
         text: '사진 삭제',
         icon: require('../../assets/icons/trash.png'),
         iconStyle: styles.trash,
-        textStyle: { color: 'red' }, // 빨간색 텍스트
+        textStyle: { color: '#E53A40' }, // 빨간색 텍스트
         onPress: deleteImageHandler,
       },
     ],

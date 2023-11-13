@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { useNavigation } from '@react-navigation/native';
 
-export const CircleDetailHeader = () => {
+export const CircleDetailHeader = ({ onPress }) => {
   const [user, setUser] = useRecoilState(userState);
   const navigation = useNavigation();
   const GoBack = () => {
@@ -30,7 +30,7 @@ export const CircleDetailHeader = () => {
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress} style={styles.rightHeaderWrapper}>
           <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
         </TouchableOpacity>
       </View>
