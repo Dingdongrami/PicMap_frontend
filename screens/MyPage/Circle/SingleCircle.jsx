@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView, Animated, TouchableWithoutFeedback  } from 'react-native';
+import { View, Text, Pressable, ScrollView , Animated, TouchableWithoutFeedback  } from 'react-native';
 import { useState, useMemo } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
@@ -16,11 +16,13 @@ export const SingleCircle = ({ route }) => {
   //써클의 id값 찾아내기
   const { itemId } = route.params;
   const album = Array(90).fill();
-  const itemsPerRow = 3;
-  const groupedData = [];
-  for(let i=0; i<album.length; i+=itemsPerRow) {
-    groupedData.push(album.slice(i, i+itemsPerRow));
-  }
+  const groupedData = album.map((item, index) => ({
+    id: index,
+  }));
+  // const itemsPerRow = 3;
+  // for(let i=0; i<album.length; i+=itemsPerRow) {
+  //   groupedData.push(album.slice(i, i+itemsPerRow));
+  // }
 
   const handleScroll = (e) => {
     //스크롤 위치를 확인
@@ -61,7 +63,7 @@ export const SingleCircle = ({ route }) => {
   else{
     return(
       <View style={{flex:1, flexDirection: 'column', backgroundColor: '#fff'}}>
-        <ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
+        <ScrollView  onScroll={handleScroll} scrollEventThrottle={16}>
           <View style={styles.personBox}> 
             <OthersProfile />
           </View>
