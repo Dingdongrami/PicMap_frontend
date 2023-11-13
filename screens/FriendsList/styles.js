@@ -36,4 +36,8 @@ export const styles = StyleSheet.create({
     width: 21.5,
     height: 21.5,
   },
+  removeIcon: {
+    width: 8,
+    height: 8,
+  },
 });

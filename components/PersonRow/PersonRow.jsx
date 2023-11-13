@@ -4,7 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
-const PersonRow = ({ profileImage, user, button }) => {
+const PersonRow = ({ user, button }) => {
   const navigation = useNavigation();
 
   const onPressUser = () => {
@@ -14,8 +14,8 @@ const PersonRow = ({ profileImage, user, button }) => {
 
   return (
     <View style={styles.personRow}>
-      {profileImage ? (
-        <Image source={profileImage} style={styles.profileImage} contentFit="cover" />
+      {user.profileImage ? (
+        <Image source={user.profileImage} style={styles.profileImage} contentFit="cover" />
       ) : (
         <View style={styles.personWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.defaultImage} contentFit="contain" />
@@ -25,8 +25,8 @@ const PersonRow = ({ profileImage, user, button }) => {
         <Text style={styles.username}>{user.username}</Text>
       </Pressable>
       {button && (
-        <Pressable onPress={button?.onPress}>
-          <Image source={button.icon} style={button.style} contentFit="contain" />
+        <Pressable onPress={button?.onPress} style={styles.buttonWrapper}>
+          <Image source={button.icon} style={[styles.button, button.style]} contentFit="contain" />
         </Pressable>
       )}
     </View>
