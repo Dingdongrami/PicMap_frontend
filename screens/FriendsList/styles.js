@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1,
-    borderColor: '#A8A29E',
+    borderColor: '#D6D3D1',
     borderWidth: 0.5,
     borderRadius: 10,
     fontFamily: 'IropkeBatang',
@@ -31,5 +31,9 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 11,
     right: 15,
+  },
+  modalIcon: {
+    width: 21.5,
+    height: 21.5,
   },
 });

@@ -1,12 +1,41 @@
 import { Image } from 'expo-image';
-import React, { useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import { PersonRow } from '../../components';
 import { styles } from './styles';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { CircleDetailHeader } from '../../components/header/CircleDetailHeader';
+import { BottomModal } from '../../components/Modal/Modal';
 
 const FriendsList = () => {
+  const navigation = useNavigation();
+
   const [searchText, setSearchText] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
+  const buttons = useMemo(
+    () => [
+      {
+        text: '받은 친구 요청',
+        icon: require('../../assets/icons/person_add.png'),
+        iconStyle: styles.modalIcon,
+        onPress: () => {},
+      },
+      {
+        text: '친구 삭제',
+        icon: require('../../assets/icons/person_remove.png'),
+        iconStyle: styles.modalIcon,
+        textStyle: { color: '#E53A40' },
+        onPress: () => {},
+      },
+    ],
+    [],
+  );
 
   const userList = useMemo(
     () => [
@@ -55,6 +84,12 @@ const FriendsList = () => {
     setSearchText('');
   };
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => <CircleDetailHeader onPress={toggleModal} />,
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBarWrapper}>
@@ -73,6 +108,7 @@ const FriendsList = () => {
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
       />
+      <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={buttons} />
     </View>
   );
 };
