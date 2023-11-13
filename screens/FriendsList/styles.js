@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   },
   searchBarWrapper: {
     position: 'relative',
-    width: 350,
+    width: 334,
     height: 49,
     paddingBottom: 9,
     marginTop: 10,
