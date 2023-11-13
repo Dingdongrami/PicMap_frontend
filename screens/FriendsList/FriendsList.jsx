@@ -13,9 +13,22 @@ const FriendsList = () => {
 
   const [searchText, setSearchText] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isRemoveActive, setIsRemoveActive] = useState(false);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
+  };
+
+  const toggleRemove = () => {
+    setIsRemoveActive(true);
+    setIsModalVisible(false);
+  };
+
+  // 버튼 객체를 별도로 분리
+  const removeButton = {
+    icon: require('../../assets/icons/remove.png'),
+    style: styles.removeIcon,
+    onPress: () => {},
   };
 
   const buttons = useMemo(
@@ -31,7 +44,7 @@ const FriendsList = () => {
         icon: require('../../assets/icons/person_remove.png'),
         iconStyle: styles.modalIcon,
         textStyle: { color: '#E53A40' },
-        onPress: () => {},
+        onPress: toggleRemove,
       },
     ],
     [],
@@ -40,40 +53,31 @@ const FriendsList = () => {
   const userList = useMemo(
     () => [
       {
-        profileImage: '',
         user: {
+          profileImage: '',
           username: '이지민',
           introduction: '안녕하세요',
         },
-        button: {
-          icon: '',
-          onPress: () => {},
-        },
+        button: isRemoveActive && removeButton,
       },
       {
-        profileImage: '',
         user: {
+          profileImage: '',
           username: '공소연',
           introduction: '반가워요',
         },
-        button: {
-          icon: '',
-          onPress: () => {},
-        },
+        button: isRemoveActive && removeButton,
       },
       {
-        profileImage: '',
         user: {
+          profileImage: '',
           username: '김민정',
           introduction: '안녕하세용',
         },
-        button: {
-          icon: '',
-          onPress: () => {},
-        },
+        button: isRemoveActive && removeButton,
       },
     ],
-    [],
+    [isRemoveActive],
   );
 
   const renderItem = ({ item, index }) => (

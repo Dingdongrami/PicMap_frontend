@@ -36,6 +36,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'IropkeBatang',
     color: '#44403C',
   },
+  buttonWrapper: {
+    flex: 1,
+  },
   button: {
     width: 12,
     height: 15,
