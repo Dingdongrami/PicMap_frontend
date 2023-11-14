@@ -33,6 +33,10 @@ export const styles = StyleSheet.create({
     borderColor: '#44403C',
     borderWidth: 0.5,
   },
+  rightHeaderWrapper: {
+    justifyContent: 'center',
+    height: 18,
+  },
   rightHeader: {
     width: 18,
     height: 3,
@@ -40,6 +44,7 @@ export const styles = StyleSheet.create({
   backHeader: {
     marginLeft: 10,
     width: 25,
+
     height: 25
   },
   mapModal: {
