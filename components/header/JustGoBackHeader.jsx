@@ -1,11 +1,11 @@
-import { View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
-import { useNavigation, useScrollToTop } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-export const CircleDetailHeader = ({ onPress }) => {
+export const JustGoBackHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigation = useNavigation();
   const GoBack = () => {
