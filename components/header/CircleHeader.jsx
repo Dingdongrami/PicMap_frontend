@@ -13,7 +13,6 @@ export const CircleHeader = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-    console.log("동작됨");
   };
   const navigation = useNavigation();
   const userArray = async() => {
@@ -68,7 +67,7 @@ export const CircleHeader = () => {
           )}
         </TouchableOpacity>
         <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={photoOptions} />
-        <TouchableOpacity onPress={toggleModal}>
+        <TouchableOpacity onPress={toggleModal} style={{height: '100%'}}>
           <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
         </TouchableOpacity>
       </View>
