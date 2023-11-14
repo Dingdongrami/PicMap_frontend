@@ -10,7 +10,7 @@ import { PhotoComments } from '../../../components/circle/album/PhotoComments';
 export const PhotoCom = () => {
    const route = useRoute();
    const index = route.params.index;
-   const [ heart, setHeart ] = useState(false);
+  //  const [ heart, setHeart ] = useState(false);
   return(
     <View style={{flex:1}}>
       {/* <Text>{index}에 해당하는 룸입니다</Text> */}
