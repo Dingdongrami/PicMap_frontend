@@ -44,8 +44,7 @@ export const SinglePhotoIcon = ({photoData, isSelected }) => {
           ))}
         </View>
       ))} */}
-      <FlatList
-        
+      <FlatList        
         data={photoData}
         numColumns={3}
         keyExtractor={key}
@@ -65,7 +64,7 @@ const PhotoIcon = ({isSelected, index}) => {
   }
   return(
     <View style={styles.photoRow}>
-      <View >
+      <View key={index}>
         {!isSelected ?
           <Pressable onPress={()=>clickPhoto(index)} >
             <View style={styles.imageContainer} >
@@ -75,7 +74,6 @@ const PhotoIcon = ({isSelected, index}) => {
           : 
           <View style={styles.imageCon4check}>
             <Checkbox 
-              key={index}
               // keyExtractor={item => item.id}
               value={checkedPhotos[index]}
               onValueChange={() => {
