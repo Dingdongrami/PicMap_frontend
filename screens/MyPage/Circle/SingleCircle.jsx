@@ -79,7 +79,7 @@ export const SingleCircle = ({ route }) => {
                 : 
                 <View style={{flexDirection: 'row', marginLeft: 157, gap: 16 }}>
                   {selectOptions.map((item, index) => (
-                    <Pressable onPress={item?.onPress}>
+                    <Pressable key={index} onPress={item?.onPress}>
                       <Text style={styles.optionText2}>{item.text}</Text>
                     </Pressable>
                   ))}
