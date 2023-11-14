@@ -63,7 +63,7 @@ export const SingleCircle = ({ route }) => {
   else{
     return(
       <View style={{flex:1, flexDirection: 'column', backgroundColor: '#fff'}}>
-        <ScrollView  onScroll={handleScroll} scrollEventThrottle={16}>
+        <ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
           <View style={styles.personBox}> 
             <OthersProfile />
           </View>

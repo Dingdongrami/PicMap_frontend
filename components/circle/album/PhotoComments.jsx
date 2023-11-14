@@ -21,15 +21,15 @@ export const PhotoComments = () => {
       <Pressable onPress={scrollUp}>
         <View style={comStyle.commuBox}>
           <View style={comStyle.commentBox}>
-            <Image source={require('../../../assets/icons/comment.png')} contentFit='cover'/>
+            <Image source={require('../../../assets/icons/comment.png')} contentFit='cover' style={{width:14, height:14}}/>
             <Text>25</Text>
           </View>
           <View style={comStyle.commentBox}>
             <Pressable onPress={()=>setHeart(!heart)}>
               { heart ? 
-                <Image source={require('../../../assets/icons/heart_unfilled.png')} contentFit='cover'/>
+                <Image source={require('../../../assets/icons/heart_unfilled.png')} contentFit='cover' style={{width:18, height: 18}}/>
                 :
-                <Image source={require('../../../assets/icons/heart_filled.png')} contentFit='cover'/>
+                <Image source={require('../../../assets/icons/heart_filled.png')} contentFit='cover' style={{width:18, height: 18}}/>
               }
             </Pressable>
             <Text>25</Text>

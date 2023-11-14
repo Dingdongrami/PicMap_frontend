@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
 import { useRecoilState } from 'recoil';
@@ -16,6 +16,14 @@ export const CircleHeader = () => {
     console.log("동작됨");
   };
   const navigation = useNavigation();
+  const userArray = async() => {
+
+  };
+  const circleEdit = async() => {
+    Alert.alert('써클 이름 변경', [
+      // { text: '취소', style: 'cancel'}
+    ])
+  }
   const photoOptions = useMemo(
     () => [
       {
@@ -25,8 +33,9 @@ export const CircleHeader = () => {
         textStyle: {},
         // onPress:
       },
+      //정렬맞춤을 위해 한칸띄움
       {
-        text: '유저 정렬',
+        text: ' 유저 정렬',
         icon: require('../../assets/icons/filter_user_icon.png'),
         iconStyle: styles.user_array,
         textStyle: {},
@@ -36,8 +45,8 @@ export const CircleHeader = () => {
         text: '써클 이름 변경',
         icon: require('../../assets/icons/edit_circle_name.png'),
         iconStyle: styles.circle_name,
-        textStyle: {}
-        // onPress
+        textStyle: {},
+        onPress: circleEdit
       }
     ]
   );

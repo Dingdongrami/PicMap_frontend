@@ -45,7 +45,7 @@ export const SinglePhotoIcon = ({photoData, isSelected }) => {
         </View>
       ))} */}
       <FlatList
-        nestedScrollEnabled
+        
         data={photoData}
         numColumns={3}
         keyExtractor={key}
@@ -75,7 +75,7 @@ const PhotoIcon = ({isSelected, index}) => {
           : 
           <View style={styles.imageCon4check}>
             <Checkbox 
-              // key={index}
+              key={index}
               // keyExtractor={item => item.id}
               value={checkedPhotos[index]}
               onValueChange={() => {
