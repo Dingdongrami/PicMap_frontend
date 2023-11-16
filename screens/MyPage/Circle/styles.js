@@ -73,15 +73,19 @@ export const styles = StyleSheet.create({
   },
   imageText: {
     fontFamily: 'IropkeBatang',
+    color: '#44403C',
     marginLeft: 16,
+    marginRight: 'auto',
   },
   optionText: {
     fontFamily: 'IropkeBatang',
     backgroundColor: '#FFECEA',
-    marginLeft: 309
+    marginRight: 16,
+    color: '#44403C',
   },
   optionText2: {
     fontFamily: 'IropkeBatang',
+    color: '#44403C',
     backgroundColor: '#FFECEA',
   },
   albumContainer: {
@@ -89,7 +93,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 4,
-    paddingHorizontal: 3,
+    // paddingHorizontal: 3,
     // zIndex: 1,
   },
 });
