@@ -4,14 +4,14 @@ import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Checkbox from 'expo-checkbox';
 
-export const SinglePhotoIcon = ({photoData, isSelected }) => {
+export const SinglePhotoIcon = ({ photoData, isSelected }) => {
   // const [ checkedPhotos, setCheckedPhotos ] = useState([]);
   // const navigation = useNavigation();
   // const clickPhoto = (index) => {
   //   navigation.navigate('PhotoCom', {index});
   // }
-  const key = (photoData) => photoData.id;
-  return(
+  const key = photoData => photoData.id;
+  return (
     <View>
       {/* {photoData.map((row, rowIndex) => (
         <View key={rowIndex} style={styles.photoRow}>
@@ -44,36 +44,35 @@ export const SinglePhotoIcon = ({photoData, isSelected }) => {
           ))}
         </View>
       ))} */}
-      <FlatList        
+      <FlatList
         data={photoData}
         numColumns={3}
         keyExtractor={key}
         //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-        renderItem={() => <PhotoIcon isSelected={isSelected} index={key}/>}
+        renderItem={() => <PhotoIcon isSelected={isSelected} index={key} />}
       />
     </View>
-
   );
 };
 
-const PhotoIcon = ({isSelected, index}) => {
-  const [ checkedPhotos, setCheckedPhotos ] = useState([]);
+const PhotoIcon = ({ isSelected, index }) => {
+  const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
-  const clickPhoto = (index) => {
-    navigation.navigate('PhotoCom', {index: index.JSON});
-  }
-  return(
+  const clickPhoto = index => {
+    navigation.navigate('PhotoCom', { index: index.JSON });
+  };
+  return (
     <View style={styles.photoRow}>
       <View key={index}>
-        {!isSelected ?
-          <Pressable onPress={()=>clickPhoto(index)} >
-            <View style={styles.imageContainer} >
+        {!isSelected ? (
+          <Pressable onPress={() => clickPhoto(index)}>
+            <View style={styles.imageContainer}>
               <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />
             </View>
           </Pressable>
-          : 
+        ) : (
           <View style={styles.imageCon4check}>
-            <Checkbox 
+            <Checkbox
               // keyExtractor={item => item.id}
               value={checkedPhotos[index]}
               onValueChange={() => {
@@ -86,13 +85,13 @@ const PhotoIcon = ({isSelected, index}) => {
                 newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
                 setCheckedPhotos(newCheckedPhotos);
               }}
-              color={checkedPhotos ? '#D6D3D1': undefined}
+              color={checkedPhotos ? '#D6D3D1' : undefined}
               style={styles.checkbox}
             />
             <Image source={require('../../../assets/icons/image.png')} style={styles.image4check} />
           </View>
-        }
+        )}
       </View>
     </View>
-  )
-}
+  );
+};
