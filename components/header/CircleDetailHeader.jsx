@@ -1,9 +1,9 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useScrollToTop } from '@react-navigation/native';
 
 export const CircleDetailHeader = ({ onPress }) => {
   const [user, setUser] = useRecoilState(userState);
@@ -29,9 +29,6 @@ export const CircleDetailHeader = ({ onPress }) => {
           ) : (
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPress} style={styles.rightHeaderWrapper}>
-          <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
         </TouchableOpacity>
       </View>
     </View>

@@ -18,6 +18,7 @@ import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
 import { CircleDetailHeader } from '../CircleDetailHeader';
 import AltUserComponent from '../../middle/Stack/AltUserComponent';
+import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
 import { JustGoBackHeader } from '../JustGoBackHeader';
 import AltSearchComponent from '../../middle/Stack/AltSearchComponent';
 
@@ -51,6 +52,11 @@ export const AltScreen = () => {
       <Stack.Screen
         name="ZoomInMap"
         component={ZoomInMap}
+        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
+      />
+      <Stack.Screen
+        name="PhotoCom"
+        component={PhotoCom}
         options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
       />
       <Stack.Screen name="CircleCreate" component={CircleCreate} />

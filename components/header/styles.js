@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
   container: {
@@ -42,6 +44,26 @@ export const styles = StyleSheet.create({
   backHeader: {
     marginLeft: 10,
     width: 25,
-    height: 25,
+
+    height: 25
   },
+  mapModal: {
+    width: windowWidth,
+    borderTopEndRadius: 25,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  user_add: {
+    width: 21.5,
+    height: 21.5,
+  },
+  user_array: {
+    width: 16,
+    height: 16
+  },
+  circle_name: {
+   width: 22,
+   height: 22 
+  }
 });
