@@ -67,8 +67,10 @@ export const CircleHeader = () => {
           )}
         </TouchableOpacity>
         <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={photoOptions} />
-        <TouchableOpacity onPress={toggleModal} style={{height: '100%'}}>
-          <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
+        <TouchableOpacity onPress={toggleModal}>
+          <View style={{height: 24, justifyContent: 'center' }}>
+            <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
+          </View>
         </TouchableOpacity>
       </View>
     </View>
