@@ -1,36 +1,36 @@
-import { Post, Circle, Map } from '../../../screens/MyPage';
-import { Text, View } from 'react-native';
+import { Text, View, Pressable, TextInput } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Middle } from '../Middle';
-import { CircleStack } from '../../circle/Stack/CircleStack';
-import MyProfile from '../../MyProfile/MyProfile';
+import { CircleSearch, UserSearch } from '../../../screens';
+import { styles } from '../../../screens/FriendsList/styles';
+import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
-const Label = ({ label }) => {
-  return (
-    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ color: '#44403C' }}>{label}</Text>
-    </View>
-  );
-};
+const AltSearchComponent = ({ route }) => {
+  const [searchText, setSearchText] = useState('');
+  const onPressFriendRequest = () => {};
 
-const AltComponent = ({ navigation }) => {
-  const onPressEditProfile = () => {
-    navigation.navigate('EditProfile');
-  };
-  const onPressFriendsList = () => {
-    navigation.navigate('FriendsList');
+  const clearSearch = () => {
+    setSearchText('');
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <MyProfile onPressEditProfile={onPressEditProfile} onPressFriendsList={onPressFriendsList} />
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={[styles.searchBarWrapper, { marginLeft: 'auto', marginRight: 'auto', marginBottom: 8 }]}>
+        <Ionicons name="search-sharp" size={17} color="black" style={styles.searchIcon} />
+        <TextInput style={styles.searchBar} placeholder="검색" value={searchText} onChangeText={setSearchText} />
+        {searchText.length > 0 && (
+          <Pressable onPress={clearSearch} style={styles.clearButton}>
+            <Ionicons name="close" size={17} color="#78716C" />
+          </Pressable>
+        )}
+      </View>
       <Tab.Navigator
-        initialRouteName="Post"
+        initialRouteName="User"
         screenOptions={({ route }) => ({
           // tabBarOptions: (props) => <Middle {...props} /> ,
-          safeAreaInsets: { bottom: 'never' }, // 여기에 이 속성을 추가하세요
+          safeAreaInsets: { bottom: 'never' },
           headerShown: false,
           tabBarIcon: () => null,
           tabBarLabel: route.name,
@@ -53,33 +53,20 @@ const AltComponent = ({ navigation }) => {
           },
         })}>
         <Tab.Screen
-          name="Post"
-          component={Post}
+          name="User"
+          component={UserSearch}
           options={{
             tabBarItemStyle: {
               height: 42,
               borderBottomWidth: 0.5,
               borderTopWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={Map}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
               borderColor: '#44403C',
             },
           }}
         />
         <Tab.Screen
           name="Circle"
-          component={Circle}
+          component={CircleSearch}
           options={{
             tabBarItemStyle: {
               height: 42,
@@ -95,4 +82,4 @@ const AltComponent = ({ navigation }) => {
   );
 };
 
-export default AltComponent;
+export default AltSearchComponent;

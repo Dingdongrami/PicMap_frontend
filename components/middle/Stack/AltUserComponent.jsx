@@ -5,7 +5,7 @@ import UserProfile from '../../UserProfile/UserProfile';
 
 const Tab = createBottomTabNavigator();
 
-export const AltUserComponent = ({ route }) => {
+const AltUserComponent = ({ route }) => {
   const onPressFriendRequest = () => {};
 
   const user = route.params.user;
@@ -68,3 +68,5 @@ export const AltUserComponent = ({ route }) => {
     </View>
   );
 };
+
+export default AltUserComponent;
