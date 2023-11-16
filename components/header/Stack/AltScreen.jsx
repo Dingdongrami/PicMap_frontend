@@ -18,6 +18,7 @@ import { SplashUI } from '../../../screens/MyPage/Circle/SplashUI';
 import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
 import { CircleDetailHeader } from '../CircleDetailHeader';
+import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
 import { AltUserComponent } from '../../middle/Stack/AltUserComponent';
 import { JustGoBackHeader } from '../JustGoBackHeader';
 
@@ -42,7 +43,7 @@ export const AltScreen = () => {
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditUsername" component={EditUsername} />
       <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
-      <Stack.Screen name="SplashUI" component={SplashUI} options={{ headerShown: false }} />
+      <Stack.Screen name="SplashUI" component={SplashUI} options={{headerShown: false}} />   
       <Stack.Screen
         name="SingleCircle"
         component={SingleCircle}
@@ -51,6 +52,11 @@ export const AltScreen = () => {
       <Stack.Screen
         name="ZoomInMap"
         component={ZoomInMap}
+        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
+      />
+      <Stack.Screen
+        name="PhotoCom"
+        component={PhotoCom}
         options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
       />
       <Stack.Screen name="CircleCreate" component={CircleCreate} />
