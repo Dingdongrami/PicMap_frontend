@@ -49,6 +49,28 @@ export const CircleHeader = () => {
       }
     ]
   );
+
+  const arrayOption = useMemo(() => [
+    {
+      text: '이름 순',
+      icon: require('../../assets/icons/check_btn.png'),
+      iconStyle: styles.circle_name,
+      textStyle: {},      
+    },
+    {
+      text: '최근 추가 순',
+      icon: require('../../assets/icons/check_btn.png'),
+      iconStyle: styles.circle_name,
+      textStyle: {},
+    },
+    {
+      text: '오래된 순',
+      icon: require('../../assets/icons/check_btn.png'),
+      iconStyle: styles.circle_name,
+      textStyle: {},      
+    },
+  ])
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>PicMap</Text>
