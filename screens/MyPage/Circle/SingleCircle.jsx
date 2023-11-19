@@ -11,6 +11,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 
+
 export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
@@ -21,7 +22,7 @@ export const SingleCircle = ({ route }) => {
   const groupedData = album.map((item, index) => ({
     id: index,
   }));
-  const key = groupedData.id;
+  const keyExtractor = (groupedData) => String(groupedData.id);
   const handleScroll = e => {
     //스크롤 위치를 확인
     const yOffset = e.nativeEvent.contentOffset.y;
@@ -40,12 +41,12 @@ export const SingleCircle = ({ route }) => {
         <FlatList
           data={groupedData}
           numColumns={3}
-          keyExtractor={key}
+          keyExtractor={(item) => item.id}
           ListHeaderComponent={HeaderComponent}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-          renderItem={()=><SinglePhotoIcon index={key}/>}
+          renderItem={({item})=><SinglePhotoIcon index={item.id}/>}
         />
         <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
       </View>

@@ -11,6 +11,7 @@ export const SinglePhotoIcon = ({ index }) => {
   const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
   const clickPhoto = index => {
+    console.log(index);
     navigation.navigate('PhotoCom', { index });
   };
   return (
@@ -32,6 +33,7 @@ export const SinglePhotoIcon = ({ index }) => {
                   const newCheckedPhotos = [...checkedPhotos];
                   newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
                   setCheckedPhotos(newCheckedPhotos);
+                  console.log(itemIndex);
                 }}
                 color={checkedPhotos ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
