@@ -55,35 +55,32 @@ const FriendsList = () => {
     [],
   );
 
-  const userList = useMemo(
-    () => [
-      {
-        user: {
-          profileImage: '',
-          username: '이지민',
-          introduction: '안녕하세요',
-        },
-        button: isRemoveActive && removeButton,
+  const userList = [
+    {
+      user: {
+        profileImage: '',
+        username: '이지민',
+        introduction: '안녕하세요',
       },
-      {
-        user: {
-          profileImage: '',
-          username: '공소연',
-          introduction: '반가워요',
-        },
-        button: isRemoveActive && removeButton,
+      button: isRemoveActive && removeButton,
+    },
+    {
+      user: {
+        profileImage: '',
+        username: '공소연',
+        introduction: '반가워요',
       },
-      {
-        user: {
-          profileImage: '',
-          username: '김민정',
-          introduction: '안녕하세용',
-        },
-        button: isRemoveActive && removeButton,
+      button: isRemoveActive && removeButton,
+    },
+    {
+      user: {
+        profileImage: '',
+        username: '김민정',
+        introduction: '안녕하세용',
       },
-    ],
-    [isRemoveActive],
-  );
+      button: isRemoveActive && removeButton,
+    },
+  ];
 
   const renderItem = ({ item, index }) => (
     <PersonRow key={index} profileImage={item.profileImage} user={item.user} button={item.button} />

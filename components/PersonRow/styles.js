@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     gap: 11,
     height: 68,
     paddingHorizontal: 25,
+    backgroundColor: 'white',
     borderColor: '#E7E5E4',
     // borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
