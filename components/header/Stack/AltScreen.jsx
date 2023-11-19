@@ -21,6 +21,8 @@ import { CircleDetailHeader } from '../CircleDetailHeader';
 import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
 import { AltUserComponent } from '../../middle/Stack/AltUserComponent';
 import { JustGoBackHeader } from '../JustGoBackHeader';
+import { BottomModal } from '../../Modal/Modal';
+import { NestedModal } from '../../Modal/NestedModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,42 +34,44 @@ export const AltScreen = () => {
         header: props => <Header {...props} />,
         headerStatusBarHeight: 0,
       })}>
-      <Stack.Screen name="MyPage" component={AltComponent} />
-      <Stack.Screen
-        name="UserPage"
-        component={AltUserComponent}
-        options={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}
-      />
-      <Stack.Screen name="Search" component={Search} />
-      <Stack.Screen name="TimeLine" component={TimeLine} />
-      <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="EditUsername" component={EditUsername} />
-      <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
-      <Stack.Screen name="SplashUI" component={SplashUI} options={{headerShown: false}} />   
-      <Stack.Screen
-        name="SingleCircle"
-        component={SingleCircle}
-        options={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader' }}
-      />
-      <Stack.Screen
-        name="ZoomInMap"
-        component={ZoomInMap}
-        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
-      />
-      <Stack.Screen
-        name="PhotoCom"
-        component={PhotoCom}
-        options={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}
-      />
-      <Stack.Screen name="CircleCreate" component={CircleCreate} />
-      <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
-      <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
-      <Stack.Screen name="FriendsList" component={FriendsList} />
-      <Stack.Screen
-        name="ReceivedFriendRequest"
-        component={ReceivedFriendRequest}
-        options={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}
-      />
+      <Stack.Group>
+        <Stack.Screen name="MyPage" component={AltComponent} />
+        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="TimeLine" component={TimeLine} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="EditUsername" component={EditUsername} />
+        <Stack.Screen name="EditIntroduction" component={EditIntroduction} />
+        <Stack.Screen name="CircleCreate" component={CircleCreate} />
+        <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
+        <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
+        <Stack.Screen name="FriendsList" component={FriendsList} />
+      </Stack.Group>
+      <Stack.Group
+      screenOptions={{ header: () => <JustGoBackHeader />, 
+      headerTitle: 'JustGoBackHeader' }}>
+        <Stack.Screen name="UserPage" component={AltUserComponent} />
+        <Stack.Screen name="ReceivedFriendRequest" component={ReceivedFriendRequest} />
+      </Stack.Group>
+      <Stack.Group
+      screenOptions={{ header: () => <CircleHeader />, 
+      headerTitle: 'CircleHeader' }}>
+        <Stack.Screen name="SingleCircle" component={SingleCircle} />
+      </Stack.Group>
+      <Stack.Group 
+      screenOptions={{headerShown: false}}>
+        <Stack.Screen name="SplashUI" component={SplashUI}  />  
+      </Stack.Group>
+      <Stack.Group
+      screenOptions={{ header: () => <CircleDetailHeader />, 
+      headerTitle: 'CircleDetailHeader' }}>
+        <Stack.Screen name="ZoomInMap" component={ZoomInMap} />
+        <Stack.Screen name="PhotoCom" component={PhotoCom} />
+      </Stack.Group>
+      <Stack.Group
+      screenOptions={{ presentation: 'modal' }} >
+        <Stack.Screen name="BottomModal" component={BottomModal} />
+        <Stack.Screen name="NestedModal" component={NestedModal} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
