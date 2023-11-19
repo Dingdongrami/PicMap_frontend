@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView, Animated, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useState, useMemo } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
@@ -8,11 +8,12 @@ import { SinglePhotoIcon } from '../../../components/circle/album/SinglePhotoIco
 import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
 import { AddMethod } from '../../../components/circle/album/AddMethod';
 import { FlatList } from 'react-native-gesture-handler';
+import { selectState } from '../../../stores/circle-selection';
+import { useRecoilState } from 'recoil';
 
 export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
-  const [selection, setSelection] = useState(false);
   const [isExpanded, setIsExpanded] = useState(null);
   //써클의 id값 찾아내기
   const { itemId } = route.params;
@@ -30,10 +31,6 @@ export const SingleCircle = ({ route }) => {
       setIsMap(true);
     }
   };
-  const selectedChange = (updateSelection) => {
-    setSelection(updateSelection);
-    // console.log(updateSelection+"2");
-  };
 
   if (!isReady) {
     return <SplashUI />;
@@ -44,27 +41,26 @@ export const SingleCircle = ({ route }) => {
           data={groupedData}
           numColumns={3}
           keyExtractor={key}
-          ListHeaderComponent={() => < HeaderComponent onChange={selectedChange}/>}
+          ListHeaderComponent={HeaderComponent}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-          renderItem={() => <SinglePhotoIcon isSelected={selection} index={key} />}
+          renderItem={()=><SinglePhotoIcon index={key}/>}
         />
-        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} isSelect={selection} />
+        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
       </View>
     );
   }
 };
 
-const HeaderComponent = (props) => {
+const HeaderComponent = () => {
   const [isMap, setIsMap] = useState(true);
-  const [selection, setSelection] = useState(false);
+  const [selection, setSelection] = useRecoilState(selectState);
   const changeSelection = () => {
     //item값들의 checkbox
     // props.onChange(selection);
     setSelection(!selection);
     console.log(selection+"1");
-    props.onChange(selection);
   };  
   const selectOptions = useMemo(() => [
     {

@@ -1,10 +1,13 @@
-import { Pressable, Text, View, Image, FlatList } from 'react-native';
+import { Pressable, Text, View, Image } from 'react-native';
 import { useState } from 'react';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Checkbox from 'expo-checkbox';
+import { selectState } from '../../../stores/circle-selection';
+import { useRecoilState } from 'recoil';
 
-export const SinglePhotoIcon = ({ isSelected, index }) => {
+export const SinglePhotoIcon = ({ index }) => {
+  const [selection, setSelection] = useRecoilState(selectState);
   const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
   const clickPhoto = index => {
@@ -14,7 +17,7 @@ export const SinglePhotoIcon = ({ isSelected, index }) => {
     <View style={styles.albumContainer} >
       <View style={styles.photoRow}>
         <View key={index}>
-          {!isSelected ? (
+          {!selection ? (
             <Pressable onPress={() => clickPhoto(index)}>
               <View style={styles.imageContainer}>
                 <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />

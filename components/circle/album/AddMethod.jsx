@@ -1,7 +1,9 @@
 import { View, Pressable, StyleSheet, Image, Animated } from "react-native";
-import { useState, useRef } from "react";
+import { useRecoilState } from "recoil";
+import { selectState } from "../../../stores/circle-selection";
 
-export const AddMethod = ({onPress, expansion, selection}) => {
+export const AddMethod = ({onPress, expansion}) => {
+  const [selection] = useRecoilState(selectState);
   const imageStyles= [styles.overlay];
   if(expansion){
     const animation = new Animated.Value(expansion ? 0 : 1);
