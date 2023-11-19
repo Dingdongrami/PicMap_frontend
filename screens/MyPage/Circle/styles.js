@@ -88,12 +88,4 @@ export const styles = StyleSheet.create({
     color: '#44403C',
     backgroundColor: '#FFECEA',
   },
-  albumContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 4,
-    // paddingHorizontal: 3,
-    // zIndex: 1,
-  },
 });

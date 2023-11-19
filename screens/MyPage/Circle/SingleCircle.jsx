@@ -7,6 +7,7 @@ import { SingleMap } from '../../../components/circle/single/SingleMap';
 import { SinglePhotoIcon } from '../../../components/circle/album/SinglePhotoIcon';
 import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
 import { AddMethod } from '../../../components/circle/album/AddMethod';
+import { FlatList } from 'react-native-gesture-handler';
 
 export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
@@ -19,11 +20,7 @@ export const SingleCircle = ({ route }) => {
   const groupedData = album.map((item, index) => ({
     id: index,
   }));
-  // const itemsPerRow = 3;
-  // for(let i=0; i<album.length; i+=itemsPerRow) {
-  //   groupedData.push(album.slice(i, i+itemsPerRow));
-  // }
-
+  const key = groupedData.id;
   const handleScroll = e => {
     //스크롤 위치를 확인
     const yOffset = e.nativeEvent.contentOffset.y;
@@ -33,10 +30,42 @@ export const SingleCircle = ({ route }) => {
       setIsMap(true);
     }
   };
+  const selectedChange = (updateSelection) => {
+    setSelection(updateSelection);
+    // console.log(updateSelection+"2");
+  };
+
+  if (!isReady) {
+    return <SplashUI />;
+  } else {
+    return (
+      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
+        <FlatList
+          data={groupedData}
+          numColumns={3}
+          keyExtractor={key}
+          ListHeaderComponent={() => < HeaderComponent onChange={selectedChange}/>}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+          //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
+          renderItem={() => <SinglePhotoIcon isSelected={selection} index={key} />}
+        />
+        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} isSelect={selection} />
+      </View>
+    );
+  }
+};
+
+const HeaderComponent = (props) => {
+  const [isMap, setIsMap] = useState(true);
+  const [selection, setSelection] = useState(false);
   const changeSelection = () => {
     //item값들의 checkbox
+    // props.onChange(selection);
     setSelection(!selection);
-  };
+    console.log(selection+"1");
+    props.onChange(selection);
+  };  
   const selectOptions = useMemo(() => [
     {
       text: '전체 선택',
@@ -55,39 +84,28 @@ export const SingleCircle = ({ route }) => {
       onPress: changeSelection,
     },
   ]);
-
-  if (!isReady) {
-    return <SplashUI />;
-  } else {
-    return (
-      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
-        <ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
-          <View style={styles.personBox}>
-            <OthersProfile />
-          </View>
-          <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
-          <View style={styles.wrapper}>
-            <Text style={styles.imageText}>사진</Text>
-            {!selection ? (
-              <Pressable onPress={changeSelection}>
-                <Text style={styles.optionText}>선택</Text>
-              </Pressable>
-            ) : (
-              <View style={{ flexDirection: 'row', gap: 16, marginRight: 16 }}>
-                {selectOptions.map((item, index) => (
-                  <Pressable key={index} onPress={item?.onPress}>
-                    <Text style={styles.optionText2}>{item.text}</Text>
-                  </Pressable>
-                ))}
-              </View>
-            )}
-          </View>
-          <View style={styles.albumContainer}>
-            <SinglePhotoIcon photoData={groupedData} isSelected={selection} />
-          </View>
-        </ScrollView>
-        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} selection={selection} />
+  return(
+    <View>
+      <View style={styles.personBox}>
+        <OthersProfile />
       </View>
-    );
-  }
+      <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
+      <View style={styles.wrapper}>
+        <Text style={styles.imageText}>사진</Text>
+        {!selection ? (
+          <Pressable onPress={changeSelection}>
+            <Text style={styles.optionText}>선택</Text>
+          </Pressable>
+        ) : (
+          <View style={{ flexDirection: 'row', gap: 16, marginRight: 16 }}>
+            {selectOptions.map((item, index) => (
+              <Pressable key={index} onPress={item?.onPress}>
+                <Text style={styles.optionText2}>{item.text}</Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
+      </View>
+    </View>
+  );
 };
