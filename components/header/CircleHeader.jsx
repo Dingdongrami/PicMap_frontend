@@ -7,22 +7,32 @@ import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { BottomModal } from '../Modal/Modal';
+import { NestedModal } from '../Modal/NestedModal';
+// import { ModalPresenterParent, showModal } from '@whitespectre/rn-modal-presenter';
 
 export const CircleHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isNestedVisible, setNestedVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+    setNestedVisible(!isNestedVisible);
   };
   const navigation = useNavigation();
-  const userArray = async() => {
 
-  };
   const circleEdit = async() => {
     Alert.alert('써클 이름 변경', [
       // { text: '취소', style: 'cancel'}
     ])
+  };
+  const userArray = () => {
+    // console.log("??");
+    // setNestedVisible(!isNestedVisible);
+    // return <NestedModal isModalVisible={isNestedVisible} toggleModal={toggleModal} buttons={arrayOptions}/>
+    // navigation.navigate(NestedModal, );
+    // navigation.navigate(TimeLine);
   }
+
   const photoOptions = useMemo(
     () => [
       {
@@ -38,7 +48,7 @@ export const CircleHeader = () => {
         icon: require('../../assets/icons/filter_user_icon.png'),
         iconStyle: styles.user_array,
         textStyle: {},
-        // onPress
+        onPress: userArray,
       },
       {
         text: '써클 이름 변경',
@@ -50,7 +60,7 @@ export const CircleHeader = () => {
     ]
   );
 
-  const arrayOption = useMemo(() => [
+  const arrayOptions = useMemo(() => [
     {
       text: '이름 순',
       icon: require('../../assets/icons/check_btn.png'),
@@ -69,7 +79,7 @@ export const CircleHeader = () => {
       iconStyle: styles.circle_name,
       textStyle: {},      
     },
-  ])
+  ]);
 
   return (
     <View style={styles.container}>
