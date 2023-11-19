@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   imageContainer: {
@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     borderColor: '#44403C',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 3,
-    marginVertical: 4
+    marginHorizontal: 2,
+    marginVertical: 2,
   },
   imageIcon: {
     width: 45,
@@ -24,41 +24,40 @@ export const styles = StyleSheet.create({
     height: 120,
     borderWidth: 0.5,
     borderColor: '#44403C',
-    marginHorizontal: 3,
-    marginVertical: 4
+    marginHorizontal: 2,
+    marginVertical: 2,
   },
   image4check: {
     width: 45,
     height: 31,
     marginLeft: 37,
-    marginTop: 21
+    marginTop: 21,
   },
   photoRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   checkbox: {
     marginTop: 4,
     marginLeft: 4,
   },
-
 });
 
 export const comStyle = StyleSheet.create({
   imageContainer: {
-    flex:1, 
-    justifyContent: 'center', 
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   scrollCon: {
-    borderWidth:0.5,
+    borderWidth: 0.5,
     borderColor: '#78716C',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   commuBox: {
     // height: '100%',
-    flexDirection: 'row', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 16,
     paddingLeft: 25,
     gap: 27,
@@ -66,6 +65,6 @@ export const comStyle = StyleSheet.create({
   commentBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10
-  }
+    gap: 10,
+  },
 });
