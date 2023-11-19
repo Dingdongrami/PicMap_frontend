@@ -4,7 +4,6 @@ import {
   EditProfile,
   EditUsername,
   FriendsList,
-  Search,
   TimeLine,
   CircleCreate,
   CircleCreateDesc,
@@ -13,16 +12,17 @@ import {
 } from '../../../screens';
 import { Header } from '../Header';
 import { CircleHeader } from '../CircleHeader';
-import { AltComponent } from '../../middle/Stack/AltComponent';
+import AltComponent from '../../middle/Stack/AltComponent';
 import { SplashUI } from '../../../screens/MyPage/Circle/SplashUI';
 import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
 import { ZoomInMap } from '../../circle/single/ZoomInMap';
 import { CircleDetailHeader } from '../CircleDetailHeader';
+import AltUserComponent from '../../middle/Stack/AltUserComponent';
 import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
-import { AltUserComponent } from '../../middle/Stack/AltUserComponent';
 import { JustGoBackHeader } from '../JustGoBackHeader';
 import { BottomModal } from '../../Modal/Modal';
 import { NestedModal } from '../../Modal/NestedModal';
+import AltSearchComponent from '../../middle/Stack/AltSearchComponent';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +36,7 @@ export const AltScreen = () => {
       })}>
       <Stack.Group>
         <Stack.Screen name="MyPage" component={AltComponent} />
-        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Search" component={AltSearchComponent} />
         <Stack.Screen name="TimeLine" component={TimeLine} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="EditUsername" component={EditUsername} />
