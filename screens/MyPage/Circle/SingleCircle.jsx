@@ -57,10 +57,7 @@ const HeaderComponent = () => {
   const [isMap, setIsMap] = useState(true);
   const [selection, setSelection] = useRecoilState(selectState);
   const changeSelection = () => {
-    //item값들의 checkbox
-    // props.onChange(selection);
     setSelection(!selection);
-    console.log(selection+"1");
   };  
   const selectOptions = useMemo(() => [
     {
