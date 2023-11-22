@@ -46,25 +46,18 @@ export const AltScreen = () => {
         <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
         <Stack.Screen name="FriendsList" component={FriendsList} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <JustGoBackHeader />, 
-      headerTitle: 'JustGoBackHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}>
         <Stack.Screen name="UserPage" component={AltUserComponent} />
         <Stack.Screen name="ReceivedFriendRequest" component={ReceivedFriendRequest} />
         <Stack.Screen name="FriendsAdd" component={FriendsAdd} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <CircleHeader />, 
-      headerTitle: 'CircleHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader' }}>
         <Stack.Screen name="SingleCircle" component={SingleCircle} />
       </Stack.Group>
-      <Stack.Group 
-      screenOptions={{headerShown: false}}>
-        <Stack.Screen name="SplashUI" component={SplashUI}  />  
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SplashUI" component={SplashUI} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <CircleDetailHeader />, 
-      headerTitle: 'CircleDetailHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}>
         <Stack.Screen name="ZoomInMap" component={ZoomInMap} />
         <Stack.Screen name="PhotoCom" component={PhotoCom} />
       </Stack.Group>

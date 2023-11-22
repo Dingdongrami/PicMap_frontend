@@ -39,13 +39,13 @@ export const styles = StyleSheet.create({
   },
   rightHeader: {
     width: 18,
-    height: 3,
+    height: 18,
+    resizeMode: 'contain',
   },
   backHeader: {
     marginLeft: 10,
     width: 25,
-
-    height: 25
+    height: 25,
   },
   mapModal: {
     width: windowWidth,
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
   },
   user_array: {
     width: 16,
-    height: 16
+    height: 16,
   },
   circle_name: {
    width: 22,

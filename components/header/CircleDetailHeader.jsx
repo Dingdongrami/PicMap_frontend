@@ -30,6 +30,9 @@ export const CircleDetailHeader = ({ onPress }) => {
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
         </TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
+          <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
+        </TouchableOpacity>
       </View>
     </View>
   );
