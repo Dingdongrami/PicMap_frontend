@@ -13,21 +13,14 @@ export const CircleHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
+  const navigation = useNavigation();
+  
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  const navigation = useNavigation();
-
-  const circleEdit = async() => {
-    Alert.alert('써클 이름 변경', [
-      // { text: '취소', style: 'cancel'}
-    ])
-  };
-
   const nestedToggle = () => {
     setNestedVisible(!isNestedVisible);
   };
-
   const userArray = () => {
     setModalVisible(false);
     setTimeout(() => {
@@ -37,6 +30,12 @@ export const CircleHeader = () => {
 
   const userPlus =() => {
     navigation.navigate('FriendsAdd');
+  };
+
+  const circleEdit = async() => {
+    Alert.alert('써클 이름 변경', [
+      // { text: '취소', style: 'cancel'}
+    ])
   };
 
   const photoOptions = useMemo(

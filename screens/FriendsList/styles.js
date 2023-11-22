@@ -40,4 +40,13 @@ export const styles = StyleSheet.create({
     width: 8,
     height: 8,
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginTop: 40,
+  },
+  personAddIcon: {
+    width: 21.5,
+    height: 21.5,
+  },
 });
