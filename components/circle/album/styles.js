@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-export const comStyle = StyleSheet.create({
+export const comStyles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -56,7 +56,7 @@ export const comStyle = StyleSheet.create({
     backgroundColor: '#fff',
   },
   scrollCon: {
-    borderWidth: 0.5,
+    borderTopWidth: 0.5,
     borderColor: '#78716C',
     backgroundColor: '#fff',
   },
@@ -66,11 +66,58 @@ export const comStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
     paddingLeft: 25,
-    gap: 27,
+    gap: 20,
   },
-  commentBox: {
+  commentInfoBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    // gap: 10,
+  },
+  commentWrapper: {
+    alignItems: 'flex-start',
+  },
+  username: {
+    fontSize: 13,
+    fontFamily: 'IropkeBatang',
+    // backgroundColor: '#FFECEA',
+    marginBottom: 3,
+  },
+  commentList: {
+    marginVertical: 8,
+  },
+  comment: {
+    fontSize: 14,
+    fontFamily: 'IropkeBatang',
+  },
+  button: {
+    width: 10,
+    height: 15,
+    marginLeft: 'auto',
+  },
+  moreComment: {
+    // justifyContent: 'center',
+    alignItems: 'center',
+    height: 26,
+    marginTop: 6,
+    borderBottomColor: '#E7E5E4',
+    borderBottomWidth: 0.5,
+  },
+  moreCommentIcon: {
+    width: 15,
+    resizeMode: 'contain',
+  },
+  input: {
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 15,
+    fontFamily: 'IropkeBatang',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    // backgroundColor: 'yellow',
+  },
+  count: {
+    paddingHorizontal: 10,
   },
 });
