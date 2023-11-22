@@ -36,6 +36,7 @@ export const CircleHeader = () => {
   };
 
   const userPlus =() => {
+    navigation.navigate('FriendsAdd');
   };
 
   const photoOptions = useMemo(
