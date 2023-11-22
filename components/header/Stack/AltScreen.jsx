@@ -67,11 +67,6 @@ export const AltScreen = () => {
         <Stack.Screen name="ZoomInMap" component={ZoomInMap} />
         <Stack.Screen name="PhotoCom" component={PhotoCom} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ presentation: 'modal' }} >
-        <Stack.Screen name="BottomModal" component={BottomModal} />
-        <Stack.Screen name="NestedModal" component={NestedModal} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 };

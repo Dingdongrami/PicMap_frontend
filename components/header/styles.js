@@ -64,6 +64,12 @@ export const styles = StyleSheet.create({
   },
   circle_name: {
    width: 22,
-   height: 22 
+   height: 22,
+   opacity: 1,
+  },
+  circle_none: {
+    width: 22,
+    height: 22,
+    opacity: 0,
   }
 });

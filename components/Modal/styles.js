@@ -29,11 +29,11 @@ export const styles = StyleSheet.create({
   },
   modalButtonContainer: {
     width: windowWidth,
-    paddingLeft: 33,
   },
   modalButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft: 33,
     gap: 18,
     height: 55,
   },
