@@ -8,13 +8,15 @@ import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { NestedModal } from '../Modal/NestedModal';
 import { CircleModal } from '../Modal/CircleModal';
+import { EditModal } from '../Modal/EditModal';
 
 export const CircleHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
+  const [isEditVisible, setEditVisible] = useState(false);
   const navigation = useNavigation();
-  
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -33,9 +35,10 @@ export const CircleHeader = () => {
   };
 
   const circleEdit = async() => {
-    Alert.alert('써클 이름 변경', [
-      // { text: '취소', style: 'cancel'}
-    ])
+    setModalVisible(false);
+    setTimeout(() => {
+      setEditVisible(true);
+    }, 500);
   };
 
   const photoOptions = useMemo(
@@ -112,6 +115,9 @@ export const CircleHeader = () => {
         <CircleModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={photoOptions} onDismiss={()=>setModalVisible(false)}/>
         {isNestedVisible && (
         <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={arrayOptions} />
+        )}
+        {isEditVisible && (
+          <EditModal isModalVisible={isEditVisible} />
         )}
         <TouchableOpacity onPress={toggleModal}>
           <View style={{height: 24, justifyContent: 'center' }}>
