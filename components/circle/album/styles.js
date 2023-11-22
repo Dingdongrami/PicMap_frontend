@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
     height: 120,
     borderWidth: 0.5,
     borderColor: '#44403C',
-    marginHorizontal: 2,
-    marginVertical: 2,
+    // marginHorizontal: 2,
+    // marginVertical: 2,
   },
   image4check: {
     width: 45,
