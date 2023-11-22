@@ -9,6 +9,7 @@ import {
   CircleCreateDesc,
   CircleCreateName,
   ReceivedFriendRequest,
+  UserSearch,
 } from '../../../screens';
 import { Header } from '../Header';
 import { CircleHeader } from '../CircleHeader';
@@ -20,9 +21,8 @@ import { CircleDetailHeader } from '../CircleDetailHeader';
 import AltUserComponent from '../../middle/Stack/AltUserComponent';
 import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
 import { JustGoBackHeader } from '../JustGoBackHeader';
-import { BottomModal } from '../../Modal/Modal';
-import { NestedModal } from '../../Modal/NestedModal';
 import AltSearchComponent from '../../middle/Stack/AltSearchComponent';
+import FriendsAdd from '../../../screens/FriendsList/FriendsAdd';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +51,7 @@ export const AltScreen = () => {
       headerTitle: 'JustGoBackHeader' }}>
         <Stack.Screen name="UserPage" component={AltUserComponent} />
         <Stack.Screen name="ReceivedFriendRequest" component={ReceivedFriendRequest} />
+        <Stack.Screen name="FriendsAdd" component={FriendsAdd} />
       </Stack.Group>
       <Stack.Group
       screenOptions={{ header: () => <CircleHeader />, 
