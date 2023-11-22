@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import Comment from './Comment';
 import { comments } from '../../../data/comment-dummy';
-import { on } from 'events';
+import PersonRow from '../../PersonRow/PersonRow';
 
 // Get the full height of the screen
 const screenHeight = Dimensions.get('window').height;
@@ -22,6 +22,7 @@ export const PhotoComments = () => {
   const [heart, setHeart] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
+  const [isLikeClicked, setIsLikeClicked] = useState(false);
   const height = useSharedValue(40);
 
   const onPressScrollUp = () => {
@@ -38,7 +39,12 @@ export const PhotoComments = () => {
       // Collapsing back to initial state
       height.value = withSpring(40, config);
       setIsFullScrolled(false);
+      setIsLikeClicked(false);
     }
+  };
+
+  const onPressLikeCount = () => {
+    if (isFullScrolled) setIsLikeClicked(!isLikeClicked);
   };
 
   // 댓글 입력창 눌렀을 때
@@ -54,15 +60,15 @@ export const PhotoComments = () => {
   return (
     <Animated.View style={[comStyles.scrollCon, { height: height }]}>
       <Pressable style={comStyles.commuBox} onPress={onPressScrollUp}>
-        <View style={comStyles.commentBox}>
+        <View style={comStyles.commentInfoBox}>
           <Image
             source={require('../../../assets/icons/comment.png')}
             contentFit="cover"
             style={{ width: 14, height: 14 }}
           />
-          <Text>25</Text>
+          <Text style={comStyles.count}>25</Text>
         </View>
-        <View style={comStyles.commentBox}>
+        <View style={comStyles.commentInfoBox}>
           <Pressable onPress={() => setHeart(!heart)}>
             {heart ? (
               <Image
@@ -78,18 +84,35 @@ export const PhotoComments = () => {
               />
             )}
           </Pressable>
-          <Text>25</Text>
+          <Pressable onPress={onPressLikeCount}>
+            <Text style={comStyles.count}>25</Text>
+          </Pressable>
         </View>
       </Pressable>
       <View style={{ flex: 1 }}>
         {isFullScrolled ? (
-          <FlatList
-            data={comments}
-            renderItem={({ item }) => <Comment comment={item} isFullScrolled={isFullScrolled} />}
-            keyExtractor={item => item.id}
-            showsVerticalScrollIndicator={false}
-            style={comStyles.commentList}
-          />
+          isLikeClicked ? (
+            <FlatList
+              data={comments.slice(0, 7)}
+              renderItem={({ item }) => (
+                <PersonRow
+                  user={item.user}
+                  button={{ icon: require('../../../assets/icons/heart.png'), style: { width: 18, height: 18 } }}
+                />
+              )}
+              keyExtractor={item => item.id}
+              showsVerticalScrollIndicator={false}
+              style={comStyles.commentList}
+            />
+          ) : (
+            <FlatList
+              data={comments}
+              renderItem={({ item }) => <Comment comment={item} isFullScrolled={isFullScrolled} />}
+              keyExtractor={item => item.id}
+              showsVerticalScrollIndicator={false}
+              style={comStyles.commentList}
+            />
+          )
         ) : (
           <>
             <View style={comStyles.commentWrapper}>

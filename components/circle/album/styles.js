@@ -66,12 +66,12 @@ export const comStyles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
     paddingLeft: 25,
-    gap: 27,
+    gap: 20,
   },
-  commentBox: {
+  commentInfoBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    // gap: 10,
   },
   commentWrapper: {
     alignItems: 'flex-start',
@@ -116,5 +116,8 @@ export const comStyles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
     // backgroundColor: 'yellow',
+  },
+  count: {
+    paddingHorizontal: 10,
   },
 });
