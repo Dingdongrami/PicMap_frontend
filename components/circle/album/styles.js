@@ -79,15 +79,28 @@ export const comStyles = StyleSheet.create({
   username: {
     fontSize: 13,
     fontFamily: 'IropkeBatang',
+    color: '#44403C',
     // backgroundColor: '#FFECEA',
     marginBottom: 3,
   },
   commentList: {
     marginVertical: 8,
   },
-  comment: {
+  contentWrapper: {
+    width: 250,
+    flexDirection: 'row',
+  },
+  content: {
     fontSize: 14,
     fontFamily: 'IropkeBatang',
+    color: '#44403C',
+  },
+  usernameContent: {
+    fontSize: 12,
+    fontFamily: 'IropkeBatang',
+    backgroundColor: '#FFECEA',
+    marginBottom: 3,
+    color: '#EB9090',
   },
   button: {
     width: 10,
