@@ -52,44 +52,19 @@ const AltComponent = ({ navigation }) => {
             elevation: 0, // Add this line to remove shadow on Android
           },
         })}>
-        <Tab.Screen
-          name="Post"
-          component={Post}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={Map}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Circle"
-          component={Circle}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
+        <Tab.Group
+        screenOptions={{
+          tabBarItemStyle: {
+            height: 42,
+            borderBottomWidth: 0.5,
+            borderTopWidth: 0.5,
+            borderColor: '#44403C',
+          },
+        }}>
+          <Tab.Screen name="Post" component={Post} />
+          <Tab.Screen name="Map" component={Map} />
+          <Tab.Screen name="Circle" component={Circle} />
+        </Tab.Group>
       </Tab.Navigator>
     </View>
   );

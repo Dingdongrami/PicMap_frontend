@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const styles = StyleSheet.create({
   modal: {
@@ -29,11 +30,11 @@ export const styles = StyleSheet.create({
   },
   modalButtonContainer: {
     width: windowWidth,
-    paddingLeft: 33,
   },
   modalButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft: 33,
     gap: 18,
     height: 55,
   },
@@ -85,3 +86,72 @@ export const styles = StyleSheet.create({
     // marginBottom: 27,
   },
 });
+
+export const editStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
+  modalContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: 'white',
+    width: 280,
+    height: 180,
+  },
+  title: {
+    fontFamily: 'IropkeBatang',
+    fontSize: 15,
+    color: '#78716C',
+    textAlign: 'center',
+    marginTop: 18
+  },
+  inputBox: {
+    marginTop: 14,
+    width: 230,
+    height: 38,
+    borderWidth: 0.5,
+    borderBottomColor: '#D6D3D1',
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  cancelBox: {
+    width: 6,
+    height: 5.7,
+    // position: 'absolute',
+    marginLeft: 210
+  },
+  optionBox: {
+    marginTop: 19,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 9
+  },
+  singleBox1: {
+    width: 115,
+    height: 44,
+    backgroundColor: 'white',
+    borderWidth: 0.5,
+    borderBottomColor: '#A8A29E',
+    justifyContent: 'center'
+  },
+  singleBox2: {
+    width: 115,
+    height: 44,
+    backgroundColor: '#FFECEA',
+    borderWidth: 0.5,
+    borderBottomColor: '#A8A29E',
+    justifyContent: 'center'
+  },
+  textStyle: {
+    fontFamily: 'IropkeBatang',
+    fontSize: 15,
+    color: '#78716C',
+    textAlign: 'center',
+  }
+})

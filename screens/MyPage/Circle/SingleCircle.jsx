@@ -22,7 +22,6 @@ export const SingleCircle = ({ route }) => {
   const groupedData = album.map((item, index) => ({
     id: index,
   }));
-  const keyExtractor = (groupedData) => String(groupedData.id);
   const handleScroll = e => {
     //스크롤 위치를 확인
     const yOffset = e.nativeEvent.contentOffset.y;
