@@ -1,7 +1,8 @@
 import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 
 // 인증 토큰을 가져오는 함수 (여기서는 예시로 localStorage를 사용)
-const getAuthToken = () => localStorage.getItem('token');
+const getAuthToken = async() => await SecureStore.getItemAsync('token');
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
