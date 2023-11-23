@@ -15,7 +15,7 @@ export const comments = [
       introduction: '은쪽이 재질',
       profileImage: '',
     },
-    content: '나는야 은쪽이 재질',
+    content: '나는야 은쪽이 재질 @금쪽이',
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const comments = [
       introduction: '동쪽이 재질',
       profileImage: '',
     },
-    content: '나는야 동쪽이 재질',
+    content: '나는야 동쪽이 재질 @금쪽이 @은쪽이',
   },
   {
     id: 5,
@@ -60,7 +60,7 @@ export const comments = [
       introduction: '북쪽이 재질',
       profileImage: '',
     },
-    content: '나는야 북쪽이 재질',
+    content: '나는야 북쪽이 재질 @금쪽이 @은쪽이 @동쪽이 @서쪽이',
   },
   {
     id: 8,
