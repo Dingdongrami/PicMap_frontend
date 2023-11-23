@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@baronha/react-native-multiple-image-picker": "^1.1.6",
     "@googlemaps/markerclusterer": "^2.5.0",
     "@react-navigation/bottom-tabs": "^6.5.10",
     "@react-navigation/devtools": "^6.0.20",
