@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { TextInput, View, Text, Pressable, Alert, Linking, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { styles } from './styles';
-import { BottomModal } from '../../components/Modal/Modal';
+import { BottomModal } from '../../components/Modal';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import {
@@ -131,7 +131,7 @@ export const EditProfile = ({ navigation }) => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={{ flex: 1, backgroundColor: '#FFF' }}
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />

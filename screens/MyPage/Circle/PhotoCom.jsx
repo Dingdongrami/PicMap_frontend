@@ -1,9 +1,6 @@
 import { Text, View, Image, Pressable } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { comStyles } from '../../../components/circle/album/styles';
-import { useState } from 'react';
-import Animated from 'react-native-reanimated';
-import { PhotoComments } from '../../../components/circle/album/PhotoComments';
+import { comStyles, PhotoComments } from '../../../components/circle';
 
 // const windowHeight = window.
 //API연결할지, 사진을 가져올지,,

@@ -3,7 +3,7 @@ import { FlatList, Text, View } from 'react-native';
 import { PersonRow } from '../../components';
 import { styles } from './styles';
 
-const FriendsAdd = () => {
+const InviteUser = () => {
   // 버튼 객체를 별도로 분리
   const personAddButton = {
     icon: require('../../assets/icons/person_add.png'),
@@ -42,7 +42,12 @@ const FriendsAdd = () => {
     <PersonRow key={index} profileImage={item.profileImage} user={item.user} button={item.button} />
   );
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: 'white',
+      }}>
       <FlatList
         style={{ width: '100%', marginTop: 9 }}
         data={userList}
@@ -54,4 +59,4 @@ const FriendsAdd = () => {
   );
 };
 
-export default FriendsAdd;
+export default InviteUser;

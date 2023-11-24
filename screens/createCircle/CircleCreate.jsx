@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
 import { View, Text, Pressable, TextInput, Alert, Linking } from 'react-native';
 import { Image } from 'expo-image';
-import { BottomModal } from '../../components/Modal/Modal';
+import { BottomModal } from '../../components/Modal';
 import { styles } from '../Profile/styles';
 import Checkbox from 'expo-checkbox';
 import {
@@ -15,8 +15,8 @@ import {
 } from 'expo-image-picker';
 import { useRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
-import { data as circleData } from '../../data/circle-dummy';
 import { ScrollView } from 'react-native';
+import instance, { circleInstance } from '../../api/instance';
 
 const CircleCreate = () => {
   const [newCircle, setNewCircle] = useRecoilState(newCircleState);
@@ -26,6 +26,20 @@ const CircleCreate = () => {
   const [cameraPermissionInformation, requestCameraPermission] = useCameraPermissions(); // 카메라 접근 권한
 
   const navigation = useNavigation();
+
+  const createCircle = async () => {
+    try {
+      const data = await circleInstance.post('/add-circle', {
+        userid: 15,
+        name: newCircle.name,
+        description: newCircle.description,
+        status: newCircle.public ? 'PUBLIC' : 'PRIVATE',
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   async function verifyImagePermissions() {
     if (imagePermissionInformation.status !== PermissionStatus.GRANTED) {
@@ -118,7 +132,7 @@ const CircleCreate = () => {
     setModalVisible(!isModalVisible);
   };
   const onPressConfirm = () => {
-    // [TODO] 써클 생성 API 호출
+    createCircle();
     navigation.goBack();
   };
   const onPressCancel = () => {
@@ -161,7 +175,7 @@ const CircleCreate = () => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={{ flex: 1, backgroundColor: '#FFF' }}
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
