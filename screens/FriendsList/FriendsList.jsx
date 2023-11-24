@@ -5,8 +5,8 @@ import { PersonRow } from '../../components';
 import { styles } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { CircleDetailHeader } from '../../components/header/CircleDetailHeader';
-import { BottomModal } from '../../components/Modal/Modal';
+import { CircleDetailHeader } from '../../components/header';
+import { BottomModal } from '../../components/Modal';
 
 const FriendsList = () => {
   const navigation = useNavigation();

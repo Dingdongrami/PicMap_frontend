@@ -10,7 +10,7 @@ import { NestedModal } from '../Modal/NestedModal';
 import { CircleModal } from '../Modal/CircleModal';
 import { EditModal } from '../Modal/EditModal';
 
-export const CircleHeader = () => {
+const CircleHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
@@ -30,43 +30,42 @@ export const CircleHeader = () => {
     }, 500);
   };
 
-  const userPlus =() => {
-    navigation.navigate('FriendsAdd');
+  const userPlus = () => {
+    setModalVisible(false);
+    navigation.navigate('InviteUser');
   };
 
-  const circleEdit = async() => {
+  const circleEdit = async () => {
     setModalVisible(false);
     setTimeout(() => {
       setEditVisible(true);
     }, 500);
   };
 
-  const photoOptions = useMemo(
-    () => [
-      {
-        text: '유저 추가',
-        icon: require('../../assets/icons/add_user_icon.png'),
-        iconStyle: styles.user_add,
-        textStyle: {},
-        onPress: userPlus,
-      },
-      //정렬맞춤을 위해 한칸띄움
-      {
-        text: ' 유저 정렬',
-        icon: require('../../assets/icons/filter_user_icon.png'),
-        iconStyle: styles.user_array,
-        textStyle: {},
-        onPress: userArray,
-      },
-      {
-        text: '써클 이름 변경',
-        icon: require('../../assets/icons/edit_circle_name.png'),
-        iconStyle: styles.circle_name,
-        textStyle: {},
-        onPress: circleEdit
-      }
-    ]
-  );
+  const photoOptions = useMemo(() => [
+    {
+      text: '유저 추가',
+      icon: require('../../assets/icons/add_user_icon.png'),
+      iconStyle: styles.user_add,
+      textStyle: {},
+      onPress: userPlus,
+    },
+    //정렬맞춤을 위해 한칸띄움
+    {
+      text: ' 유저 정렬',
+      icon: require('../../assets/icons/filter_user_icon.png'),
+      iconStyle: styles.user_array,
+      textStyle: {},
+      onPress: userArray,
+    },
+    {
+      text: '써클 이름 변경',
+      icon: require('../../assets/icons/edit_circle_name.png'),
+      iconStyle: styles.circle_name,
+      textStyle: {},
+      onPress: circleEdit,
+    },
+  ]);
 
   const arrayOptions = useMemo(() => [
     {
@@ -75,7 +74,7 @@ export const CircleHeader = () => {
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
       textStyle: {},
-      onPress: ()=>{} 
+      onPress: () => {},
     },
     {
       text: '최근 추가 순',
@@ -83,15 +82,15 @@ export const CircleHeader = () => {
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
       textStyle: {},
-      onPress: ()=>{}
+      onPress: () => {},
     },
     {
       text: '오래된 순',
       icon: require('../../assets/icons/check_btn.png'),
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
-      textStyle: {},   
-      onPress: ()=>{}   
+      textStyle: {},
+      onPress: () => {},
     },
   ]);
 
@@ -112,15 +111,18 @@ export const CircleHeader = () => {
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}
         </TouchableOpacity>
-        <CircleModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={photoOptions} onDismiss={()=>setModalVisible(false)}/>
+        <CircleModal
+          isModalVisible={isModalVisible}
+          toggleModal={toggleModal}
+          buttons={photoOptions}
+          onDismiss={() => setModalVisible(false)}
+        />
         {isNestedVisible && (
-        <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={arrayOptions} />
+          <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={arrayOptions} />
         )}
-        {isEditVisible && (
-          <EditModal isModalVisible={isEditVisible} />
-        )}
+        {isEditVisible && <EditModal isModalVisible={isEditVisible} />}
         <TouchableOpacity onPress={toggleModal}>
-          <View style={{height: 24, justifyContent: 'center' }}>
+          <View style={{ height: 24, justifyContent: 'center' }}>
             <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
           </View>
         </TouchableOpacity>
@@ -128,3 +130,5 @@ export const CircleHeader = () => {
     </View>
   );
 };
+
+export default CircleHeader;

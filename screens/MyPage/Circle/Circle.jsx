@@ -1,9 +1,8 @@
 import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles';
-import { CircleRoom } from '../../../components/circle/CircleRoom';
-import { useEffect, useState } from 'react';
-import { CreateCircleBtn } from '../../../components/circle/CreateCircleBtn';
+import { CircleRoom, CreateCircleBtn } from '../../../components/circle';
 import { data } from '../../../data/circle-dummy';
+import { useEffect, useState } from 'react';
 
 export const Circle = () => {
   const [filteredData, setFilteredData] = useState([]); // join: true
