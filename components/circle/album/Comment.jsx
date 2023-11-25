@@ -10,15 +10,14 @@ const Comment = ({ comment, isFullScrolled = false }) => {
 
   // 댓글 내용을 단어별로 나누고, @로 시작하는 단어를 식별
   const commentContent = comment.content.split(' ').map((part, index) => {
-    if (part.slice(0, 1) === '@') {
+    if (part.startsWith('@')) {
       return (
-        <View key={index}>
-          <Text style={comStyles.usernameContent}>{part}</Text>
-          <Text>&nbsp;</Text>
-        </View>
+        <Text key={index} style={comStyles.usernameContent}>
+          {part}
+        </Text>
       );
     } else {
-      return part + ' ';
+      return <Text key={index}>{part}</Text>;
     }
   });
 
@@ -39,7 +38,7 @@ const Comment = ({ comment, isFullScrolled = false }) => {
       <Pressable onPress={onPressUser} style={comStyles.commentWrapper}>
         <Text style={comStyles.username}>{comment.user?.username}</Text>
         <View style={comStyles.contentWrapper}>
-          <Text style={comStyles.content}>{commentContent}</Text>
+          <Text style={comStyles.content}>{commentContent.reduce((prev, curr) => [prev, ' ', curr])}</Text>
         </View>
       </Pressable>
       <Pressable style={styles.buttonWrapper}>
