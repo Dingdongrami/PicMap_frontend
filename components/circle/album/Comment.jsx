@@ -9,12 +9,14 @@ const Comment = ({ comment, isFullScrolled = false }) => {
   const navigation = useNavigation();
 
   // 댓글 내용을 단어별로 나누고, @로 시작하는 단어를 식별
-  const commentContent = comment.content.split(' ').map(part => {
+  const commentContent = comment.content.split(' ').map((part, index) => {
     if (part.slice(0, 1) === '@') {
-      let count = 0;
       return (
         <>
-          <Text style={comStyles.usernameContent}>{part}</Text>&nbsp;
+          <Text key={index} style={comStyles.usernameContent}>
+            {part}
+          </Text>
+          &nbsp;
         </>
       );
     } else {
