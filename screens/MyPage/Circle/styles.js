@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     borderColor: '#44403C',
     backgroundColor: 'white',
     marginTop: 40,
-    paddingTop: 6,
+    paddingTop: 4,
     paddingHorizontal: 9,
   },
   splashContainer: {
