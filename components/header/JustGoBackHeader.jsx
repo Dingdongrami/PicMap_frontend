@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { useNavigation } from '@react-navigation/native';
 
-export const JustGoBackHeader = () => {
+const JustGoBackHeader = () => {
   const [user, setUser] = useRecoilState(userState);
   const navigation = useNavigation();
   const GoBack = () => {
@@ -34,3 +34,5 @@ export const JustGoBackHeader = () => {
     </View>
   );
 };
+
+export default JustGoBackHeader;

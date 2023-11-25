@@ -8,10 +8,11 @@ export const styles = StyleSheet.create({
   },
   searchBarWrapper: {
     position: 'relative',
-    width: 334,
+    minWidth: 334,
     height: 49,
     paddingBottom: 9,
     marginTop: 10,
+    marginHorizontal: 28,
   },
   searchBar: {
     flex: 1,
@@ -39,5 +40,9 @@ export const styles = StyleSheet.create({
   removeIcon: {
     width: 8,
     height: 8,
+  },
+  personAddIcon: {
+    width: 21.5,
+    height: 21.5,
   },
 });

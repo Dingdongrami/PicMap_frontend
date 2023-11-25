@@ -4,10 +4,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     // borderWidth: 0.5,
+    alignItems: 'stretch',
     borderColor: '#44403C',
     backgroundColor: 'white',
     marginTop: 40,
-    paddingTop: 6,
+    paddingTop: 4,
     paddingHorizontal: 9,
   },
   splashContainer: {
@@ -88,12 +89,9 @@ export const styles = StyleSheet.create({
     color: '#44403C',
     backgroundColor: '#FFECEA',
   },
-  albumContainer: {
+  lastItemLeftAlign: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 4,
-    // paddingHorizontal: 3,
-    // zIndex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });
