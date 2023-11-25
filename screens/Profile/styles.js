@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center', // 가로축
+    alignItems: 'center', // 가로축
     backgroundColor: '#fff',
     //paddingBottom: 40,
   },

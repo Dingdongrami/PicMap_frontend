@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, TextInput } from 'react-native';
 import { styles } from '../Profile/styles';
 import { Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
 
 const CircleCreateName = ({ navigation }) => {

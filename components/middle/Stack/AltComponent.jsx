@@ -1,9 +1,7 @@
 import { Post, Circle, Map } from '../../../screens/MyPage';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Middle } from '../Middle';
-import { CircleStack } from '../../circle/Stack/CircleStack';
-import MyProfile from '../../MyProfile/MyProfile';
+import { MyProfile } from '../../MyProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,19 +50,44 @@ const AltComponent = ({ navigation }) => {
             elevation: 0, // Add this line to remove shadow on Android
           },
         })}>
-        <Tab.Group
-        screenOptions={{
-          tabBarItemStyle: {
-            height: 42,
-            borderBottomWidth: 0.5,
-            borderTopWidth: 0.5,
-            borderColor: '#44403C',
-          },
-        }}>
-          <Tab.Screen name="Post" component={Post} />
-          <Tab.Screen name="Map" component={Map} />
-          <Tab.Screen name="Circle" component={Circle} />
-        </Tab.Group>
+        <Tab.Screen
+          name="Post"
+          component={Post}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={Map}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderLeftWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Circle"
+          component={Circle}
+          options={{
+            tabBarItemStyle: {
+              height: 42,
+              borderBottomWidth: 0.5,
+              borderTopWidth: 0.5,
+              borderLeftWidth: 0.5,
+              borderColor: '#44403C',
+            },
+          }}
+        />
       </Tab.Navigator>
     </View>
   );
