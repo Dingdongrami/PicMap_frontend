@@ -17,8 +17,17 @@ import { useRecoilState } from 'recoil';
 import { newCircleState } from '../../stores/circle-store';
 import { ScrollView } from 'react-native';
 import instance, { circleInstance } from '../../api/instance';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createCircle } from '../../api/circleApi';
 
 const CircleCreate = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: createCircle,
+    onSuccess: data => {
+      queryClient.invalidateQueries('circle');
+    },
+  });
   const [newCircle, setNewCircle] = useRecoilState(newCircleState);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -26,20 +35,6 @@ const CircleCreate = () => {
   const [cameraPermissionInformation, requestCameraPermission] = useCameraPermissions(); // 카메라 접근 권한
 
   const navigation = useNavigation();
-
-  const createCircle = async () => {
-    try {
-      const data = await circleInstance.post('/add-circle', {
-        userid: 15,
-        name: newCircle.name,
-        description: newCircle.description,
-        status: newCircle.public ? 'PUBLIC' : 'PRIVATE',
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   async function verifyImagePermissions() {
     if (imagePermissionInformation.status !== PermissionStatus.GRANTED) {
@@ -132,7 +127,7 @@ const CircleCreate = () => {
     setModalVisible(!isModalVisible);
   };
   const onPressConfirm = () => {
-    createCircle();
+    mutate(newCircle);
     navigation.goBack();
   };
   const onPressCancel = () => {

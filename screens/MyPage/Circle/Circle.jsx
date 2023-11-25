@@ -1,23 +1,33 @@
 import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles';
 import { CircleRoom, CreateCircleBtn } from '../../../components/circle';
-import { data } from '../../../data/circle-dummy';
 import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCircle } from '../../../api/circleApi';
 
 export const Circle = () => {
-  const [filteredData, setFilteredData] = useState([]); // join: true
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['circle'],
+    queryFn: fetchCircle,
+    refetchOnWindowFocus: true,
+  });
 
-  useEffect(() => {
-    setFilteredData(data.filter(item => item.join === true));
-  }, [data]);
+  if (isLoading) return <Text>Loading...</Text>;
+  if (isError) return <Text>Error!</Text>;
+
+  const renderItem = ({ item, index }) => (
+    <View style={{ flex: 0.5 }}>
+      <CircleRoom item={item} />
+    </View>
+  );
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={filteredData}
-        renderItem={({ item }) => <CircleRoom item={item} />}
-        keyExtractor={(item, index) => index.toString()}
         numColumns={2}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
       />
       <CreateCircleBtn />
