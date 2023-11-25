@@ -17,7 +17,8 @@ export const SingleMap = () => {
     //지도가 확대되면 개별 확대 화면으로 넘어감
     if (zoomLevel > ZOOM_THRESHOLD) {
       // zoomInFunction();
-      return () => navigation.navigate('ZoomInMap');
+      // return () => navigation.navigate('ZoomInMap');
+      return navigation.navigate('ZoomInMap');
     }
   };
 
