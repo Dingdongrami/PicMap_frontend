@@ -12,12 +12,10 @@ const Comment = ({ comment, isFullScrolled = false }) => {
   const commentContent = comment.content.split(' ').map((part, index) => {
     if (part.slice(0, 1) === '@') {
       return (
-        <>
-          <Text key={index} style={comStyles.usernameContent}>
-            {part}
-          </Text>
-          &nbsp;
-        </>
+        <View key={index}>
+          <Text style={comStyles.usernameContent}>{part}</Text>
+          <Text>&nbsp;</Text>
+        </View>
       );
     } else {
       return part + ' ';
