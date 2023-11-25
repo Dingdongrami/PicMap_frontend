@@ -17,6 +17,8 @@ export const CircleRoom = ({ item }) => {
   const [toastMessage, setToastMessage] = useState('');
   const navigation = useNavigation();
 
+  const isJoined = true; // TODO: Add logic to check if the user is a member of the circle.
+
   // Function to handle the modal toggle
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -75,7 +77,7 @@ export const CircleRoom = ({ item }) => {
         </View>
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
-      <Pressable style={styles.circleRoom} onPress={!item.join ? onPressJoin : enterCircle}>
+      <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
         {item?.image ? (
           <Image style={styles.circlePhoto} source={item?.image} ContentFit="cover" />
         ) : (

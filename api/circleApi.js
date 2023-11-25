@@ -5,6 +5,11 @@ export const fetchCircle = async () => {
   return data;
 };
 
+export const fetchPublicCircle = async () => {
+  const { data } = await circleInstance.get('/public');
+  return data;
+};
+
 export const createCircle = async newCircleData => {
   try {
     const { data } = await circleInstance.post('/add-circle', {
