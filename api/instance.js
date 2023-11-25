@@ -5,8 +5,8 @@ import * as SecureStore from 'expo-secure-store';
 const getAuthToken = async () => await SecureStore.getItemAsync('token');
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-  timeout: 2000,
+  baseURL: process.env.EXPO_PUBLIC_SERVER_URL,
+  timeout: 5000,
 });
 
 // // 요청 인터셉터를 추가하여 요청이 전송되기 전에 실행됩니다.
