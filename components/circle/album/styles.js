@@ -132,5 +132,6 @@ export const comStyles = StyleSheet.create({
   },
   count: {
     paddingHorizontal: 10,
+    fontStyle: 'IropkeBatang',
   },
 });
