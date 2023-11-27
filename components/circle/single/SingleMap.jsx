@@ -66,7 +66,11 @@ export const SingleMap = () => {
   
   useEffect(() => {
     generateMarkers(region.latitude, region.longitude)
-  }, [])
+  }, []);
+  
+  const getZoomFromRegion = (region) => {
+    return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
+  }
 
   return (
     <ClusteredMapView
