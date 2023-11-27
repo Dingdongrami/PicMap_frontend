@@ -108,7 +108,7 @@ const CircleHeader = () => {
           {user?.profileImage ? (
             <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
           ) : (
-            <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
+            <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={26} color={'#44403C'} />
           )}
         </TouchableOpacity>
         <CircleModal
