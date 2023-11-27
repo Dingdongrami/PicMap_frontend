@@ -2,11 +2,13 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   circleRoom: {
-    width: 164,
+    width: '100%',
     height: 194,
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',
+    alignSelf: 'flex-start',
+    justifySelf: 'flex-start',
     marginTop: 18,
   },
   circlePhoto: {

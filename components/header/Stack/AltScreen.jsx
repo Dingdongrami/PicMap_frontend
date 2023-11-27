@@ -9,24 +9,21 @@ import {
   CircleCreateDesc,
   CircleCreateName,
   ReceivedFriendRequest,
+  InviteUser,
+  SplashUI,
+  SingleCircle,
+  PhotoCom,
 } from '../../../screens';
-import { Header } from '../Header';
-import { CircleHeader } from '../CircleHeader';
-import AltComponent from '../../middle/Stack/AltComponent';
-import { SplashUI } from '../../../screens/MyPage/Circle/SplashUI';
-import { SingleCircle } from '../../../screens/MyPage/Circle/SingleCircle';
-import { ZoomInMap } from '../../circle/single/ZoomInMap';
-import { CircleDetailHeader } from '../CircleDetailHeader';
-import AltUserComponent from '../../middle/Stack/AltUserComponent';
-import { PhotoCom } from '../../../screens/MyPage/Circle/PhotoCom';
-import { JustGoBackHeader } from '../JustGoBackHeader';
-import { BottomModal } from '../../Modal/Modal';
-import { NestedModal } from '../../Modal/NestedModal';
-import AltSearchComponent from '../../middle/Stack/AltSearchComponent';
+import Header from '../Header';
+import CircleHeader from '../CircleHeader';
+import CircleDetailHeader from '../CircleDetailHeader';
+import JustGoBackHeader from '../JustGoBackHeader';
+import { ZoomInMap } from '../../circle';
+import { AltComponent, AltUserComponent, AltSearchComponent } from '../../middle';
 
 const Stack = createNativeStackNavigator();
 
-export const AltScreen = () => {
+const AltScreen = () => {
   return (
     <Stack.Navigator
       initialRouteName="MyPage"
@@ -46,32 +43,23 @@ export const AltScreen = () => {
         <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
         <Stack.Screen name="FriendsList" component={FriendsList} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <JustGoBackHeader />, 
-      headerTitle: 'JustGoBackHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}>
         <Stack.Screen name="UserPage" component={AltUserComponent} />
         <Stack.Screen name="ReceivedFriendRequest" component={ReceivedFriendRequest} />
+        <Stack.Screen name="InviteUser" component={InviteUser} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <CircleHeader />, 
-      headerTitle: 'CircleHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader' }}>
         <Stack.Screen name="SingleCircle" component={SingleCircle} />
       </Stack.Group>
-      <Stack.Group 
-      screenOptions={{headerShown: false}}>
-        <Stack.Screen name="SplashUI" component={SplashUI}  />  
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SplashUI" component={SplashUI} />
       </Stack.Group>
-      <Stack.Group
-      screenOptions={{ header: () => <CircleDetailHeader />, 
-      headerTitle: 'CircleDetailHeader' }}>
+      <Stack.Group screenOptions={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}>
         <Stack.Screen name="ZoomInMap" component={ZoomInMap} />
         <Stack.Screen name="PhotoCom" component={PhotoCom} />
-      </Stack.Group>
-      <Stack.Group
-      screenOptions={{ presentation: 'modal' }} >
-        <Stack.Screen name="BottomModal" component={BottomModal} />
-        <Stack.Screen name="NestedModal" component={NestedModal} />
       </Stack.Group>
     </Stack.Navigator>
   );
 };
+
+export default AltScreen;

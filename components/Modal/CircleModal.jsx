@@ -1,10 +1,9 @@
 import { Image, Pressable, Text, View, StyleSheet } from 'react-native';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
-import { useState } from 'react';
 
-export const NestedModal = ({ isModalVisible, toggleModal, buttons }) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+export const CircleModal = ({ isModalVisible, toggleModal, buttons }) => {
+
   return (
     <Modal
       isVisible={isModalVisible}
@@ -18,11 +17,13 @@ export const NestedModal = ({ isModalVisible, toggleModal, buttons }) => {
           {buttons.map((button, index) => (
             <Pressable 
             key={index} 
-            onPress={() => {button.onPress; setSelectedIndex(index); }} 
-            style={({ pressed })=>[{opacity: pressed ? 0.4 : 1},styles.modalButton]}>
-              {index === selectedIndex &&
-              <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />}
-              <Text style={[styles.modalText, button.textStyle, {marginLeft: 78, position: 'absolute'}]}>{button.text}</Text>
+            onPress={button.onPress} 
+            style={({ pressed }) => [
+              {backgroundColor: pressed ? '#FFECEA' : 'white'}
+              , styles.modalButton
+            ]}>
+              <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />
+              <Text style={[styles.modalText, button.textStyle,]}>{button.text}</Text>
             </Pressable>
           ))}
         </View> 

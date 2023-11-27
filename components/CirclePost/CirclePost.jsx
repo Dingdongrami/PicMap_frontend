@@ -2,11 +2,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { styles } from './styles';
 import { getPhotoBorderStyle } from '../../utils/getPhotoBorderStyles';
 
-const CirclePost = () => {
+const CirclePost = ({ item }) => {
   return (
     <View style={styles.circle}>
       <View style={styles.circleName}>
-        <Text style={styles.circleNameText}>써클명</Text>
+        <Text style={styles.circleNameText}>{item.name}</Text>
       </View>
       <View style={styles.photoContainer}>
         {Array(4)
