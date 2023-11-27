@@ -145,7 +145,6 @@ const ClusteredMapView = forwardRef(
     const _onClusterPress = (cluster) => () => {
       const children = superCluster.getLeaves(cluster.id, Infinity);
       updateClusterChildren(children);
-
       if (preserveClusterPressBehavior) {
         onClusterPress(cluster, children);
         return;
@@ -200,7 +199,8 @@ const ClusteredMapView = forwardRef(
                 clusterTextColor={clusterTextColor}
                 clusterFontFamily={clusterFontFamily}
                 tracksViewChanges={tracksViewChanges}
-              />
+              >
+              </ClusterMarker>
             )
           ) : null,
         )}

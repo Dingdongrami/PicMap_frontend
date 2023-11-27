@@ -23,6 +23,10 @@ export const styles = StyleSheet.create({
     width: 45,
     height: 31,
   },
+  realImage:{
+    width: "100%",
+    height: "100%"
+  },
   imageCon4check: {
     flex: 1,
     flexDirection: 'column',
@@ -34,17 +38,19 @@ export const styles = StyleSheet.create({
     marginVertical: 2,
   },
   image4check: {
-    width: 45,
-    height: 31,
-    marginLeft: 37,
-    marginTop: 21,
+    width: "100%",
+    height: "100%",
+    // marginLeft: 37,
+    // marginTop: 21,
   },
   photoRow: {
     flexDirection: 'row',
   },
   checkbox: {
+    position: 'absolute',
     marginTop: 4,
     marginLeft: 4,
+    zIndex: 2
   },
 });
 

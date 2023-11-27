@@ -26,7 +26,7 @@ const ClusteredMarker = ({
       style={{ zIndex: points + 1 }}
       onPress={onPress}
       tracksViewChanges={tracksViewChanges}>
-      <Pressable activeOpacity={0.5} style={[styles.container, { width, height }]}>
+      <Pressable activeOpacity={0.5} style={[styles.container, { width, height }]} >
         <View
           style={[
             styles.wrapper,
