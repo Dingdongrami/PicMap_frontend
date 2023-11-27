@@ -1,18 +1,10 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View, StyleSheet } from 'react-native';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
-// import { ModalPresenterParent, showModal } from '@whitespectre/rn-modal-presenter';
 import { useState } from 'react';
 
 export const NestedModal = ({ isModalVisible, toggleModal, buttons }) => {
-  // const textValue = buttons[0].text;
-  // console.log(textValue);
-  const [ isClicked, setIsClicked ] = useState(false);
-  const customPress = (button) => {
-    button.onPress;
-    setIsClicked(!isClicked);
-  }
-
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   return (
     <Modal
       isVisible={isModalVisible}
@@ -24,9 +16,13 @@ export const NestedModal = ({ isModalVisible, toggleModal, buttons }) => {
         <View style={styles.modalLine} />
         <View style={styles.modalButtonContainer}>
           {buttons.map((button, index) => (
-            <Pressable key={index} style={styles.modalButton} onPress={button.onPress}>
-              <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />
-              <Text style={[styles.modalText, button.textStyle]}>{button.text}</Text>
+            <Pressable 
+            key={index} 
+            onPress={() => {button.onPress; setSelectedIndex(index); }} 
+            style={({ pressed })=>[{opacity: pressed ? 0.4 : 1},styles.modalButton]}>
+              {index === selectedIndex &&
+              <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />}
+              <Text style={[styles.modalText, button.textStyle, {marginLeft: 78, position: 'absolute'}]}>{button.text}</Text>
             </Pressable>
           ))}
         </View> 

@@ -38,7 +38,7 @@ export const SinglePhotoIcon = ({ index }) => {
                 color={checkedPhotos ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
               />
-              <Image source={require('../../../assets/icons/image.png')} style={styles.image4check} />
+              <Image source={require('../../../assets/icons/image.png')} style={styles.image4check}/>
             </View>
           )}
         </View>

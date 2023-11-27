@@ -4,10 +4,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     // borderWidth: 0.5,
+    alignItems: 'stretch',
     borderColor: '#44403C',
     backgroundColor: 'white',
     marginTop: 40,
-    paddingTop: 6,
+    paddingTop: 4,
     paddingHorizontal: 9,
   },
   splashContainer: {
@@ -87,5 +88,10 @@ export const styles = StyleSheet.create({
     fontFamily: 'IropkeBatang',
     color: '#44403C',
     backgroundColor: '#FFECEA',
+  },
+  lastItemLeftAlign: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });

@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
-const ZOOM_THRESHOLD = 10;
+const ZOOM_THRESHOLD = 13;
 
 //singlemap을 따로 export 할 시에 에러발생...함수 다시 생각해봐야할듯
 export const SingleMap = () => {
@@ -17,7 +17,8 @@ export const SingleMap = () => {
     //지도가 확대되면 개별 확대 화면으로 넘어감
     if (zoomLevel > ZOOM_THRESHOLD) {
       // zoomInFunction();
-      return () => navigation.navigate('ZoomInMap');
+      // return () => navigation.navigate('ZoomInMap');
+      return navigation.navigate('ZoomInMap');
     }
   };
 

@@ -1,21 +1,30 @@
 import { View, Text, FlatList } from 'react-native';
 import { styles } from './styles';
-import { CircleRoom } from '../../components/circle/CircleRoom';
+import { CircleRoom } from '../../components/circle';
 import React, { useEffect, useState } from 'react';
-import { data } from '../../data/circle-dummy';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPublicCircle } from '../../api/circleApi';
 
 export const TimeLine = () => {
-  const [filteredData, setFilteredData] = useState([]); // public: true
+  const { data, isSuccess } = useQuery({
+    queryKey: ['public_circle'],
+    queryFn: fetchPublicCircle,
+    refetchOnWindowFocus: true,
+  });
 
-  useEffect(() => {
-    setFilteredData(data.filter(item => item.public === true));
-  }, []);
+  const renderItem = ({ item, index }) => (
+    <View style={{ flex: 0.5 }}>
+      <CircleRoom item={item} />
+    </View>
+  );
+
+  // if (isSuccess) console.log(data);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={filteredData}
-        renderItem={({ item }) => <CircleRoom item={item} />}
+        data={data}
+        renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         showsVerticalScrollIndicator={false}

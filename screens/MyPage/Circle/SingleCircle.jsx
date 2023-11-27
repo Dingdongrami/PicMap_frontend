@@ -3,14 +3,10 @@ import { useState, useMemo } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
-import { SingleMap } from '../../../components/circle/single/SingleMap';
-import { SinglePhotoIcon } from '../../../components/circle/album/SinglePhotoIcon';
-import { OthersProfile } from '../../../components/MyProfile/OthersProfile';
-import { AddMethod } from '../../../components/circle/album/AddMethod';
+import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/circle';
 import { FlatList } from 'react-native-gesture-handler';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
-
 
 export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
@@ -22,7 +18,6 @@ export const SingleCircle = ({ route }) => {
   const groupedData = album.map((item, index) => ({
     id: index,
   }));
-  const keyExtractor = (groupedData) => String(groupedData.id);
   const handleScroll = e => {
     //스크롤 위치를 확인
     const yOffset = e.nativeEvent.contentOffset.y;
@@ -41,12 +36,12 @@ export const SingleCircle = ({ route }) => {
         <FlatList
           data={groupedData}
           numColumns={3}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           ListHeaderComponent={HeaderComponent}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-          renderItem={({item})=><SinglePhotoIcon index={item.id}/>}
+          renderItem={({ item }) => <SinglePhotoIcon index={item.id} />}
         />
         <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
       </View>
@@ -59,7 +54,7 @@ const HeaderComponent = () => {
   const [selection, setSelection] = useRecoilState(selectState);
   const changeSelection = () => {
     setSelection(!selection);
-  };  
+  };
   const selectOptions = useMemo(() => [
     {
       text: '전체 선택',
@@ -78,7 +73,7 @@ const HeaderComponent = () => {
       onPress: changeSelection,
     },
   ]);
-  return(
+  return (
     <View>
       <View style={styles.personBox}>
         <OthersProfile />

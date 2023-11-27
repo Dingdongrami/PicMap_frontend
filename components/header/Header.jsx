@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 
-export const Header = ({ navigation, title }) => {
+const Header = ({ navigation, title }) => {
   const [user, setUser] = useRecoilState(userState);
   return (
     <View style={styles.container}>
@@ -28,3 +28,5 @@ export const Header = ({ navigation, title }) => {
     </View>
   );
 };
+
+export default Header;
