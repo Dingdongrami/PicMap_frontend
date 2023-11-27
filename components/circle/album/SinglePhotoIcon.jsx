@@ -1,5 +1,5 @@
 import { Pressable, Text, View, Image } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Checkbox from 'expo-checkbox';
@@ -14,6 +14,13 @@ export const SinglePhotoIcon = ({ index }) => {
     console.log(index);
     navigation.navigate('PhotoCom', { index });
   };
+  // selection이 false가 되면 checkedPhotos를 초기화
+  useEffect(() => {
+    if (!selection) {
+      setCheckedPhotos([]);
+    }
+  }, [selection]);
+
   return (
     <View style={styles.albumContainer}>
       <View style={styles.photoRow}>
