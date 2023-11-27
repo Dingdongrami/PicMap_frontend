@@ -15,32 +15,28 @@ export const SinglePhotoIcon = ({ index }) => {
     navigation.navigate('PhotoCom', { index });
   };
   return (
-    <View style={styles.albumContainer} >
+    <View style={styles.albumContainer}>
       <View style={styles.photoRow}>
         <View key={index}>
-          {!selection ? (
-            <Pressable onPress={() => clickPhoto(index)}>
-              <View style={styles.imageContainer}>
-                <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />
-              </View>
-            </Pressable>
-          ) : ( 
-            <View style={styles.imageCon4check}>
-              <Checkbox
-                value={checkedPhotos[index]}
-                onValueChange={() => {
-                  const itemIndex = index;
-                  const newCheckedPhotos = [...checkedPhotos];
-                  newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
-                  setCheckedPhotos(newCheckedPhotos);
-                  console.log(itemIndex);
-                }}
-                color={checkedPhotos ? '#D6D3D1' : undefined}
-                style={styles.checkbox}
-              />
-              <Image source={require('../../../assets/icons/image.png')} style={styles.image4check}/>
+          <Pressable onPress={() => clickPhoto(index)}>
+            <View style={styles.imageContainer}>
+              {selection && (
+                <Checkbox
+                  value={checkedPhotos[index]}
+                  onValueChange={() => {
+                    const itemIndex = index;
+                    const newCheckedPhotos = [...checkedPhotos];
+                    newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
+                    setCheckedPhotos(newCheckedPhotos);
+                    console.log(itemIndex);
+                  }}
+                  color={checkedPhotos ? '#D6D3D1' : undefined}
+                  style={styles.checkbox}
+                />
+              )}
+              <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />
             </View>
-          )}
+          </Pressable>
         </View>
       </View>
     </View>

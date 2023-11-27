@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   imageContainer: {
+    position: 'relative',
     flex: 1,
     flexDirection: 'column',
     width: 120,
@@ -43,6 +44,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   checkbox: {
+    position: 'absolute',
+    top: 1.5,
+    left: 1.5,
     marginTop: 4,
     marginLeft: 4,
   },

@@ -34,6 +34,7 @@ export const CircleRoom = ({ item }) => {
 
   //각 써클로 접속하는 함수
   const enterCircle = () => {
+    console.log(item.id);
     return navigation.navigate('SplashUI', { itemId: item.id });
   };
 
