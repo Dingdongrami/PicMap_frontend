@@ -6,12 +6,13 @@ import Checkbox from 'expo-checkbox';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 
-export const SinglePhotoIcon = ({ index }) => {
+export const SinglePhotoIcon = ({ index, photo }) => {
   const [selection, setSelection] = useRecoilState(selectState);
   const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
   const clickPhoto = index => {
-    console.log(index);
+    console.log(JSON.stringify(photo.source));
+    // console.log(index);
     navigation.navigate('PhotoCom', { index });
   };
   return (
@@ -21,7 +22,8 @@ export const SinglePhotoIcon = ({ index }) => {
           {!selection ? (
             <Pressable onPress={() => clickPhoto(index)}>
               <View style={styles.imageContainer}>
-                <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} />
+                {/* <Image source={require('../../../assets/icons/image.png')} style={styles.imageIcon} /> */}
+                <Image source={photo.source} resizeMode="cover" style={styles.realImage}/>
               </View>
             </Pressable>
           ) : ( 
@@ -38,7 +40,7 @@ export const SinglePhotoIcon = ({ index }) => {
                 color={checkedPhotos ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
               />
-              <Image source={require('../../../assets/icons/image.png')} style={styles.image4check} />
+              <Image source={photo.source} resizeMode="cover" style={styles.image4check} />
             </View>
           )}
         </View>
