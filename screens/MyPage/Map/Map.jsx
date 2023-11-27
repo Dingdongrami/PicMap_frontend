@@ -4,8 +4,6 @@ import { Marker } from 'react-native-maps';
 import { examples } from './examples';
 import { INIT } from './examples';
 import { styles } from './styles';
-import { useRef } from 'react';
-
 
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
 
