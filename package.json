@@ -9,9 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@mapbox/geo-viewport": "^0.5.0",
     "@baronha/react-native-multiple-image-picker": "^1.1.6",
-    "@googlemaps/markerclusterer": "^2.5.0",
+    "@mapbox/geo-viewport": "^0.5.0",
     "@react-navigation/bottom-tabs": "^6.5.10",
     "@react-navigation/devtools": "^6.0.20",
     "@react-navigation/drawer": "^6.6.4",
