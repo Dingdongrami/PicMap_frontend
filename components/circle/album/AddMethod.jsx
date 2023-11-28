@@ -1,41 +1,46 @@
-import { View, Pressable, StyleSheet, Image, Animated } from "react-native";
-import { useRecoilState } from "recoil";
-import { selectState } from "../../../stores/circle-selection";
+import { View, Pressable, StyleSheet, Image, Animated } from 'react-native';
+import { useRecoilState } from 'recoil';
+import { selectState } from '../../../stores/circle-selection';
+import useCamera from '../../../hooks/useCamera';
 
-export const AddMethod = ({onPress, expansion}) => {
+export const AddMethod = ({ onPress, expansion }) => {
   const [selection] = useRecoilState(selectState);
-  const imageStyles= [styles.overlay];
-  if(expansion){
+  const imageStyles = [styles.overlay];
+  const { takeImageHandler } = useCamera(onImageCaptured);
+
+  const onImageCaptured = uri => {
+    console.log(uri);
+  };
+
+  if (expansion) {
     const animation = new Animated.Value(expansion ? 0 : 1);
 
     Animated.timing(animation, {
       toValue: expansion ? 1 : 0,
       duration: 200,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
 
     const rotateInterPolate = animation.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '45deg']
+      outputRange: ['0deg', '45deg'],
     });
     const animatedStyles = { transform: [{ rotate: rotateInterPolate }] };
     imageStyles.push(animatedStyles);
   }
-  if(!selection) {
-    return(
+  if (!selection) {
+    return (
       <Pressable onPress={onPress}>
-        { expansion ?
+        {expansion ? (
           <View style={styles.addition}>
             <Pressable>
-              <Image source={require('../../../assets/icons/album_add.png')} contentFit='cover' style={styles.icon1} />
+              <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
-            <Pressable>
-              <Image source={require('../../../assets/icons/camera_add.png')} contentFit='cover' style={styles.icon2} />
+            <Pressable onPress={takeImageHandler}>
+              <Image source={require('../../../assets/icons/camera_add.png')} contentFit="cover" style={styles.icon2} />
             </Pressable>
           </View>
-          :
-          undefined
-        }
+        ) : undefined}
         <Animated.View style={imageStyles}>
           <Image source={require('../../../assets/icons/function_add_btn.png')} style={styles.imageStyle} />
         </Animated.View>
@@ -53,9 +58,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  imageStyle:{
-    width: 55, 
-    height: 55
+  imageStyle: {
+    width: 55,
+    height: 55,
   },
   addition: {
     position: 'absolute',
@@ -68,14 +73,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingTop: 27,
     alignItems: 'center',
-    gap: 30
+    gap: 30,
   },
   icon1: {
     width: 30,
-    height: 30
+    height: 30,
   },
   icon2: {
     width: 30,
     height: 23,
-  }
+  },
 });

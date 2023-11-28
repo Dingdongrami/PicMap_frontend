@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   albumContainer: {
+    width: '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
   imageContainer: {
     position: 'relative',
@@ -21,8 +22,9 @@ export const styles = StyleSheet.create({
     // marginVertical: 2,
   },
   imageIcon: {
-    width: 45,
-    height: 31,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   imageCon4check: {
     flex: 1,

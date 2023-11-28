@@ -15,6 +15,7 @@ import useCamera from '../../hooks/useCamera';
 import useMediaLibrary from '../../hooks/useMediaLibrary';
 
 const CircleCreate = () => {
+  const navigation = useNavigation();
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: createCircle,
@@ -25,18 +26,18 @@ const CircleCreate = () => {
   const [newCircle, setNewCircle] = useRecoilState(newCircleState);
   const [isModalVisible, setModalVisible] = useState(false);
 
+  // 써클 썸네일 업로드를 위한 함수
   const { selectImageHandler } = useMediaLibrary(onImageCaptured);
   const { takeImageHandler } = useCamera(onImageCaptured);
 
-  const navigation = useNavigation();
-
-  const onImageCaptured = uri => {
-    setNewCircle({ ...newCircle, image: uri });
+  // 이미지 캡쳐가 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
+  function onImageCaptured(uri) {
+    setNewCircle({ ...newCircle, thumbnail: uri });
     setModalVisible(!isModalVisible);
-  };
+  }
 
   const onDeleteThumbnail = () => {
-    setNewCircle({ ...newCircle, image: null });
+    setNewCircle({ ...newCircle, thumbnail: null });
     setModalVisible(!isModalVisible);
   };
 
@@ -91,8 +92,8 @@ const CircleCreate = () => {
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
-      {newCircle.image ? (
-        <Image source={newCircle.image} style={[styles.image, { borderRadius: 20 }]} contentFit="cover" />
+      {newCircle.thumbnail ? (
+        <Image source={newCircle.thumbnail} style={[styles.image, { borderRadius: 20 }]} contentFit="cover" />
       ) : (
         <View style={[styles.noImageWrapper, { borderRadius: 20 }]}>
           <Image

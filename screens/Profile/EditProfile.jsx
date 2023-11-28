@@ -19,21 +19,20 @@ import useMediaLibrary from '../../hooks/useMediaLibrary';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
-  // Profile image is now a local state
-  const [profileImage, setProfileImage] = useState(user.profileImage);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  // Combine permission states into one state object
+  // 써클 썸네일 업로드를 위한 함수
   const { selectImageHandler } = useMediaLibrary(onImageCaptured);
   const { takeImageHandler } = useCamera(onImageCaptured);
 
-  const onImageCaptured = uri => {
-    setProfileImage(uri);
+  // 이미지 캡쳐가 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
+  function onImageCaptured(uri) {
+    setUser({ ...user, profile: uri });
     setModalVisible(!isModalVisible);
-  };
+  }
 
   const onDeleteImage = useCallback(() => {
-    setProfileImage(null); // Update local state
+    setUser({ ...user, profile: null });
     setModalVisible(false);
   }, []);
 
@@ -42,12 +41,12 @@ export const EditProfile = ({ navigation }) => {
   }, [isModalVisible]);
 
   const onPressConfirm = useCallback(() => {
-    setUser({ ...user, profileImage }); // Update Recoil state with new profile image
+    setUser(user);
     navigation.goBack();
-  }, [user, profileImage, setUser, navigation]);
+  }, [user, user.profile, setUser, navigation]);
 
   const onPressCancel = useCallback(() => {
-    setProfileImage(user.profileImage); // Reset local state to initial Recoil state
+    setUser({ ...user, profile: null });
     navigation.goBack();
   }, [user, navigation]);
 
@@ -91,8 +90,8 @@ export const EditProfile = ({ navigation }) => {
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
-      {profileImage ? (
-        <Image source={profileImage} style={styles.image} contentFit="cover" />
+      {user.profile ? (
+        <Image source={user.profile} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />

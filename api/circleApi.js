@@ -1,7 +1,7 @@
 import { circleInstance } from './instance';
 
 export const fetchCircle = async () => {
-  const { data } = await circleInstance.get(`/list/15`); // 15는 임시로 넣은 userId
+  const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
   return data;
 };
 
@@ -13,7 +13,8 @@ export const fetchPublicCircle = async () => {
 export const createCircle = async newCircleData => {
   try {
     const { data } = await circleInstance.post('/add-circle', {
-      userId: 15,
+      thumbnail: newCircleData.thumbnail,
+      userId: 17,
       name: newCircleData.name,
       description: newCircleData.description,
       status: newCircleData.public ? 'PUBLIC' : 'PRIVATE',

@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -7,17 +7,28 @@ import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../c
 import { FlatList } from 'react-native-gesture-handler';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
+import { photoInstance } from '../../../api/instance';
 
 export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
+  const [photos, setPhotos] = useState([]);
+
   //써클의 id값 찾아내기
   const { itemId } = route.params;
   const album = Array(90).fill();
   const groupedData = album.map((item, index) => ({
     id: index,
   }));
+
+  const getPhotos = async () => {
+    //써클의 사진들을 가져오는 함수
+    const response = await photoInstance.get(`get/circle/${itemId}`);
+    console.log(response.data);
+    setPhotos(response.data);
+  };
+
   const handleScroll = e => {
     //스크롤 위치를 확인
     const yOffset = e.nativeEvent.contentOffset.y;
@@ -28,20 +39,29 @@ export const SingleCircle = ({ route }) => {
     }
   };
 
+  const renderItem = ({ item, index }) => (
+    <View style={{ flex: 0.33 }}>
+      <SinglePhotoIcon item={item} />
+    </View>
+  );
+
+  useEffect(() => {
+    getPhotos();
+  }, []);
+
   if (!isReady) {
     return <SplashUI />;
   } else {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
         <FlatList
-          data={groupedData}
+          data={photos}
           numColumns={3}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.photoId}
           ListHeaderComponent={HeaderComponent}
           onScroll={handleScroll}
           scrollEventThrottle={16}
-          //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-          renderItem={({ item }) => <SinglePhotoIcon index={item.id} />}
+          renderItem={renderItem}
         />
         <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
       </View>

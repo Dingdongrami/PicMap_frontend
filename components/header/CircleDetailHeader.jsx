@@ -24,8 +24,8 @@ const CircleDetailHeader = ({ onPress }) => {
           <FontAwesome name="globe" size={26} color={'#44403C'} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-          {user?.profileImage ? (
-            <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
+          {user.profile ? (
+            <Image source={user.profile} style={styles.image} contentFit="cover" />
           ) : (
             <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={24} color={'#44403C'} />
           )}

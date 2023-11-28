@@ -1,4 +1,5 @@
 import { useCameraPermissions, PermissionStatus, launchCameraAsync } from 'expo-image-picker';
+import { Alert } from 'react-native';
 
 const useCamera = onImageCaptured => {
   const [cameraPermissionInformation, requestCameraPermission] = useCameraPermissions(); // 카메라 접근 권한

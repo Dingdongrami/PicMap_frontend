@@ -22,7 +22,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
   return (
     <View style={styles.profileContainer}>
       {user.profileImage ? (
-        <Image source={user?.profileImage} style={styles.image} contentFit="cover" />
+        <Image source={user.profile} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
