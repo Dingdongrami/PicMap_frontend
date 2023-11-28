@@ -14,74 +14,30 @@ import {
   launchImageLibraryAsync,
 } from 'expo-image-picker';
 import Checkbox from 'expo-checkbox';
+import useCamera from '../../hooks/useCamera';
+import useMediaLibrary from '../../hooks/useMediaLibrary';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
   // Profile image is now a local state
   const [profileImage, setProfileImage] = useState(user.profileImage);
-
   const [isModalVisible, setModalVisible] = useState(false);
 
   // Combine permission states into one state object
-  const [imagePermission, requestImagePermission] = useMediaLibraryPermissions();
-  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const { selectImageHandler } = useMediaLibrary(onImageCaptured);
+  const { takeImageHandler } = useCamera(onImageCaptured);
 
-  // Combine permission checks into one function
-  async function verifyPermissions(permissionInfo, requestPermissionFunc) {
-    if (permissionInfo.status !== PermissionStatus.GRANTED) {
-      const permissionResponse = await requestPermissionFunc();
-      if (permissionResponse.status === PermissionStatus.DENIED) {
-        Alert.alert('권한이 필요합니다.', '설정에서 권한을 허용해주세요.', [
-          { text: '취소', style: 'cancel' },
-          { text: '설정으로 이동', onPress: () => Linking.openSettings() },
-        ]);
-      }
-      return permissionResponse.granted;
-    }
-    return true;
-  }
+  const onImageCaptured = uri => {
+    setProfileImage(uri);
+    setModalVisible(!isModalVisible);
+  };
 
-  // Refactor image selection to use local state and then update Recoil on confirm
-  async function selectImageHandler() {
-    const hasPermission = await verifyPermissions(imagePermission, requestImagePermission);
-    if (!hasPermission) return;
-
-    const image = await launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-    });
-
-    if (!image.canceled) {
-      setProfileImage(image.assets[0].uri); // Update local state with image uri from assets array
-      setModalVisible(false);
-    }
-  }
-
-  // Refactor camera usage to use local state and then update Recoil on confirm
-  async function takeImageHandler() {
-    const hasPermission = await verifyPermissions(cameraPermission, requestCameraPermission);
-    if (!hasPermission) return;
-
-    const image = await launchCameraAsync({
-      allowsEditing: true,
-      aspect: [1, 1], // Adjust the aspect ratio if needed
-      quality: 0.5,
-    });
-
-    if (!image.canceled) {
-      setProfileImage(image.assets[0].uri); // Update local state with image uri from assets array
-      setModalVisible(false);
-    }
-  }
-
-  const deleteImageHandler = useCallback(() => {
+  const onDeleteImage = useCallback(() => {
     setProfileImage(null); // Update local state
     setModalVisible(false);
   }, []);
 
-  const toggleModal = useCallback(() => {
+  const onToggleModal = useCallback(() => {
     setModalVisible(!isModalVisible);
   }, [isModalVisible]);
 
@@ -123,10 +79,10 @@ export const EditProfile = ({ navigation }) => {
         icon: require('../../assets/icons/trash.png'),
         iconStyle: styles.trash,
         textStyle: { color: '#E53A40' }, // 빨간색 텍스트
-        onPress: deleteImageHandler,
+        onPress: onDeleteImage,
       },
     ],
-    [selectImageHandler, takeImageHandler, deleteImageHandler],
+    [selectImageHandler, takeImageHandler, onDeleteImage],
   );
 
   return (
@@ -134,7 +90,7 @@ export const EditProfile = ({ navigation }) => {
       style={{ flex: 1, backgroundColor: '#FFF' }}
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
-      <BottomModal isModalVisible={isModalVisible} toggleModal={toggleModal} buttons={editButtons} />
+      <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
       {profileImage ? (
         <Image source={profileImage} style={styles.image} contentFit="cover" />
       ) : (
@@ -142,7 +98,7 @@ export const EditProfile = ({ navigation }) => {
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
         </View>
       )}
-      <Pressable style={styles.pinkButton} onPress={toggleModal}>
+      <Pressable style={styles.pinkButton} onPress={onToggleModal}>
         <Text style={styles.buttonText}>프로필 편집</Text>
       </Pressable>
       <Pressable onPress={onPressEditUsername}>
