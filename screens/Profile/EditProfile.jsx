@@ -5,14 +5,6 @@ import { styles } from './styles';
 import { BottomModal } from '../../components/Modal';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../stores/user-store';
-import {
-  launchCameraAsync,
-  useCameraPermissions,
-  PermissionStatus,
-  useMediaLibraryPermissions,
-  MediaTypeOptions,
-  launchImageLibraryAsync,
-} from 'expo-image-picker';
 import Checkbox from 'expo-checkbox';
 import useCamera from '../../hooks/useCamera';
 import useMediaLibrary from '../../hooks/useMediaLibrary';
@@ -46,13 +38,14 @@ export const EditProfile = ({ navigation }) => {
   }, [user, user.profile, setUser, navigation]);
 
   const onPressCancel = useCallback(() => {
-    setUser({ ...user, profile: null });
+    setUser(user); // API 연동 후 수정
     navigation.goBack();
   }, [user, navigation]);
 
   const onPressEditUsername = () => {
     navigation.navigate('EditUsername');
   };
+
   const onPressEditIntroduction = () => {
     navigation.navigate('EditIntroduction');
   };

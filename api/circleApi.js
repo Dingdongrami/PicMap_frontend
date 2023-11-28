@@ -12,13 +12,28 @@ export const fetchPublicCircle = async () => {
 
 export const createCircle = async newCircleData => {
   try {
-    const { data } = await circleInstance.post('/add-circle', {
-      thumbnail: newCircleData.thumbnail,
+    const formData = new FormData();
+
+    // JSON 데이터 준비
+    const jsonData = JSON.stringify({
       userId: 17,
       name: newCircleData.name,
       description: newCircleData.description,
       status: newCircleData.public ? 'PUBLIC' : 'PRIVATE',
     });
+
+    // thumbnail 파일 추가
+    // newCircleData.thumbnail은 파일의 로컬 경로
+    formData.append('thumbnail', {
+      uri: newCircleData.thumbnail,
+      type: 'image/jpeg', // MIME 타입은 파일에 맞게 설정
+      name: 'thumbnail.jpg', // 파일 이름 설정
+    });
+
+    // JSON 데이터 추가
+    formData.append('jsonData', jsonData);
+
+    const { data } = await circleInstance.post('/add-circle', formData);
     console.log(data);
     return data;
   } catch (error) {

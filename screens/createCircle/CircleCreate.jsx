@@ -46,10 +46,11 @@ const CircleCreate = () => {
   };
   const onPressConfirm = () => {
     mutate(newCircle);
+    setNewCircle({ name: '', description: '', public: true, image: null });
     navigation.goBack();
   };
   const onPressCancel = () => {
-    setNewCircle(prev => ({ name: '', description: '', public: true, image: null }));
+    setNewCircle({ name: '', description: '', public: true, image: null });
     navigation.goBack();
   };
   const onPressCircleName = () => {
