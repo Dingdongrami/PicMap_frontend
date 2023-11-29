@@ -39,7 +39,7 @@ export const SinglePhotoIcon = ({ item }) => {
                   setCheckedPhotos(newCheckedPhotos);
                   console.log(itemIndex);
                 }}
-                color={checkedPhotos ? '#D6D3D1' : undefined}
+                color={checkedPhotos ? '#fff' : undefined}
                 style={styles.checkbox}
               />
             )}
