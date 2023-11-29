@@ -5,7 +5,7 @@ export const INIT = {
   longitudeDelta: 0.0421,
 };
 
-export const examples = [
+export const locs = [
   {
     id: 1,
     coordinate: {
@@ -14,7 +14,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex1.png')
+    thumbnail: require('../../../assets/example/ex1.png'),
   },
   {
     id:1,
@@ -24,7 +24,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,        
     },
-    source: require('../../../assets/example/ex2.png')
+    thumbnail: require('../../../assets/example/ex2.png'),
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex3.png') 
+    thumbnail: require('../../../assets/example/ex3.png'),
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,        
     },
-    source:  require('../../../assets/example/ex4.png')
+    thumbnail:  require('../../../assets/example/ex4.png'),
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex5.png')
+    thumbnail: require('../../../assets/example/ex5.png'),
   },
   {
     id: 6,
@@ -64,7 +64,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex6.png')
+    thumbnail: require('../../../assets/example/ex6.png'),
   },
   {
     id: 7,
@@ -74,7 +74,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex7.png')
+    thumbnail: require('../../../assets/example/ex7.png'),
   },
   {
     id: 8,
@@ -84,7 +84,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex8.png')
+    thumbnail: require('../../../assets/example/ex8.png'),
   },
   {
     id: 9,
@@ -94,7 +94,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex9.png')
+    thumbnail: require('../../../assets/example/ex9.png'),
   },
   {
     id: 10,
@@ -104,6 +104,6 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex10.png')
+    thumbnail: require('../../../assets/example/ex10.png'),
   },
 ];

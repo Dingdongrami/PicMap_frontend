@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Marker } from 'react-native-maps';
-import { examples } from './examples';
-import { INIT } from './examples';
+import { INIT, locs } from './examples';
 import { styles } from './styles';
 
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
 
-const getRandomLatitude = (min = 48, max = 56) => {
-  return Math.random() * (max - min) + min
-}
+// const getRandomLatitude = (min = 48, max = 56) => {
+//   return Math.random() * (max - min) + min
+// }
 
-const getRandomLongitude = (min = 14, max = 24) => {
-  return Math.random() * (max - min) + min
-}
+// const getRandomLongitude = (min = 14, max = 24) => {
+//   return Math.random() * (max - min) + min
+// }
 
 const getZoomFromRegion = (region) => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
@@ -31,13 +30,15 @@ export const Map = () => {
   const generateMarkers = useCallback((lat, long) => {
     const markersArray = [];
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < locs.length; i++) {
       markersArray.push({
         id: i,
-        // latitude: examples[i].coordinate.latitude,
-        // longitude: examples[i].coordinate.longitude
-        latitude: getRandomLatitude(lat - 0.3, lat + 0.3),
-        longitude: getRandomLongitude(long - 0.3, long + 0.3),
+        latitude: locs[i].coordinate.latitude,
+        longitude: locs[i].coordinate.longitude,
+        thumbnail: locs[i].thumbnail,
+        count: locs[i].count
+        // latitude: getRandomLatitude(lat - 0.3, lat + 0.3),
+        // longitude: getRandomLongitude(long - 0.3, long + 0.3),
       });
     }
 
@@ -53,15 +54,15 @@ export const Map = () => {
     generateMarkers(region.latitude, region.longitude)
   }, [])
 
-  const markerIcon = (
-    <View style={{ backgroundColor: '#00B386', borderRadius: 50, padding: 5 }}>
-      {/* 원하는 아이콘 혹은 이미지 */}
-      <Image 
-        source={require('../../../assets/example/ex2.png')}
-        style={{width: 25, height: 25}}
-      />
-    </View>
-  );
+  // const markerIcon = (
+  //   <View style={{ backgroundColor: '#00B386', borderRadius: 50, padding: 5 }}>
+  //     {/* 원하는 아이콘 혹은 이미지 */}
+  //     <Image 
+  //       source={require('../../../assets/example/ex2.png')}
+  //       style={{width: 25, height: 25}}
+  //     />
+  //   </View>
+  // );
 
   return (
     <View style={styles.container}>
@@ -81,7 +82,16 @@ export const Map = () => {
               latitude: item.latitude,
               longitude: item.longitude,
             }}
-          />
+          >
+            <Image 
+            source={item.thumbnail}
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 10
+            }}
+            />
+          </Marker>
         ))}
       </ClusteredMapView>
     </View>
