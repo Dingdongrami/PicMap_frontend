@@ -7,17 +7,17 @@ import { userState } from '../../../stores/user-store';
 import { splashState } from '../../../stores/splash-store';
 
 export const SplashUI = ({ route }) => {
-  const [ isReady, setIsReady ] = useRecoilState(splashState);
+  const [isReady, setIsReady] = useRecoilState(splashState);
   const navigation = useNavigation();
   const [user, setUser] = useRecoilState(userState);
-  const { itemId } = route.params;
+  const { circleId } = route.params;
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('SingleCircle', { itemId });
+      navigation.navigate('SingleCircle', { circleId });
       setIsReady(true);
     }, 3000);
   }, []);
-  
+
   //써클 참여자 더미데이터
   //여기서 써클 참여자라도 API 받아오는게 편리하지 않을까?
   const persons = [
@@ -31,21 +31,21 @@ export const SplashUI = ({ route }) => {
     { id: 8, name: '허' },
     { id: 9, name: '장' },
   ];
-  const displayPerson = persons.slice(0,4);
+  const displayPerson = persons.slice(0, 4);
   const countOther = persons.length - 1;
 
-  const ListPersons = ({item}) => {
-    return(
+  const ListPersons = ({ item }) => {
+    return (
       <View style={styles.personCircle}>
         <Text>{item.name}</Text>
       </View>
     );
   };
 
-  return(
+  return (
     <View style={styles.splashContainer}>
       <View style={styles.memberContainer}>
-        <FlatList 
+        <FlatList
           data={displayPerson}
           renderItem={({ item }) => <ListPersons item={item} />}
           keyExtractor={(item, index) => index.toString()}
@@ -53,7 +53,9 @@ export const SplashUI = ({ route }) => {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      <Text style={styles.splashText}>{user.username}님 외 {countOther}명이 있습니다.</Text>
+      <Text style={styles.splashText}>
+        {user.username}님 외 {countOther}명이 있습니다.
+      </Text>
       {/*애니메이션 추가 구현 필요 */}
       <Image source={require('../../../assets/icons/loading.png')} style={styles.splashImage} />
     </View>

@@ -30,7 +30,7 @@ const useCamera = onImageCaptured => {
       }
 
       const image = await launchCameraAsync({
-        allowsEditing: true,
+        // allowsEditing: true,
         aspect: [16, 9],
         quality: 0.5,
         exif: true,
@@ -38,6 +38,7 @@ const useCamera = onImageCaptured => {
       if (!image.canceled) {
         // 이미지가 취소되지 않았다면 실행할 코드
         onImageCaptured(image.assets[0].uri);
+        // console.log(image);
         // setNewCircle({ ...newCircle, image: image.assets[0].uri });
         // setModalVisible(!isModalVisible);
       }

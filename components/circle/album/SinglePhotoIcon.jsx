@@ -8,13 +8,13 @@ import { useRecoilState } from 'recoil';
 import { Image } from 'expo-image';
 import { s3BaseUrl } from '../../../constants/config';
 
-export const SinglePhotoIcon = ({ item }) => {
+export const SinglePhotoIcon = ({ photo }) => {
   const [selection, setSelection] = useRecoilState(selectState);
   const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
 
   const clickPhoto = item => {
-    navigation.navigate('PhotoCom', { photoId: item });
+    navigation.navigate('PhotoCom', { photoId: photo.id });
   };
   // selection이 false가 되면 checkedPhotos를 초기화
   useEffect(() => {
@@ -23,16 +23,18 @@ export const SinglePhotoIcon = ({ item }) => {
     }
   }, [selection]);
 
+  // console.log(photo);
+
   return (
     <View style={styles.albumContainer}>
       <View style={styles.photoRow}>
-        <Pressable onPress={() => clickPhoto(item.photoId)}>
+        <Pressable onPress={() => clickPhoto(photo.id)}>
           <View style={styles.imageContainer}>
             {selection && (
               <Checkbox
-                value={checkedPhotos[item.photoId]}
+                value={checkedPhotos[photo.id]}
                 onValueChange={() => {
-                  const itemIndex = item.photoId;
+                  const itemIndex = photo.id;
                   const newCheckedPhotos = [...checkedPhotos];
                   newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
                   setCheckedPhotos(newCheckedPhotos);
@@ -42,7 +44,7 @@ export const SinglePhotoIcon = ({ item }) => {
                 style={styles.checkbox}
               />
             )}
-            <Image source={s3BaseUrl + item.filePath} style={styles.imageIcon} />
+            <Image source={s3BaseUrl + photo.filePath} style={styles.imageIcon} />
           </View>
         </Pressable>
       </View>

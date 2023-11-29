@@ -17,7 +17,7 @@ export const Circle = () => {
 
   const renderItem = ({ item, index }) => (
     <View style={{ flex: 0.5 }}>
-      <CircleRoom item={item} />
+      <CircleRoom circle={item} />
     </View>
   );
 

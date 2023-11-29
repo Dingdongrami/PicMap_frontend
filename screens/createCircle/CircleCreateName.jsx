@@ -42,7 +42,7 @@ const CircleCreateName = ({ navigation }) => {
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="써클 이름"
-        maxLength={10}
+        maxLength={15}
       />
       <Pressable style={styles.saveButton} onPress={onPressConfirm}>
         <Text style={styles.label}>완료</Text>
