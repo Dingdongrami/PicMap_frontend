@@ -2,22 +2,19 @@ export const getPhotoBorderStyle = index => {
   switch (index) {
     case 0:
       return {
-        borderBottomColor: '#D6D3D1',
-        borderBottomWidth: 0.5,
-        borderRightColor: '#D6D3D1',
-        borderRightWidth: 0.5,
+        borderTopLeftRadius: 20,
       };
     case 1:
       return {
-        borderBottomColor: '#D6D3D1',
-        borderBottomWidth: 0.5,
+        borderTopRightRadius: 20,
       };
     case 2:
       return {
-        borderRightColor: '#D6D3D1',
-        borderRightWidth: 0.5,
+        borderBottomLeftRadius: 20,
       };
-    default:
-      return {};
+    case 3:
+      return {
+        borderBottomRightRadius: 20,
+      };
   }
 };

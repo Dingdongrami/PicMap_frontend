@@ -8,26 +8,18 @@ import { FlatList } from 'react-native-gesture-handler';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 import { photoInstance } from '../../../api/instance';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPhotos } from '../../../api/circleApi';
 
 export const SingleCircle = ({ route }) => {
+  const { itemId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
-  const [photos, setPhotos] = useState([]);
-
-  //써클의 id값 찾아내기
-  const { itemId } = route.params;
-  const album = Array(90).fill();
-  const groupedData = album.map((item, index) => ({
-    id: index,
-  }));
-
-  const getPhotos = async () => {
-    //써클의 사진들을 가져오는 함수
-    const response = await photoInstance.get(`get/circle/${itemId}`);
-    console.log(response.data);
-    setPhotos(response.data);
-  };
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['photo'],
+    queryFn: () => fetchPhotos(itemId),
+  });
 
   const handleScroll = e => {
     //스크롤 위치를 확인
@@ -45,17 +37,14 @@ export const SingleCircle = ({ route }) => {
     </View>
   );
 
-  useEffect(() => {
-    getPhotos();
-  }, []);
-
+  console.log('data', data);
   if (!isReady) {
     return <SplashUI />;
   } else {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
         <FlatList
-          data={photos}
+          data={data}
           numColumns={3}
           keyExtractor={item => item.photoId}
           ListHeaderComponent={HeaderComponent}
