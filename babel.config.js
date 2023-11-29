@@ -16,6 +16,10 @@ module.exports = function (api) {
             '#constants': './constants',
           },
         },
+        '@babel/plugin-transform-react-jsx',
+        {
+          runtime: 'automatic',
+        },
       ],
       'react-native-reanimated/plugin',
       require.resolve('expo-router/babel'),
