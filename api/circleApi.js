@@ -1,7 +1,7 @@
-import { circleInstance } from './instance';
+import { circleInstance, photoInstance } from './instance';
 
 export const fetchCircle = async () => {
-  const { data } = await circleInstance.get(`/list/15`); // 15는 임시로 넣은 userId
+  const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
   return data;
 };
 
@@ -10,14 +10,36 @@ export const fetchPublicCircle = async () => {
   return data;
 };
 
+export const fetchPhotos = async circleId => {
+  //써클의 사진들을 가져오는 함수
+  const { data } = await photoInstance.get(`get/circle/${circleId}`);
+  return data;
+};
+
 export const createCircle = async newCircleData => {
   try {
-    const { data } = await circleInstance.post('/add-circle', {
-      userId: 15,
+    const formData = new FormData();
+
+    // JSON 데이터 준비
+    const jsonData = JSON.stringify({
+      userId: 17,
       name: newCircleData.name,
       description: newCircleData.description,
       status: newCircleData.public ? 'PUBLIC' : 'PRIVATE',
     });
+
+    // thumbnail 파일 추가
+    // newCircleData.thumbnail은 파일의 로컬 경로
+    formData.append('thumbnail', {
+      uri: newCircleData.thumbnail,
+      type: 'image/jpeg', // MIME 타입은 파일에 맞게 설정
+      name: 'thumbnail.jpg', // 파일 이름 설정
+    });
+
+    // JSON 데이터 추가
+    formData.append('jsonData', jsonData);
+
+    const { data } = await circleInstance.post('/add-circle', formData);
     console.log(data);
     return data;
   } catch (error) {

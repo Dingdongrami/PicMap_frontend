@@ -1,21 +1,44 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { styles } from './styles';
 import { getPhotoBorderStyle } from '../../utils/getPhotoBorderStyles';
+import { Image } from 'expo-image';
+import { s3BaseUrl } from '../../constants/config';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPhotos } from '../../api/circleApi';
 
 const CirclePost = ({ item }) => {
+  const circleId = item.id;
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['circlePost', circleId],
+    queryFn: () => fetchPhotos(circleId),
+  });
+
+  if (isLoading) {
+    return <Text>Loading...</Text>; // Or any other loading indicator
+  }
+
+  if (isError) {
+    return <Text>Error fetching data</Text>; // Or any error indicator
+  }
+
   return (
-    <View style={styles.circle}>
-      <View style={styles.circleName}>
-        <Text style={styles.circleNameText}>{item.name}</Text>
-      </View>
-      <View style={styles.photoContainer}>
-        {Array(4)
-          .fill(null)
-          .map((_, index) => (
-            <View key={index} style={[styles.photo, getPhotoBorderStyle(index)]}></View>
+    data?.length > 3 && (
+      <>
+        <View style={styles.circle}>
+          {data.slice(0, 4).map((photo, index) => (
+            <View key={index} style={styles.photoWrapper}>
+              <Image
+                style={[styles.photo, getPhotoBorderStyle(index)]}
+                source={{ uri: s3BaseUrl + photo.filePath }}
+                resizeMode="cover"
+              />
+            </View>
           ))}
-      </View>
-    </View>
+        </View>
+        <Text style={styles.circleNameText}>{item.name}</Text>
+      </>
+    )
   );
 };
 

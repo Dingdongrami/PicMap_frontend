@@ -2,14 +2,14 @@ import { Image, Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
 
-export const BottomModal = ({ isModalVisible, toggleModal, buttons }) => {
+export const BottomModal = ({ isModalVisible, onToggleModal, buttons }) => {
   return (
     <Modal
       isVisible={isModalVisible}
       style={styles.modal}
-      onSwipeComplete={toggleModal}
+      onSwipeComplete={onToggleModal}
       swipeDirection={'down'}
-      onBackdropPress={toggleModal}>
+      onBackdropPress={onToggleModal}>
       <View style={styles.modalContainer}>
         <View style={styles.modalLine} />
         <View style={styles.modalButtonContainer}>

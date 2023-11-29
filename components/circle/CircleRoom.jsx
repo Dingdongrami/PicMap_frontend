@@ -7,8 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { Image } from 'expo-image';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
-import { data } from '../../data/circle-dummy';
 import CustomToast from '../CustomToast';
+import { s3BaseUrl } from '../../constants/config';
 
 export const CircleRoom = ({ item }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
@@ -34,6 +34,7 @@ export const CircleRoom = ({ item }) => {
 
   //각 써클로 접속하는 함수
   const enterCircle = () => {
+    console.log(item.id);
     return navigation.navigate('SplashUI', { itemId: item.id });
   };
 
@@ -47,6 +48,8 @@ export const CircleRoom = ({ item }) => {
     setShowToast(true);
   };
 
+  // console.log(s3Url + item.thumbnail);
+
   return (
     <>
       <Modal
@@ -57,8 +60,8 @@ export const CircleRoom = ({ item }) => {
         onBackdropPress={toggleModal}>
         <View style={modalStyles.modalContainer}>
           <View style={modalStyles.modalLine} />
-          {item?.image ? (
-            <Image style={modalStyles.circleImage} source={item?.image} />
+          {item.image ? (
+            <Image style={modalStyles.circleImage} source={item.image} />
           ) : (
             <View style={modalStyles.circleNoImageWrapper}>
               <Image style={modalStyles.circleNoImage} source={require('../../assets/icons/image.png')} />
@@ -78,16 +81,9 @@ export const CircleRoom = ({ item }) => {
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
       <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
-        {/* {imagesArray.map((item, index) =>(
-          <Image key={index} style={styles.circlePhoto} source={imagesArray[index]} ContentFit="cover" />
-          )
-        )} */}
-
-        {item ? (
-          // <Image style={styles.circlePhoto} source={item?.imagesArray.source} ContentFit="cover" />
-          <Image style={styles.circlePhoto} source={ require('../../assets/example/ex12.png')} ContentFit="cover" />
-
-          ) : (
+        {item.thumbnail ? (
+          <Image style={styles.circlePhoto} source={s3BaseUrl + item.thumbnail} ContentFit="cover" />
+        ) : (
           <View style={styles.noImageWrapper}>
             <Image style={styles.noImage} source={require('../../assets/icons/image.png')} />
           </View>

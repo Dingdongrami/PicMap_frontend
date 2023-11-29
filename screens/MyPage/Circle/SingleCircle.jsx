@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -7,53 +7,19 @@ import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../c
 import { FlatList } from 'react-native-gesture-handler';
 import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
+import { photoInstance } from '../../../api/instance';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPhotos } from '../../../api/circleApi';
 
 export const SingleCircle = ({ route }) => {
+  const { itemId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
-  const [currentPhoto, setCurrentPhoto] = useState([
-    {id: 0, source: ""}
-  ]);
-  //써클의 id값 찾아내기
-  const { itemId } = route.params;
-  const album = Array(90).fill();
-  const groupedData = album.map((item, index) => ({
-    id: index,
-  }));
-  const keyExtractor = (groupedData) => String(groupedData.id);
-  // const imagesArray = [];
-
-  // const assetImages = useCallback(() => {
-  //   // const imagesArray = [];
-  //   for(let index=0; index<30; index++){
-  //     imagesArray.push({
-  //       id: index,
-  //       source: `../../../assets/example/ex${index+1}.png`
-  //     });
-  //   }
-  //   setCurrentPhoto(imagesArray);
-  // }, []);
-
-  // useEffect(() => {
-  //   assetImages();
-  //   // console.log(JSON.stringify(currentPhoto.source));
-  //   console.log(currentPhoto);
-  // }, []);
-  const imagesArray = [
-    { id: 0, source: require('../../../assets/example/ex1.png') },
-    { id: 1, source: require('../../../assets/example/ex2.png') },
-    { id: 2, source: require('../../../assets/example/ex3.png') },
-    { id: 3, source: require('../../../assets/example/ex4.png') },
-    { id: 4, source: require('../../../assets/example/ex5.png') },
-    { id: 5, source: require('../../../assets/example/ex6.png') },
-    { id: 6, source: require('../../../assets/example/ex7.png') },
-    { id: 7, source: require('../../../assets/example/ex8.png') },
-    { id: 8, source: require('../../../assets/example/ex9.png') },
-    { id: 9, source: require('../../../assets/example/ex10.png') },
-    { id: 10, source: require('../../../assets/example/ex11.png') },
-    { id: 11, source: require('../../../assets/example/ex12.png') },
-  ]
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['photo'],
+    queryFn: () => fetchPhotos(itemId),
+  });
 
   const handleScroll = e => {
     //스크롤 위치를 확인
@@ -65,21 +31,27 @@ export const SingleCircle = ({ route }) => {
     }
   };
 
+  const renderItem = ({ item, index }) => (
+    <View style={{ flex: 0.33 }}>
+      <SinglePhotoIcon item={item} />
+    </View>
+  );
+
+  console.log('data', data);
   if (!isReady) {
     return <SplashUI />;
   } else {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
         <FlatList
-          data={imagesArray}
+          data={data}
           numColumns={3}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.photoId}
           ListHeaderComponent={HeaderComponent}
           onScroll={handleScroll}
           scrollEventThrottle={16}
-          //만약 실제이미지가 데이터에 존재하면 바뀌게 될 함수
-          // renderItem={({item})=><SinglePhotoIcon index={item.id}/>}
-          renderItem={({item})=><SinglePhotoIcon index={item.id} photo={item}/>}
+          renderItem={renderItem}
+          ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
         />
         <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
       </View>
@@ -112,7 +84,7 @@ const HeaderComponent = () => {
     },
   ]);
   return (
-    <View>
+    <View style={{ marginBottom: 5 }}>
       <View style={styles.personBox}>
         <OthersProfile />
       </View>
