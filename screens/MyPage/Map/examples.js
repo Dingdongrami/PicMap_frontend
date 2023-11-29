@@ -1,8 +1,8 @@
 export const INIT = {
   latitude: 37.580112,
   longitude: 126.977166,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
+  latitudeDelta: 1.5,
+  longitudeDelta: 1.5,
 };
 
 export const locs = [
@@ -49,7 +49,7 @@ export const locs = [
   {
     id: 5,
     coordinate: {
-      latitude: 35.58102,
+      latitude: 33.58102,
       longitude: 126.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
@@ -59,8 +59,8 @@ export const locs = [
   {
     id: 6,
     coordinate: {
-      latitude: 35.58102,
-      longitude: 126.977166,
+      latitude: 35.52,
+      longitude: 124.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
@@ -69,7 +69,7 @@ export const locs = [
   {
     id: 7,
     coordinate: {
-      latitude: 35.58102,
+      latitude: 33.58102,
       longitude: 126.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
@@ -79,8 +79,8 @@ export const locs = [
   {
     id: 8,
     coordinate: {
-      latitude: 35.58102,
-      longitude: 126.977166,
+      latitude: 35.28102,
+      longitude: 123.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
@@ -89,8 +89,8 @@ export const locs = [
   {
     id: 9,
     coordinate: {
-      latitude: 35.58102,
-      longitude: 126.977166,
+      latitude: 34.58102,
+      longitude: 126.6,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
@@ -99,8 +99,8 @@ export const locs = [
   {
     id: 10,
     coordinate: {
-      latitude: 35.58102,
-      longitude: 126.977166,
+      latitude: 35.52,
+      longitude: 123.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
