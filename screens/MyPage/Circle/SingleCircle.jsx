@@ -9,7 +9,7 @@ import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 import { photoInstance } from '../../../api/instance';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPhotos } from '../../../api/circleApi';
+import { fetchPhotos } from '../../../api/photoApi';
 
 export const SingleCircle = ({ route }) => {
   const { itemId } = route.params; //써클의 id값 찾아내기

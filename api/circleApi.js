@@ -1,4 +1,4 @@
-import { circleInstance, photoInstance } from './instance';
+import { circleInstance } from './instance';
 
 export const fetchCircle = async () => {
   const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
@@ -7,12 +7,6 @@ export const fetchCircle = async () => {
 
 export const fetchPublicCircle = async () => {
   const { data } = await circleInstance.get('/public');
-  return data;
-};
-
-export const fetchPhotos = async circleId => {
-  //써클의 사진들을 가져오는 함수
-  const { data } = await photoInstance.get(`get/circle/${circleId}`);
   return data;
 };
 

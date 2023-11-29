@@ -14,8 +14,7 @@ export const SinglePhotoIcon = ({ item }) => {
   const navigation = useNavigation();
 
   const clickPhoto = item => {
-    console.log(item.photoId);
-    navigation.navigate('PhotoCom', { photoId: item.photoId });
+    navigation.navigate('PhotoCom', { photoId: item });
   };
   // selection이 false가 되면 checkedPhotos를 초기화
   useEffect(() => {

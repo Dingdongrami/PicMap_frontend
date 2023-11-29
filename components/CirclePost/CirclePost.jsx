@@ -4,7 +4,7 @@ import { getPhotoBorderStyle } from '../../utils/getPhotoBorderStyles';
 import { Image } from 'expo-image';
 import { s3BaseUrl } from '../../constants/config';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPhotos } from '../../api/circleApi';
+import { fetchPhotos } from '../../api/photoApi';
 
 const CirclePost = ({ item }) => {
   const circleId = item.id;
@@ -30,7 +30,7 @@ const CirclePost = ({ item }) => {
             <View key={index} style={styles.photoWrapper}>
               <Image
                 style={[styles.photo, getPhotoBorderStyle(index)]}
-                source={{ uri: s3BaseUrl + photo.filePath }}
+                source={s3BaseUrl + photo.filePath}
                 resizeMode="cover"
               />
             </View>
