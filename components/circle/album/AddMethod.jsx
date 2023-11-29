@@ -2,15 +2,26 @@ import { View, Pressable, StyleSheet, Image, Animated } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { selectState } from '../../../stores/circle-selection';
 import useCamera from '../../../hooks/useCamera';
+import { photoInstance } from '../../../api/instance';
+import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { uploadPhoto } from '../../../api/photoApi';
 
-export const AddMethod = ({ onPress, expansion }) => {
+export const AddMethod = ({ onPress, expansion, circleId }) => {
   const [selection] = useRecoilState(selectState);
   const imageStyles = [styles.overlay];
+  const queryClient = useQueryClient();
   const { takeImageHandler } = useCamera(onImageCaptured);
+  const { mutate } = useMutation({
+    mutationFn: args => uploadPhoto(args.photoUri, args.circleId),
+    onSuccess: data => {
+      queryClient.invalidateQueries('photo');
+    },
+  });
 
-  const onImageCaptured = uri => {
-    console.log(uri);
-  };
+  function onImageCaptured(uri) {
+    mutate({ photoUri: uri, circleId });
+  }
 
   if (expansion) {
     const animation = new Animated.Value(expansion ? 0 : 1);
@@ -28,8 +39,9 @@ export const AddMethod = ({ onPress, expansion }) => {
     const animatedStyles = { transform: [{ rotate: rotateInterPolate }] };
     imageStyles.push(animatedStyles);
   }
-  if (!selection) {
-    return (
+
+  return (
+    !selection && (
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>
@@ -45,8 +57,8 @@ export const AddMethod = ({ onPress, expansion }) => {
           <Image source={require('../../../assets/icons/function_add_btn.png')} style={styles.imageStyle} />
         </Animated.View>
       </Pressable>
-    );
-  }
+    )
+  );
 };
 
 const styles = StyleSheet.create({

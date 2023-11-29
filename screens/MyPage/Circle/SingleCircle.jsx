@@ -53,7 +53,7 @@ export const SingleCircle = ({ route }) => {
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
         />
-        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
+        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} circleId={itemId} />
       </View>
     );
   }
