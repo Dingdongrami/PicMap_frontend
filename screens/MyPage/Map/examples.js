@@ -17,7 +17,7 @@ export const locs = [
     thumbnail: require('../../../assets/example/ex1.png'),
   },
   {
-    id:1,
+    id:2,
     coordinate: {
       latitude: 36.680112,
       longitude: 128.66,
@@ -69,7 +69,7 @@ export const locs = [
   {
     id: 7,
     coordinate: {
-      latitude: 33.58102,
+      latitude: 33.5810,
       longitude: 126.977166,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,

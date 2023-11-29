@@ -25,9 +25,14 @@ export const Map = () => {
   const [markers, setMarkers] = useState([
     { id: 0, latitude: INIT.latitude, longitude: INIT.longitude },
   ])
-  const [region, setRegion] = useState(INIT);
+  const [region, setRegion] = useState({
+    latitude: INIT.latitude,
+    longitude: INIT.longitude,
+    latitudeDelta: INIT.latitudeDelta,
+    longitudeDelta: INIT.longitudeDelta
+  });
 
-  const generateMarkers = useCallback((lat, long) => {
+  const generateMarkers = useCallback(() => {
     const markersArray = [];
 
     for (let i = 0; i < locs.length; i++) {
@@ -42,7 +47,7 @@ export const Map = () => {
       });
     }
 
-    setMarkers(markersArray)
+    setMarkers(markersArray);
   }, [])
 
   const onRegionChangeComplete = (newRegion) => {
@@ -51,18 +56,8 @@ export const Map = () => {
   }
 
   useEffect(() => {
-    generateMarkers(region.latitude, region.longitude)
+    generateMarkers();
   }, [])
-
-  // const markerIcon = (
-  //   <View style={{ backgroundColor: '#00B386', borderRadius: 50, padding: 5 }}>
-  //     {/* 원하는 아이콘 혹은 이미지 */}
-  //     <Image 
-  //       source={require('../../../assets/example/ex2.png')}
-  //       style={{width: 25, height: 25}}
-  //     />
-  //   </View>
-  // );
 
   return (
     <View style={styles.container}>
@@ -75,25 +70,24 @@ export const Map = () => {
         onRegionChangeComplete={onRegionChangeComplete}>
         {markers.map((item) => (
           <Marker
-            // style={{backgroundColor: '#00B386'}}
-            image={()=>markerIcon}
-            key={item.id}
-            coordinate={{
-              latitude: item.latitude,
-              longitude: item.longitude,
-            }}
-          >
+          key={item.id}
+          coordinate={{
+            latitude: item.latitude,
+            longitude: item.longitude,
+          }}
+          tracksViewChanges={false}>
             <Image 
             source={item.thumbnail}
             style={{
-              width: 50,
-              height: 50,
+              width: 70,
+              height: 70,
               borderRadius: 10
             }}
-            />
-          </Marker>
+            resizeMode='cover'/>
+          </Marker> 
         ))}
       </ClusteredMapView>
     </View>
   )
 }
+

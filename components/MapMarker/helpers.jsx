@@ -3,14 +3,18 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
+//자식 element가 마커인지 판별
 export const isMarker = (child) =>
   child && child.props && child.props.coordinate && child.props.cluster !== false;
 
+//주어진 지도 영역을 표현하기 위한 상자
 export const calculateBBox = (region) => {
   let lngD;
+  //경도가 음수인 경우 양수로 변환
   if (region.longitudeDelta < 0) lngD = region.longitudeDelta + 360
   else lngD = region.longitudeDelta
 
+  //[서쪽 경도, 남쪽 위도, 동쪽 경도, 북쪽 위도]
   return [
     region.longitude - lngD, // westLng - min lng
     region.latitude - region.latitudeDelta, // southLat - min lat
@@ -19,6 +23,8 @@ export const calculateBBox = (region) => {
   ];
 };
 
+//적절한 지도의 확대수준 
+// region: 지도영역에 대한 정보, bBox: 경계상자에 대한 정보, minZoom: 최소확대수준
 export const returnMapZoom = (region, bBox, minZoom) => {
   const viewport =
     region.longitudeDelta >= 40 ? { zoom: minZoom } : GeoViewport.viewport(bBox, [width, height]);
@@ -26,6 +32,7 @@ export const returnMapZoom = (region, bBox, minZoom) => {
   return viewport.zoom;
 };
 
+//마커의 지리적 위치정보와 이미지를 표현
 export const markerToGeoJSONFeature = (marker, index) => {
   return {
     type: 'Feature',
@@ -36,11 +43,18 @@ export const markerToGeoJSONFeature = (marker, index) => {
     properties: {
       point_count: 0,
       index,
+      //이미지 URL 속성추가
+      // imageURL,
       ..._removeChildrenFromProps(marker.props),
     },
   };
 };
 
+// 나선 모양의 좌표 생성 함수
+// marker: 클러스터를 나타내는 마커객체
+// clusterChildren: 클러스 태부 자식마커들 배열
+// markers: 전체 마커배열
+// index: 현재 클러스터의 index
 export const generateSpiral = (marker, clusterChildren, markers, index) => {
   const { properties, geometry } = marker;
   const count = properties.point_count;
@@ -54,6 +68,7 @@ export const generateSpiral = (marker, clusterChildren, markers, index) => {
     start += markers[i].properties.point_count || 0;
   }
 
+  // 마커의 개수만큼 스파이럴 형태의 좌표를 생성 후 배열에 담아 반환
   for (let i = 0; i < count; i++) {
     angle = 0.25 * (i * 0.5);
     const latitude = centerLocation[1] + 0.0002 * angle * Math.cos(angle);
@@ -139,6 +154,7 @@ export const returnMarkerStyle = (points) => {
   }
 }
 
+// 자식속성을 제거한 새로운 객체 반환
 const _removeChildrenFromProps = (props) => {
   const newProps = {};
   Object.keys(props).forEach((key) => {
