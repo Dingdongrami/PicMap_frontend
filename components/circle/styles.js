@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     height: 164,
     borderRadius: 15,
     borderWidth: 0.5,
-    borderBottomColor: '#44403C',
-    // borderColor: '#44403C',
+    // borderBottomColor: '#44403C',
+    borderColor: '#44403C',
   },
   noImageWrapper: {
     justifyContent: 'center',

@@ -94,4 +94,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  noPhotoText: {
+    fontFamily: 'IropkeBatang',
+    color: '#78716C',
+    fontSize: 13,
+    textAlign: 'center',
+    marginTop: 10,
+  },
 });

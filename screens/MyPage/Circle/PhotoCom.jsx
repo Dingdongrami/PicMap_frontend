@@ -6,7 +6,7 @@ import { comStyles, PhotoComments } from '../../../components/circle';
 //API연결할지, 사진을 가져올지,,
 export const PhotoCom = () => {
   const route = useRoute();
-  const index = route.params.index;
+  const photoId = route.params.photoId;
   //  const [ heart, setHeart ] = useState(false);
   return (
     <View style={{ flex: 1 }}>

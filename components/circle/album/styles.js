@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   albumContainer: {
+    width: '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
   imageContainer: {
+    position: 'relative',
     flex: 1,
     flexDirection: 'column',
     width: 120,
@@ -20,8 +22,9 @@ export const styles = StyleSheet.create({
     // marginVertical: 2,
   },
   imageIcon: {
-    width: 45,
-    height: 31,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   imageCon4check: {
     flex: 1,
@@ -43,8 +46,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   checkbox: {
+    position: 'absolute',
+    top: 1.5,
+    left: 1.5,
     marginTop: 4,
     marginLeft: 4,
+    zIndex: 1,
   },
 });
 

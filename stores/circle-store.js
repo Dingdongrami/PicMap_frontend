@@ -5,8 +5,7 @@ export const newCircleState = atom({
   default: {
     name: '',
     description: '',
-    image: '',
-    join: true,
+    thumbnail: '',
     public: true,
   },
 });
