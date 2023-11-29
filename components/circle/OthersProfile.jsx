@@ -1,39 +1,40 @@
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { circleInstance } from '../../api/instance';
+import { useEffect, useState } from 'react';
+import { Image } from 'expo-image';
+import { s3BaseUrl } from '../../constants/config';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMembers } from '../../api/circleApi';
 
-export const OthersProfile = () => {
-  //써클 참여자 더미데이터
-  //여기서 써클 참여자라도 API 받아오는게 편리하지 않을까?
-  const persons = [
-    { id: 1, name: '김' },
-    { id: 2, name: '이' },
-    { id: 3, name: '박' },
-    { id: 4, name: '최' },
-    { id: 5, name: '양' },
-    { id: 6, name: '우' },
-    { id: 7, name: '행' },
-    { id: 8, name: '허' },
-    { id: 9, name: '장' },
-  ];
+export const OthersProfile = ({ circleId }) => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['circleMembers', circleId],
+    queryFn: () => fetchMembers(circleId),
+  });
 
-  return(
+  return (
     <>
-    <ScrollView horizontal
-      showsHorizontalScrollIndicator={false}
-      style={styles.scrollBox}
-    >
-      {persons.map((item, index) => (
-        <TouchableOpacity key={index} style={styles.personCircle}>
-          <Text>{item.name}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
-    </>  
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollBox}>
+        {data?.map((item, index) => (
+          <TouchableOpacity key={index} style={styles.personCircle}>
+            {item.profileImage ? (
+              <Image
+                source={s3BaseUrl + item.profileImage}
+                style={{ width: '100%', height: '100%', borderRadius: 500 }}
+              />
+            ) : (
+              <Text>{item.nickname}</Text>
+            )}
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   scrollBox: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   personCircle: {
     borderWidth: 0.5,
@@ -45,6 +46,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontFamily: 'IropkeBatang',
     fontSize: 13,
-    margin: 2
+    margin: 2,
   },
-})
+});

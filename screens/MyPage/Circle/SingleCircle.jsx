@@ -16,6 +16,7 @@ export const SingleCircle = ({ route }) => {
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
+  // 써클의 사진들을 불러오기
   const { data, isLoading, isError } = useQuery({
     queryKey: ['photo'],
     queryFn: () => fetchPhotos(itemId),
@@ -47,7 +48,7 @@ export const SingleCircle = ({ route }) => {
           data={data}
           numColumns={3}
           keyExtractor={item => item.photoId}
-          ListHeaderComponent={HeaderComponent}
+          ListHeaderComponent={() => <HeaderComponent circleId={itemId} />}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
@@ -59,7 +60,7 @@ export const SingleCircle = ({ route }) => {
   }
 };
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ circleId }) => {
   const [isMap, setIsMap] = useState(true);
   const [selection, setSelection] = useRecoilState(selectState);
   const changeSelection = () => {
@@ -86,7 +87,7 @@ const HeaderComponent = () => {
   return (
     <View style={{ marginBottom: 5 }}>
       <View style={styles.personBox}>
-        <OthersProfile />
+        <OthersProfile circleId={circleId} />
       </View>
       <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
       <View style={styles.wrapper}>

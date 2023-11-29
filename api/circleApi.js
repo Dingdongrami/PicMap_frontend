@@ -10,6 +10,17 @@ export const fetchPublicCircle = async () => {
   return data;
 };
 
+export const fetchMembers = async circleId => {
+  try {
+    const {
+      data: { users },
+    } = await circleInstance.get(`/${circleId}/members`);
+    return users;
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
 export const createCircle = async newCircleData => {
   try {
     const formData = new FormData();

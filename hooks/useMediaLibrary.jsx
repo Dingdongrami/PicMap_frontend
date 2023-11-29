@@ -4,7 +4,7 @@ import {
   MediaTypeOptions,
   launchImageLibraryAsync,
 } from 'expo-image-picker';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 
 const useMediaLibrary = onImageCaptured => {
   const [imagePermissionInformation, requestImagePermission] = useMediaLibraryPermissions(); // 미디어 라이브러리 접근 권한
@@ -39,6 +39,7 @@ const useMediaLibrary = onImageCaptured => {
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.5,
+        exif: true,
       });
 
       if (!image.canceled) {
