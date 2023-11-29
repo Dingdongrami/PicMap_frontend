@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
     left: 1.5,
     marginTop: 4,
     marginLeft: 4,
+    zIndex: 1,
   },
 });
 

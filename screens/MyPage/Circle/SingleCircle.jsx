@@ -95,7 +95,7 @@ const HeaderComponent = () => {
     },
   ]);
   return (
-    <View>
+    <View style={{ marginBottom: 5 }}>
       <View style={styles.personBox}>
         <OthersProfile />
       </View>
