@@ -25,7 +25,8 @@ const AltComponent = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <MyProfile onPressEditProfile={onPressEditProfile} onPressFriendsList={onPressFriendsList} />
       <Tab.Navigator
-        initialRouteName="Post"
+      initialRouteName="Post">
+        <Tab.Group 
         screenOptions={({ route }) => ({
           // tabBarOptions: (props) => <Middle {...props} /> ,
           safeAreaInsets: { bottom: 'never' }, // 여기에 이 속성을 추가하세요
@@ -50,44 +51,45 @@ const AltComponent = ({ navigation }) => {
             elevation: 0, // Add this line to remove shadow on Android
           },
         })}>
-        <Tab.Screen
-          name="Post"
-          component={Post}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Map"
-          component={Map}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
-        <Tab.Screen
-          name="Circle"
-          component={Circle}
-          options={{
-            tabBarItemStyle: {
-              height: 42,
-              borderBottomWidth: 0.5,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
-              borderColor: '#44403C',
-            },
-          }}
-        />
+          <Tab.Screen
+            name="Post"
+            component={Post}
+            options={{
+              tabBarItemStyle: {
+                height: 42,
+                borderBottomWidth: 0.5,
+                borderTopWidth: 0.5,
+                borderColor: '#44403C',
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Map"
+            component={Map}
+            options={{
+              tabBarItemStyle: {
+                height: 42,
+                borderBottomWidth: 0.5,
+                borderTopWidth: 0.5,
+                borderLeftWidth: 0.5,
+                borderColor: '#44403C',
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Circle"
+            component={Circle}
+            options={{
+              tabBarItemStyle: {
+                height: 42,
+                borderBottomWidth: 0.5,
+                borderTopWidth: 0.5,
+                borderLeftWidth: 0.5,
+                borderColor: '#44403C',
+              },
+            }}
+          />
+        </Tab.Group>
       </Tab.Navigator>
     </View>
   );
