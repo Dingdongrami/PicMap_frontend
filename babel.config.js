@@ -5,6 +5,7 @@ module.exports = function (api) {
     plugins: [
       [
         'module-resolver',
+        '@babel/plugin-transform-react-jsx',
         {
           root: ['.'],
           extensions: ['.ios.js', '.android.js', '.js', '.jsx', '.json', '.tsx', '.ts'],
@@ -15,10 +16,7 @@ module.exports = function (api) {
             '#assets': './assets',
             '#constants': './constants',
           },
-        },
-        '@babel/plugin-transform-react-jsx',
-        {
-          runtime: 'automatic',
+          runtime: 'automatic'
         },
       ],
       'react-native-reanimated/plugin',
