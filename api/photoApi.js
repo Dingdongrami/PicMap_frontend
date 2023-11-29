@@ -13,7 +13,7 @@ export const fetchOnePhoto = async photoId => {
 };
 
 // uploadPhoto 함수 정의
-export const uploadPhoto = async (photoUri, circleId) => {
+export const uploadPhotos = async (photoUris, circleId) => {
   try {
     const formData = new FormData();
 
@@ -23,10 +23,12 @@ export const uploadPhoto = async (photoUri, circleId) => {
       circleId,
     });
 
-    formData.append('image', {
-      uri: photoUri,
-      type: 'image/jpeg', // MIME 타입은 파일에 맞게 설정
-      name: `${Date.now()}.jpg`, // 파일 이름
+    photoUris.forEach(uri => {
+      formData.append('image', {
+        uri: uri,
+        type: 'image/jpeg', // MIME 타입은 파일에 맞게 설정
+        name: `${Date.now()}.jpg`, // 파일 이름
+      });
     });
 
     // JSON 데이터 추가

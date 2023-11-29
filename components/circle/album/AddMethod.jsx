@@ -2,20 +2,20 @@ import { View, Pressable, StyleSheet, Image, Animated, Linking, Alert } from 're
 import { useRecoilState } from 'recoil';
 import { selectState } from '../../../stores/circle-selection';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { uploadPhoto, uploadShootingPhoto } from '../../../api/photoApi';
-import { useNavigation } from '@react-navigation/core';
+import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
 import useCamera from '../../../hooks/useCamera';
 import * as MediaLibrary from 'expo-media-library';
 import * as Location from 'expo-location';
+import useMediaLibrary from '../../../hooks/useMediaLibrary';
 
 export const AddMethod = ({ onPress, expansion, circleId }) => {
   const [selection] = useRecoilState(selectState);
   const imageStyles = [styles.overlay];
-  const { navigate } = useNavigation();
   const queryClient = useQueryClient();
+  const { selectImageHandler } = useMediaLibrary(onImageSelected, true);
   const { takeImageHandler } = useCamera(onImageCaptured);
   const mediaLibraryMutation = useMutation({
-    mutationFn: args => uploadPhoto(args.photoUri, args.circleId),
+    mutationFn: args => uploadPhotos(args.photoUris, args.circleId),
     onSuccess: data => {
       queryClient.invalidateQueries('photo');
     },
@@ -42,43 +42,18 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
     }
   };
 
-  // const navigateToCamera = async () => {
-  //   const hasPermission = await getLocationPermission();
-  //   if (!hasPermission) {
-  //     return;
-  //   }
-  //   navigate('CameraScreen', { circleId });
-  // };
-
-  async function loadPhotos() {
-    const { status } = await MediaLibrary.requestPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Sorry, we need camera roll permissions to make this work!');
-      return;
-    }
-
-    const result = await MediaLibrary.getAssetsAsync({
-      mediaType: 'photo',
-      first: 10, // 첫 10개의 사진 가져오기
-    });
-
-    const photos = result.assets;
-    console.log(
-      photos.forEach(photo => {
-        if (photo.location) {
-          console.log(`Photo location: Latitude ${photo.location.latitude}, Longitude ${photo.location.longitude}`);
-        }
-      }),
-    );
+  async function onImageSelected(uri) {
+    mediaLibraryMutation.mutate({ photoUris: uri, circleId });
   }
 
+  // 호이스팅을 위해 함수 선언식으로 작성
   async function onImageCaptured(uri) {
     const permission = getLocationPermission();
     if (!permission) {
       return;
     }
     const location = await Location.getCurrentPositionAsync({});
-    console.log(location);
+    // console.log(location);
     cameraMutation.mutate({ photoUri: uri, circleId, location });
   }
 
@@ -104,7 +79,7 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>
-            <Pressable onPress={loadPhotos}>
+            <Pressable onPress={selectImageHandler}>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
             <Pressable onPress={takeImageHandler}>
