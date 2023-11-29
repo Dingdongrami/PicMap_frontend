@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { examples } from './examples';
 import { INIT } from './examples';
@@ -53,10 +53,20 @@ export const Map = () => {
     generateMarkers(region.latitude, region.longitude)
   }, [])
 
+  const markerIcon = (
+    <View style={{ backgroundColor: '#00B386', borderRadius: 50, padding: 5 }}>
+      {/* 원하는 아이콘 혹은 이미지 */}
+      <Image 
+        source={require('../../../assets/example/ex2.png')}
+        style={{width: 25, height: 25}}
+      />
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <ClusteredMapView
-        clusterColor="red"
+        clusterColor="#00B386"
         ref={map}
         mapType="standard"
         style={styles.mapView}
@@ -64,6 +74,8 @@ export const Map = () => {
         onRegionChangeComplete={onRegionChangeComplete}>
         {markers.map((item) => (
           <Marker
+            // style={{backgroundColor: '#00B386'}}
+            image={()=>markerIcon}
             key={item.id}
             coordinate={{
               latitude: item.latitude,

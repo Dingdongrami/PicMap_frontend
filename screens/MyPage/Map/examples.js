@@ -55,5 +55,55 @@ export const examples = [
       longitudeDelta: 0.01,
     },
     source: require('../../../assets/example/ex5.png')
-  }
+  },
+  {
+    id: 6,
+    coordinate: {
+      latitude: 35.58102,
+      longitude: 126.977166,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+    source: require('../../../assets/example/ex6.png')
+  },
+  {
+    id: 7,
+    coordinate: {
+      latitude: 35.58102,
+      longitude: 126.977166,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+    source: require('../../../assets/example/ex7.png')
+  },
+  {
+    id: 8,
+    coordinate: {
+      latitude: 35.58102,
+      longitude: 126.977166,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+    source: require('../../../assets/example/ex8.png')
+  },
+  {
+    id: 9,
+    coordinate: {
+      latitude: 35.58102,
+      longitude: 126.977166,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+    source: require('../../../assets/example/ex9.png')
+  },
+  {
+    id: 10,
+    coordinate: {
+      latitude: 35.58102,
+      longitude: 126.977166,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+    source: require('../../../assets/example/ex10.png')
+  },
 ];

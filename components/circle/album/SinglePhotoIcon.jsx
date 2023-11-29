@@ -37,7 +37,7 @@ export const SinglePhotoIcon = ({ index, photo }) => {
                   setCheckedPhotos(newCheckedPhotos);
                   console.log(itemIndex);
                 }}
-                color={checkedPhotos ? '#D6D3D1' : undefined}
+                color={checkedPhotos ? '#fff' : undefined}
                 style={styles.checkbox}
               />
               <Image source={photo.source} resizeMode="cover" style={styles.image4check} />

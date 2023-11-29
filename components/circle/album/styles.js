@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderWidth: 0.5,
-    borderColor: '#44403C',
+    borderColor: '#D6ffD3D1',
     // marginHorizontal: 2,
     // marginVertical: 2,
   },

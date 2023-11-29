@@ -52,6 +52,7 @@ export const SingleCircle = ({ route }) => {
     { id: 8, source: require('../../../assets/example/ex9.png') },
     { id: 9, source: require('../../../assets/example/ex10.png') },
     { id: 10, source: require('../../../assets/example/ex11.png') },
+    { id: 11, source: require('../../../assets/example/ex12.png') },
   ]
 
   const handleScroll = e => {

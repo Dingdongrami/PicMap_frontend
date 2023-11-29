@@ -244,7 +244,7 @@ ClusteredMapView.defaultProps = {
   // Cluster styles
   clusterColor: '#00B386',
   clusterTextColor: '#FFFFFF',
-  spiderLineColor: '#FF0000',
+  spiderLineColor: '#00B386',
   // Callbacks
   onRegionChangeComplete: () => {},
   onClusterPress: () => {},

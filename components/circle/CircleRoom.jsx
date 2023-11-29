@@ -78,9 +78,16 @@ export const CircleRoom = ({ item }) => {
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
       <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
-        {item?.image ? (
-          <Image style={styles.circlePhoto} source={item?.image} ContentFit="cover" />
-        ) : (
+        {/* {imagesArray.map((item, index) =>(
+          <Image key={index} style={styles.circlePhoto} source={imagesArray[index]} ContentFit="cover" />
+          )
+        )} */}
+
+        {item ? (
+          // <Image style={styles.circlePhoto} source={item?.imagesArray.source} ContentFit="cover" />
+          <Image style={styles.circlePhoto} source={ require('../../assets/example/ex12.png')} ContentFit="cover" />
+
+          ) : (
           <View style={styles.noImageWrapper}>
             <Image style={styles.noImage} source={require('../../assets/icons/image.png')} />
           </View>
