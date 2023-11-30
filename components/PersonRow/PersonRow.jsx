@@ -14,8 +14,8 @@ const PersonRow = ({ user, button }) => {
 
   return (
     <View style={styles.personRow}>
-      {user.profileImage ? (
-        <Image source={user.profileImage} style={styles.profileImage} contentFit="cover" />
+      {user.profileImageImage ? (
+        <Image source={user.profileImageImage} style={styles.profileImage} contentFit="cover" />
       ) : (
         <View style={styles.personWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.defaultImage} contentFit="contain" />

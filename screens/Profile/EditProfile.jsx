@@ -35,7 +35,7 @@ export const EditProfile = ({ navigation }) => {
   const onPressConfirm = useCallback(() => {
     setUser(user);
     navigation.goBack();
-  }, [user, user.profile, setUser, navigation]);
+  }, [user, user.profileImage, setUser, navigation]);
 
   const onPressCancel = useCallback(() => {
     setUser(user); // API 연동 후 수정
@@ -83,8 +83,8 @@ export const EditProfile = ({ navigation }) => {
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
-      {user.profile ? (
-        <Image source={user.profile} style={styles.image} contentFit="cover" />
+      {user.profileImage ? (
+        <Image source={user.profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
