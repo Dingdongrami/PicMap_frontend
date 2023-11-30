@@ -213,13 +213,6 @@ const ClusteredMapView = forwardRef(
 
       navigation.navigate('MapList', {locs});
     }
-    // useEffect(() => {
-    //   navSearch();
-    // })
-    // useEffect(() => {
-    //   updateRegion(restProps.initialRegion);
-    //   // setIsNav(!isNav);
-    // }, [isNav])
 
     return (
       <MapView
@@ -233,39 +226,32 @@ const ClusteredMapView = forwardRef(
         }}
         onRegionChangeComplete={_onRegionChangeComplete}>
         {markers.map((marker) =>
-          marker.properties.point_count === 0 ? (
-            propsChildren[marker.properties.index]
-          ) : (isNav ? 
-                // navigation.navigate('MapList')
-                <NavSearch/>
-                 : !isSpiderfier ? (
-              renderCluster ? (
-                renderCluster({
-                  onPress: _onClusterPress(marker),
-                  clusterColor,
-                  clusterTextColor,
-                  clusterFontFamily,
-                  ...marker,
-                })
-              ) : (
-                <ClusterMarker
+          marker.properties.point_count === 0 
+          ? ( propsChildren[marker.properties.index]) 
+          : !isSpiderfier 
+            ? ( renderCluster 
+              ? ( renderCluster({
+                    onPress: _onClusterPress(marker),
+                    clusterColor,
+                    clusterTextColor,
+                    clusterFontFamily,
+                    ...marker,})) 
+              : ( <ClusterMarker
                   key={`cluster-${marker.id}`}
                   {...marker}
                   onPress={_onClusterPress(marker)}
                   clusterColor={
                     restProps.selectedClusterId === marker.id
                       ? restProps.selectedClusterColor
-                      : clusterColor
-                  }
+                      : clusterColor}
                   clusterTextColor={clusterTextColor}
                   clusterFontFamily={clusterFontFamily}
-                  tracksViewChanges={tracksViewChanges}
-                >
-                </ClusterMarker>
-              )
-            ) 
-          : null)
-        )}
+                  tracksViewChanges={tracksViewChanges}/>
+                )
+              ) 
+            : null
+          )
+        }
         {otherChildren}
         {spiderMarkers.map((marker) => {
           return propsChildren[marker.index]
