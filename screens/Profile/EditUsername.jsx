@@ -9,18 +9,18 @@ export const EditUsername = ({ navigation }) => {
   const user = useRecoilValue(userState);
   const setUser = useSetRecoilState(userState);
 
-  // Manage the username input with local state.
-  const [username, setUsername] = useState(user.username);
-  const MIN_LENGTH = 2; // Minimum username length
+  // Manage the nickname input with local state.
+  const [nickname, setNickname] = useState(user.nickname);
+  const MIN_LENGTH = 2; // Minimum nickname length
 
   const onPressConfirm = () => {
-    const trimmedUsername = username.trim();
-    if (trimmedUsername.length < MIN_LENGTH) {
-      // Alert if username doesn't meet the minimum length requirement.
+    const trimmedNickname = nickname.trim();
+    if (trimmedNickname.length < MIN_LENGTH) {
+      // Alert if nickname doesn't meet the minimum length requirement.
       Alert.alert(`사용자 이름은 ${MIN_LENGTH}글자 이상이어야 합니다.`);
     } else {
       // Update global state and navigate only if validation passes.
-      setUser(prevUser => ({ ...prevUser, username: trimmedUsername }));
+      setUser(prevUser => ({ ...prevUser, nickname: trimmedNickname }));
       navigation.navigate('EditProfile');
     }
   };
@@ -37,8 +37,8 @@ export const EditUsername = ({ navigation }) => {
       </View>
       <TextInput
         style={styles.longInput}
-        value={username}
-        onChangeText={setUsername} // Update local state only.
+        value={nickname}
+        onChangeText={setNickname} // Update local state only.
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="사용자 이름"

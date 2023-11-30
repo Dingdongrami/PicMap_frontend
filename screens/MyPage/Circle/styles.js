@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   },
   personCircle: {
     marginHorizontal: 5.5,
-    marginVertical: 3,
+    marginVertical: 1,
     borderWidth: 0.5,
     borderColor: '#78716C',
     borderRadius: 50,

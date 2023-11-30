@@ -20,7 +20,7 @@ const MyProfile = ({ onPressEditProfile, onPressFriendsList }) => {
   });
 
   if (!isLoading) {
-    setUser(data);
+    setUser({ ...data, public: data.status === 'PUBLIC', profileImage: s3BaseUrl + data.profileImage });
   }
 
   return (
@@ -34,7 +34,9 @@ const MyProfile = ({ onPressEditProfile, onPressFriendsList }) => {
       )}
       <View style={styles.rightWrapper}>
         <View style={styles.iconTextWrapper}>
-          <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
+          {data?.status != 'PUBLIC' && (
+            <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
+          )}
           <Text style={styles.usernameText}>{data?.nickname}</Text>
         </View>
         <Text style={styles.onelineText}>{data?.introduce}</Text>
