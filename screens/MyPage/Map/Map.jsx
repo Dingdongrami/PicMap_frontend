@@ -6,13 +6,6 @@ import { styles } from './styles';
 
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
 
-// const getRandomLatitude = (min = 48, max = 56) => {
-//   return Math.random() * (max - min) + min
-// }
-
-// const getRandomLongitude = (min = 14, max = 24) => {
-//   return Math.random() * (max - min) + min
-// }
 
 const getZoomFromRegion = (region) => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)

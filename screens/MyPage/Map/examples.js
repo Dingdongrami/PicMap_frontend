@@ -15,6 +15,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex1.png'),
+    imageUri: '../../../assets/example/ex1.png',
   },
   {
     id:2,
@@ -25,6 +26,7 @@ export const locs = [
       longitudeDelta: 0.01,        
     },
     thumbnail: require('../../../assets/example/ex2.png'),
+    imageUri: '../../../assets/example/ex2.png',
   },
   {
     id: 3,
@@ -35,6 +37,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex3.png'),
+    imageUri: '../../../assets/example/ex3.png',
   },
   {
     id: 4,
@@ -45,6 +48,7 @@ export const locs = [
       longitudeDelta: 0.01,        
     },
     thumbnail:  require('../../../assets/example/ex4.png'),
+    imageUri: '../../../assets/example/ex4.png',
   },
   {
     id: 5,
@@ -55,6 +59,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex5.png'),
+    imageUri: '../../../assets/example/ex5.png',
   },
   {
     id: 6,
@@ -65,6 +70,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex6.png'),
+    imageUri: '../../../assets/example/ex6.png',
   },
   {
     id: 7,
@@ -75,6 +81,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex7.png'),
+    imageUri: '../../../assets/example/ex7.png',
   },
   {
     id: 8,
@@ -85,6 +92,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex8.png'),
+    imageUri: '../../../assets/example/ex8.png',
   },
   {
     id: 9,
@@ -95,6 +103,7 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex9.png'),
+    imageUri: '../../../assets/example/ex9.png',
   },
   {
     id: 10,
@@ -105,5 +114,6 @@ export const locs = [
       longitudeDelta: 0.01,
     },
     thumbnail: require('../../../assets/example/ex10.png'),
+    imageUri: '../../../assets/example/ex10.png',
   },
 ];
