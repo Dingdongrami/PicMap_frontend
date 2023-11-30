@@ -43,27 +43,37 @@ export const markerToGeoJSONFeature = (marker, index) => {
     properties: {
       point_count: 0,
       index,
-      //이미지 URL 속성추가
-      // imageURL,
       ..._removeChildrenFromProps(marker.props),
+      //이미지 URL
+      // image: marker.props.imageUri
     },
   };
 };
 
 // 나선 모양의 좌표 생성 함수
 // marker: 클러스터를 나타내는 마커객체
-// clusterChildren: 클러스 태부 자식마커들 배열
+// clusterChildren: 클러스 내부 자식마커들 배열
 // markers: 전체 마커배열
 // index: 현재 클러스터의 index
 export const generateSpiral = (marker, clusterChildren, markers, index) => {
   const { properties, geometry } = marker;
+  //클러스터링된 마커들의 개수
   const count = properties.point_count;
   const centerLocation = geometry.coordinates;
 
-  const res = [];
+  //클러스터링된 마커 중 대표사진
+  // let thumbnail = properties.imageUri;
+  //index 번호가 가장 큰 마커의 사진으로 thumbnail 결정
+  // thumbnail = clusterChildren[count+start];
+
+
+    const res = [];
   let angle = 0;
   let start = 0;
 
+  //특정 bBox와 zoom에 따라 markers가 결정되고
+  // 그 클러스터링된 마커집단 내에 마커들의 개수가 start가 됨
+  //부모 컴포넌트에서 건네받은 markers.map의 인덱스임
   for (let i = 0; i < index; i++) {
     start += markers[i].properties.point_count || 0;
   }
@@ -86,6 +96,8 @@ export const generateSpiral = (marker, clusterChildren, markers, index) => {
       })
     }
   }
+
+
 
   return res;
 }

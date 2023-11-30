@@ -10,7 +10,7 @@ import {
   markerToGeoJSONFeature,
   returnMapZoom,
 } from './helpers';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 //Map 함수의 자식 컴포넌트
 const ClusteredMapView = forwardRef(
@@ -53,6 +53,7 @@ const ClusteredMapView = forwardRef(
     const [clusterChildren, updateClusterChildren] = useState(null);
     const [isNav, setIsNav] = useState(false);
     const mapRef = useRef();
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
     const locs = useRef([]);
 
@@ -191,11 +192,13 @@ const ClusteredMapView = forwardRef(
       // 위치가 움직이지 않고 region을 클릭하면
       const lats = coordinates.map(item => item.latitude);
       const longs = coordinates.map(item => item.longitude);
-      if(Math.max(...lats)-Math.min(...lats) < 0.7 && Math.max(...longs)-Math.min(...longs) < 0.7){
+      if(Math.max(...lats)-Math.min(...lats) < 1 && Math.max(...longs)-Math.min(...longs) < 1){
         console.log("엥");
         setIsNav(true);
+        // console.log(clusterChildren);
         // navigation.navigate('MapList', {children});
-        locs.current  = [...locs.current, children];
+        locs.current  = [...locs.current, clusterChildren];
+        console.log(locs.current);
       }
       // 지도를 특정 좌표에 맞게 조정하는 부분
       mapRef.current.fitToCoordinates(coordinates, {
@@ -207,12 +210,19 @@ const ClusteredMapView = forwardRef(
     };
 
 
-    const NavSearch = async() => {
-      setIsNav(!isNav);
-      await updateRegion(restProps.initialRegion);
-
+    const NavSearch = () => {
+      // console.log(locs.current);
       navigation.navigate('MapList', {locs});
-    }
+    };
+    useEffect(() => {
+      if(isFocused && mapRef.current){
+        mapRef.current.animateToRegion(restProps.initialRegion, 1000);
+      }
+      setIsNav(false);
+    }, [isFocused]);
+    // useEffect(()=>{
+    //   NavSearch();
+    // }, [isNav]);
 
     return (
       <MapView
@@ -246,7 +256,9 @@ const ClusteredMapView = forwardRef(
                       : clusterColor}
                   clusterTextColor={clusterTextColor}
                   clusterFontFamily={clusterFontFamily}
-                  tracksViewChanges={tracksViewChanges}/>
+                  tracksViewChanges={tracksViewChanges}
+                  //marker.properties.imageUri => 마커의 대ㅠㅛ사진
+                  />
                 )
               ) 
             : null
