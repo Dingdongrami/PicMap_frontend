@@ -10,3 +10,13 @@ export const getCurrentTimestamp = () => {
 
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 };
+
+export const convertToIsoFormat = dateTimeStr => {
+  // 날짜 구분자를 변경: "2023:11:18 16:07:54" -> "2023-11-18 16:07:54"
+  let formattedStr = dateTimeStr.replace(/:/g, (match, offset) => (offset === 4 || offset === 7 ? '-' : match));
+
+  // 날짜와 시간을 'T'로 구분
+  formattedStr = formattedStr.replace(' ', 'T');
+
+  return formattedStr;
+};

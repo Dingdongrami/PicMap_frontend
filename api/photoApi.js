@@ -1,4 +1,4 @@
-import { getCurrentTimestamp } from '../utils/getCurrentTimeStamp';
+import { convertToIsoFormat, getCurrentTimestamp } from '../utils/formatDate';
 import { photoInstance } from './instance';
 
 export const fetchPhotos = async circleId => {
@@ -13,7 +13,7 @@ export const fetchOnePhoto = async photoId => {
 };
 
 // uploadPhoto 함수 정의
-export const uploadPhotos = async (photoUris, circleId) => {
+export const uploadPhotos = async (photos, circleId) => {
   try {
     const formData = new FormData();
 
@@ -21,9 +21,12 @@ export const uploadPhotos = async (photoUris, circleId) => {
     const jsonData = JSON.stringify({
       userId: 17, // 혹은 다른 방법으로 userId를 설정
       circleId,
+      latitude: photos.exif.GPSLatitude,
+      longitude: photos.exif.GPSLongitude,
+      shootingDate: convertToIsoFormat(photos.exif.DateTimeOriginal),
     });
 
-    photoUris.forEach(uri => {
+    photos.forEach(uri => {
       formData.append('image', {
         uri: uri,
         type: 'image/jpeg', // MIME 타입은 파일에 맞게 설정

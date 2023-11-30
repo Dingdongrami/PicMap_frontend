@@ -3,19 +3,19 @@ import { useRecoilState } from 'recoil';
 import { selectState } from '../../../stores/circle-selection';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
-import useCamera from '../../../hooks/useCamera';
-import * as MediaLibrary from 'expo-media-library';
-import * as Location from 'expo-location';
-import useMediaLibrary from '../../../hooks/useMediaLibrary';
+import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
 
 export const AddMethod = ({ onPress, expansion, circleId }) => {
   const [selection] = useRecoilState(selectState);
   const imageStyles = [styles.overlay];
   const queryClient = useQueryClient();
+
   const { selectImageHandler } = useMediaLibrary(onImageSelected, true);
   const { takeImageHandler } = useCamera(onImageCaptured);
+  const { getLocationPermission, getLocation } = useLocation();
+
   const mediaLibraryMutation = useMutation({
-    mutationFn: args => uploadPhotos(args.photoUris, args.circleId),
+    mutationFn: args => uploadPhotos(args.photos, args.circleId),
     onSuccess: data => {
       queryClient.invalidateQueries('photo');
     },
@@ -26,33 +26,19 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
       queryClient.invalidateQueries('photo');
     },
   });
-  const [locationStatus, requestLocationPermission] = Location.useForegroundPermissions();
 
-  const getLocationPermission = async () => {
-    if (locationStatus !== 'granted') {
-      const permissionResponse = await requestLocationPermission();
-      return permissionResponse.granted;
-    }
-    if (locationStatus === 'denied') {
-      Alert.alert('위치 권한이 필요합니다.', '설정에서 권한을 허용해주세요.', [
-        { text: '취소', style: 'cancel' },
-        { text: '설정으로 이동', onPress: () => Linking.openSettings() },
-      ]);
-      return false;
-    }
-  };
-
-  async function onImageSelected(uri) {
-    mediaLibraryMutation.mutate({ photoUris: uri, circleId });
+  // 호이스팅을 위해 함수 선언식으로 작성
+  async function onImageSelected(photos) {
+    mediaLibraryMutation.mutate({ photos, circleId });
   }
 
   // 호이스팅을 위해 함수 선언식으로 작성
-  async function onImageCaptured(uri) {
+  function onImageCaptured(uri) {
     const permission = getLocationPermission();
     if (!permission) {
       return;
     }
-    const location = await Location.getCurrentPositionAsync({});
+    const location = getLocation();
     // console.log(location);
     cameraMutation.mutate({ photoUri: uri, circleId, location });
   }
@@ -79,10 +65,10 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>
-            <Pressable onPress={selectImageHandler}>
+            <Pressable>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
-            <Pressable onPress={takeImageHandler}>
+            <Pressable>
               <Image source={require('../../../assets/icons/camera_add.png')} contentFit="cover" style={styles.icon2} />
             </Pressable>
           </View>

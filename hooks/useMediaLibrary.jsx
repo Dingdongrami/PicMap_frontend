@@ -38,17 +38,14 @@ const useMediaLibrary = (onImageSelected, multiple = false) => {
         mediaTypes: MediaTypeOptions.Images,
         allowsMultipleSelection: multiple,
         selectionLimit: multiple ? 10 : 1,
-        aspect: [1, 1],
-        quality: 0.5,
+        // aspect: [1, 1],
+        quality: 1,
         exif: true,
       });
 
       if (!image.canceled) {
         // 각 이미지의 URI만 추출하여 배열로 만듭니다.
-        const selectedUris = image.assets.map(asset => asset.uri);
-
-        // onImageSelected 함수에 URI 배열을 인수로 전달합니다.
-        onImageSelected(selectedUris);
+        onImageSelected(image.assets);
       }
     } catch (error) {
       Alert.alert('미디어 라이브러리를 사용할 수 없습니다.', '다시 시도해주세요.');

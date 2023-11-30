@@ -16,6 +16,14 @@ export const SinglePhotoIcon = ({ photo }) => {
   const clickPhoto = item => {
     navigation.navigate('PhotoCom', { photoId: photo.id });
   };
+
+  const onChangeCheckbox = () => {
+    const itemIndex = photo.id;
+    const newCheckedPhotos = [...checkedPhotos];
+    newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
+    setCheckedPhotos(newCheckedPhotos);
+  };
+
   // selection이 false가 되면 checkedPhotos를 초기화
   useEffect(() => {
     if (!selection) {
@@ -23,23 +31,15 @@ export const SinglePhotoIcon = ({ photo }) => {
     }
   }, [selection]);
 
-  // console.log(photo);
-
   return (
     <View style={styles.albumContainer}>
       <View style={styles.photoRow}>
-        <Pressable onPress={() => clickPhoto(photo.id)}>
+        <Pressable onPress={!selection ? () => clickPhoto(photo.id) : () => onChangeCheckbox()}>
           <View style={styles.imageContainer}>
             {selection && (
               <Checkbox
                 value={checkedPhotos[photo.id]}
-                onValueChange={() => {
-                  const itemIndex = photo.id;
-                  const newCheckedPhotos = [...checkedPhotos];
-                  newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
-                  setCheckedPhotos(newCheckedPhotos);
-                  console.log(itemIndex);
-                }}
+                onValueChange={onChangeCheckbox}
                 color={checkedPhotos ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
               />
