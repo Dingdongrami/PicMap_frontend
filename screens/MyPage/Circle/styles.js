@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: 'IropkeBatang',
-    paddingTop: 20.5,
   },
   splashText: {
     color: '#44403C',
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   },
   personCircle: {
     marginHorizontal: 5.5,
-    marginVertical: 6,
+    marginVertical: 3,
     borderWidth: 0.5,
     borderColor: '#78716C',
     borderRadius: 50,
@@ -53,6 +53,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     fontFamily: 'IropkeBatang',
     fontSize: 13,
+  },
+  personImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
   },
   personBox: {
     paddingVertical: 2,
