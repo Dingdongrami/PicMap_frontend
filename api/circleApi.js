@@ -1,4 +1,4 @@
-import { circleInstance, photoInstance } from './instance';
+import { circleInstance } from './instance';
 
 export const fetchCircle = async () => {
   const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
@@ -10,10 +10,15 @@ export const fetchPublicCircle = async () => {
   return data;
 };
 
-export const fetchPhotos = async circleId => {
-  //써클의 사진들을 가져오는 함수
-  const { data } = await photoInstance.get(`get/circle/${circleId}`);
-  return data;
+export const fetchMembers = async circleId => {
+  try {
+    const {
+      data: { users },
+    } = await circleInstance.get(`/${circleId}/members`);
+    return users;
+  } catch (error) {
+    console.log(error.response);
+  }
 };
 
 export const createCircle = async newCircleData => {
@@ -40,7 +45,7 @@ export const createCircle = async newCircleData => {
     formData.append('jsonData', jsonData);
 
     const { data } = await circleInstance.post('/add-circle', formData);
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     if (error.response) {

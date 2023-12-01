@@ -11,12 +11,13 @@ export const Post = () => {
     queryFn: fetchCircle,
     refetchOnWindowFocus: true,
   });
+  console.log(data);
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({ item, index }) => <CirclePost item={item} />}
+        renderItem={({ item, index }) => <CirclePost circle={item} />}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}

@@ -28,8 +28,8 @@ const Comment = ({ comment, isFullScrolled = false }) => {
 
   return (
     <View style={[styles.personRow, !isFullScrolled && { borderBottomWidth: 0 }]}>
-      {comment.user.profile ? (
-        <Image source={comment.user.profile} style={styles.profileImage} contentFit="cover" />
+      {comment.user.profileImage ? (
+        <Image source={comment.user.profileImage} style={styles.profileImage} contentFit="cover" />
       ) : (
         <View style={styles.personWrapper}>
           <Image source={require('../../../assets/icons/user.png')} style={styles.defaultImage} contentFit="contain" />

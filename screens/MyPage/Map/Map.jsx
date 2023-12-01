@@ -12,11 +12,11 @@ const getZoomFromRegion = (region) => {
 }
 
 export const Map = () => {
-  const map = useRef(null)
+  const map = useRef(null);
 
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([
-    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude },
+    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: undefined },
   ])
   const [region, setRegion] = useState({
     latitude: INIT.latitude,
@@ -27,19 +27,17 @@ export const Map = () => {
 
   const generateMarkers = useCallback(() => {
     const markersArray = [];
-
     for (let i = 0; i < locs.length; i++) {
       markersArray.push({
         id: i,
         latitude: locs[i].coordinate.latitude,
         longitude: locs[i].coordinate.longitude,
         thumbnail: locs[i].thumbnail,
-        count: locs[i].count
-        // latitude: getRandomLatitude(lat - 0.3, lat + 0.3),
-        // longitude: getRandomLongitude(long - 0.3, long + 0.3),
+        count: locs[i].count,
+        image: locs[i].imageUri,
       });
+      // console.log(locs[i].imageUri);
     }
-
     setMarkers(markersArray);
   }, [])
 
@@ -68,6 +66,7 @@ export const Map = () => {
             latitude: item.latitude,
             longitude: item.longitude,
           }}
+          imageUri={item.thumbnail}
           tracksViewChanges={false}>
             <Image 
             source={item.thumbnail}

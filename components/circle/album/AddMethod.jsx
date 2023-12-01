@@ -1,16 +1,47 @@
-import { View, Pressable, StyleSheet, Image, Animated } from 'react-native';
+import { View, Pressable, StyleSheet, Image, Animated, Linking, Alert } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { selectState } from '../../../stores/circle-selection';
-import useCamera from '../../../hooks/useCamera';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
+import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
 
-export const AddMethod = ({ onPress, expansion }) => {
+export const AddMethod = ({ onPress, expansion, circleId }) => {
   const [selection] = useRecoilState(selectState);
   const imageStyles = [styles.overlay];
-  const { takeImageHandler } = useCamera(onImageCaptured);
+  const queryClient = useQueryClient();
 
-  const onImageCaptured = uri => {
-    console.log(uri);
-  };
+  const { selectImageHandler } = useMediaLibrary(onImageSelected, true);
+  const { takeImageHandler } = useCamera(onImageCaptured);
+  const { getLocationPermission, getLocation } = useLocation();
+
+  const mediaLibraryMutation = useMutation({
+    mutationFn: args => uploadPhotos(args.photos, args.circleId),
+    onSuccess: data => {
+      queryClient.invalidateQueries('photo');
+    },
+  });
+  const cameraMutation = useMutation({
+    mutationFn: args => uploadShootingPhoto(args.photoUri, args.circleId, args.location),
+    onSuccess: data => {
+      queryClient.invalidateQueries('photo');
+    },
+  });
+
+  // 호이스팅을 위해 함수 선언식으로 작성
+  async function onImageSelected(photos) {
+    mediaLibraryMutation.mutate({ photos, circleId });
+  }
+
+  // 호이스팅을 위해 함수 선언식으로 작성
+  function onImageCaptured(uri) {
+    const permission = getLocationPermission();
+    if (!permission) {
+      return;
+    }
+    const location = getLocation();
+    // console.log(location);
+    cameraMutation.mutate({ photoUri: uri, circleId, location });
+  }
 
   if (expansion) {
     const animation = new Animated.Value(expansion ? 0 : 1);
@@ -28,15 +59,16 @@ export const AddMethod = ({ onPress, expansion }) => {
     const animatedStyles = { transform: [{ rotate: rotateInterPolate }] };
     imageStyles.push(animatedStyles);
   }
-  if (!selection) {
-    return (
+
+  return (
+    !selection && (
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>
             <Pressable>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
-            <Pressable onPress={takeImageHandler}>
+            <Pressable>
               <Image source={require('../../../assets/icons/camera_add.png')} contentFit="cover" style={styles.icon2} />
             </Pressable>
           </View>
@@ -45,8 +77,8 @@ export const AddMethod = ({ onPress, expansion }) => {
           <Image source={require('../../../assets/icons/function_add_btn.png')} style={styles.imageStyle} />
         </Animated.View>
       </Pressable>
-    );
-  }
+    )
+  );
 };
 
 const styles = StyleSheet.create({

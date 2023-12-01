@@ -1,6 +1,6 @@
 import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Dimensions, LayoutAnimation, Platform, Pressable } from 'react-native';
-import MapView, { Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Polyline } from 'react-native-maps';
 import SuperCluster from 'supercluster';
 import ClusterMarker from './ClusteredMarker';
 import {
@@ -56,9 +56,15 @@ const ClusteredMapView = forwardRef(
     const isFocused = useIsFocused();
     const navigation = useNavigation();
     const locs = useRef([]);
-
     //useMemom 훅을 이용하여 'children'을 배열로 변환함
     const propsChildren = useMemo(() => React.Children.toArray(children), [children]);
+    //클러스터링 마커의 대표사진을 포함한 새로운 클러터링 객체
+    const newProps = markers.map((marker, index) => {
+      return {
+        ...marker,
+        imageURI: undefined // 초기값으로 undefined 할당
+      };
+    });
 
     // propsChildren과 clusteringEnabled가 변할때 marker와 superCluster 변경
     useEffect(() => {
@@ -121,6 +127,7 @@ const ClusteredMapView = forwardRef(
       if (isSpiderfier && markers.length > 0) {
         const allSpiderMarkers = [];
         let spiralChildren = [];
+
         markers.map((marker, i) => {
           //marker에 cluster라는 속성이 존재한다면
           if (marker.properties.cluster) {
@@ -128,7 +135,7 @@ const ClusteredMapView = forwardRef(
             spiralChildren = superCluster.getLeaves(marker.properties.cluster_id, Infinity);
           }
           // 나선 형태의 마커위치 생성
-          const positions = generateSpiral(marker, spiralChildren, markers, i);
+          const positions = generateSpiral(marker, spiralChildren, newProps, i);
           // 마커위치를 allSpiderMarker에 대입
           allSpiderMarkers.push(...positions);
         })
@@ -166,13 +173,9 @@ const ClusteredMapView = forwardRef(
         }
         //marker들은 업데이트
         updateMarkers(markers);
-        onMarkersChange(markers);
-        onRegionChangeComplete(region, markers);
         updateRegion(region);
-      } else {
-        onRegionChangeComplete(region);
-      }
-    }
+      } 
+    };
 
     //Cluster(모여있는 집단)이 클릭됐을 때 호출되는 함수
     const _onClusterPress = (cluster) => () => {
@@ -195,10 +198,7 @@ const ClusteredMapView = forwardRef(
       if(Math.max(...lats)-Math.min(...lats) < 1 && Math.max(...longs)-Math.min(...longs) < 1){
         console.log("엥");
         setIsNav(true);
-        // console.log(clusterChildren);
-        // navigation.navigate('MapList', {children});
-        locs.current  = [...locs.current, clusterChildren];
-        console.log(locs.current);
+        // locs.current = clusterChildren;
       }
       // 지도를 특정 좌표에 맞게 조정하는 부분
       mapRef.current.fitToCoordinates(coordinates, {
@@ -208,21 +208,18 @@ const ClusteredMapView = forwardRef(
       onClusterPress(cluster, children);
       return children;
     };
-
-
-    const NavSearch = () => {
-      // console.log(locs.current);
-      navigation.navigate('MapList', {locs});
-    };
     useEffect(() => {
       if(isFocused && mapRef.current){
         mapRef.current.animateToRegion(restProps.initialRegion, 1000);
       }
       setIsNav(false);
     }, [isFocused]);
-    // useEffect(()=>{
-    //   NavSearch();
-    // }, [isNav]);
+    useEffect(()=>{
+      locs.current = clusterChildren;
+      if(isNav ){
+        navigation.navigate('MapList', {locs});
+      }
+    }, [isNav, clusterChildren]);
 
     return (
       <MapView
@@ -235,7 +232,7 @@ const ClusteredMapView = forwardRef(
           restProps.mapRef(map)
         }}
         onRegionChangeComplete={_onRegionChangeComplete}>
-        {markers.map((marker) =>
+        {markers.map((marker, index) =>
           marker.properties.point_count === 0 
           ? ( propsChildren[marker.properties.index]) 
           : !isSpiderfier 
@@ -250,6 +247,7 @@ const ClusteredMapView = forwardRef(
                   key={`cluster-${marker.id}`}
                   {...marker}
                   onPress={_onClusterPress(marker)}
+                  // thumbnail={newProps[index]}
                   clusterColor={
                     restProps.selectedClusterId === marker.id
                       ? restProps.selectedClusterColor
@@ -257,7 +255,6 @@ const ClusteredMapView = forwardRef(
                   clusterTextColor={clusterTextColor}
                   clusterFontFamily={clusterFontFamily}
                   tracksViewChanges={tracksViewChanges}
-                  //marker.properties.imageUri => 마커의 대ㅠㅛ사진
                   />
                 )
               ) 

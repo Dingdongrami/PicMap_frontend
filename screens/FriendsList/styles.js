@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     fontFamily: 'IropkeBatang',
     fontSize: 13,
+    color: '#44403C',
     paddingLeft: 44,
   },
   searchIcon: {

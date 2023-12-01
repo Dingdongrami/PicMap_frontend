@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import CustomToast from '../CustomToast';
 import { s3BaseUrl } from '../../constants/config';
 
-export const CircleRoom = ({ item }) => {
+export const CircleRoom = ({ circle }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
   const [isModalVisible, setModalVisible] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -34,8 +34,7 @@ export const CircleRoom = ({ item }) => {
 
   //각 써클로 접속하는 함수
   const enterCircle = () => {
-    console.log(item.id);
-    return navigation.navigate('SplashUI', { itemId: item.id });
+    return navigation.navigate('SplashUI', { circleId: circle.id });
   };
 
   const joinCircle = () => {
@@ -48,7 +47,7 @@ export const CircleRoom = ({ item }) => {
     setShowToast(true);
   };
 
-  // console.log(s3Url + item.thumbnail);
+  // console.log(s3Url + circle.thumbnail);
 
   return (
     <>
@@ -60,16 +59,16 @@ export const CircleRoom = ({ item }) => {
         onBackdropPress={toggleModal}>
         <View style={modalStyles.modalContainer}>
           <View style={modalStyles.modalLine} />
-          {item.image ? (
-            <Image style={modalStyles.circleImage} source={item.image} />
+          {circle.image ? (
+            <Image style={modalStyles.circleImage} source={circle.image} />
           ) : (
             <View style={modalStyles.circleNoImageWrapper}>
               <Image style={modalStyles.circleNoImage} source={require('../../assets/icons/image.png')} />
             </View>
           )}
           <View style={modalStyles.circleInfoContainer}>
-            <Text style={modalStyles.circleName}>{item.name}</Text>
-            <Text style={modalStyles.circleDescription}>{item.description}</Text>
+            <Text style={modalStyles.circleName}>{circle.name}</Text>
+            <Text style={modalStyles.circleDescription}>{circle.description}</Text>
             <Pressable style={[buttonStyles.saveButton, { marginTop: 27 }]} onPress={joinCircle}>
               <Text style={buttonStyles.label}>가입</Text>
             </Pressable>
@@ -81,15 +80,15 @@ export const CircleRoom = ({ item }) => {
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
       <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
-        {item.thumbnail ? (
-          <Image style={styles.circlePhoto} source={s3BaseUrl + item.thumbnail} ContentFit="cover" />
+        {circle.thumbnail ? (
+          <Image style={styles.circlePhoto} source={s3BaseUrl + circle.thumbnail} ContentFit="cover" />
         ) : (
           <View style={styles.noImageWrapper}>
             <Image style={styles.noImage} source={require('../../assets/icons/image.png')} />
           </View>
         )}
         <View style={styles.circleName}>
-          <Text style={styles.circleNameText}>{item.name}</Text>
+          <Text style={styles.circleNameText}>{circle.name}</Text>
         </View>
       </Pressable>
       <CustomToast text={toastMessage} show={showToast} />

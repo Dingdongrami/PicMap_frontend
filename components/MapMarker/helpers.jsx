@@ -34,6 +34,7 @@ export const returnMapZoom = (region, bBox, minZoom) => {
 
 //마커의 지리적 위치정보와 이미지를 표현
 export const markerToGeoJSONFeature = (marker, index) => {
+  // console.log(marker.props.imageUri);
   return {
     type: 'Feature',
     geometry: {
@@ -45,7 +46,7 @@ export const markerToGeoJSONFeature = (marker, index) => {
       index,
       ..._removeChildrenFromProps(marker.props),
       //이미지 URL
-      // image: marker.props.imageUri
+      imageUri: marker.props.imageUri
     },
   };
 };
@@ -55,27 +56,21 @@ export const markerToGeoJSONFeature = (marker, index) => {
 // clusterChildren: 클러스 내부 자식마커들 배열
 // markers: 전체 마커배열
 // index: 현재 클러스터의 index
-export const generateSpiral = (marker, clusterChildren, markers, index) => {
+export const generateSpiral = (marker, clusterChildren, markerArray, index) => {
   const { properties, geometry } = marker;
   //클러스터링된 마커들의 개수
   const count = properties.point_count;
   const centerLocation = geometry.coordinates;
-
-  //클러스터링된 마커 중 대표사진
-  // let thumbnail = properties.imageUri;
-  //index 번호가 가장 큰 마커의 사진으로 thumbnail 결정
-  // thumbnail = clusterChildren[count+start];
-
-
-    const res = [];
+  const res = [];
   let angle = 0;
   let start = 0;
+  // console.log(clusterChildren);
 
   //특정 bBox와 zoom에 따라 markers가 결정되고
   // 그 클러스터링된 마커집단 내에 마커들의 개수가 start가 됨
   //부모 컴포넌트에서 건네받은 markers.map의 인덱스임
   for (let i = 0; i < index; i++) {
-    start += markers[i].properties.point_count || 0;
+    start += markerArray[i].properties.point_count || 0;
   }
 
   // 마커의 개수만큼 스파이럴 형태의 좌표를 생성 후 배열에 담아 반환
@@ -93,12 +88,10 @@ export const generateSpiral = (marker, clusterChildren, markers, index) => {
           latitude: centerLocation[1],
           longitude: centerLocation[0],
         },
-      })
+      });
+      // markerArray[index].properties.imageUri = clusterChildren[count+start].properties.imageUri;
     }
   }
-
-
-
   return res;
 }
 

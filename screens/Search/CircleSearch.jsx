@@ -1,5 +1,4 @@
-import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { CircleRoom } from '../../components/circle';
 import { styles } from './styles';
 import { data } from '../../data/circle-dummy';
@@ -16,7 +15,7 @@ const CircleSearch = () => {
     <View style={[styles.container, styles.circleContainer]}>
       <FlatList
         data={filteredData}
-        renderItem={({ item }) => <CircleRoom item={item} />}
+        renderItem={({ item }) => <CircleRoom circle={item} />}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         showsVerticalScrollIndicator={false}

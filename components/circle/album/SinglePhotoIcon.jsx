@@ -8,15 +8,22 @@ import { useRecoilState } from 'recoil';
 import { Image } from 'expo-image';
 import { s3BaseUrl } from '../../../constants/config';
 
-export const SinglePhotoIcon = ({ item }) => {
+export const SinglePhotoIcon = ({ photo }) => {
   const [selection, setSelection] = useRecoilState(selectState);
   const [checkedPhotos, setCheckedPhotos] = useState([]);
   const navigation = useNavigation();
 
   const clickPhoto = item => {
-    console.log(item.photoId);
-    navigation.navigate('PhotoCom', { photoId: item.photoId });
+    navigation.navigate('PhotoCom', { photoId: photo.id });
   };
+
+  const onChangeCheckbox = () => {
+    const itemIndex = photo.id;
+    const newCheckedPhotos = [...checkedPhotos];
+    newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
+    setCheckedPhotos(newCheckedPhotos);
+  };
+
   // selection이 false가 되면 checkedPhotos를 초기화
   useEffect(() => {
     if (!selection) {
@@ -27,23 +34,17 @@ export const SinglePhotoIcon = ({ item }) => {
   return (
     <View style={styles.albumContainer}>
       <View style={styles.photoRow}>
-        <Pressable onPress={() => clickPhoto(item.photoId)}>
+        <Pressable onPress={!selection ? () => clickPhoto(photo.id) : () => onChangeCheckbox()}>
           <View style={styles.imageContainer}>
             {selection && (
               <Checkbox
-                value={checkedPhotos[item.photoId]}
-                onValueChange={() => {
-                  const itemIndex = item.photoId;
-                  const newCheckedPhotos = [...checkedPhotos];
-                  newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
-                  setCheckedPhotos(newCheckedPhotos);
-                  console.log(itemIndex);
-                }}
-                color={checkedPhotos ? '#fff' : undefined}
+                value={checkedPhotos[photo.id]}
+                onValueChange={onChangeCheckbox}
+                color={checkedPhotos ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
               />
             )}
-            <Image source={s3BaseUrl + item.filePath} style={styles.imageIcon} />
+            <Image source={s3BaseUrl + photo.filePath} style={styles.imageIcon} />
           </View>
         </Pressable>
       </View>
