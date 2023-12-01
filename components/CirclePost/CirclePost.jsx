@@ -30,7 +30,7 @@ const CirclePost = ({ circle }) => {
               <Image
                 style={[styles.photo, getPhotoBorderStyle(index)]}
                 source={s3BaseUrl + photo.filePath}
-                resizeMode="cover"
+                contentFit="cover"
               />
             </View>
           ))}

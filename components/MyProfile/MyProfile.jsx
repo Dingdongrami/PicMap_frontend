@@ -6,6 +6,7 @@ import { Image } from 'expo-image';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUser } from '../../api/userApi';
 import { s3BaseUrl } from '../../constants/config';
+import { useEffect } from 'react';
 
 const MyProfile = ({ onPressEditProfile, onPressFriendsList }) => {
   const setUser = useSetRecoilState(userState);
@@ -19,9 +20,15 @@ const MyProfile = ({ onPressEditProfile, onPressFriendsList }) => {
     staleTime: 1000 * 60 * 60 * 24,
   });
 
-  if (!isLoading) {
-    setUser({ ...data, public: data.status === 'PUBLIC', profileImage: s3BaseUrl + data.profileImage });
-  }
+  useEffect(() => {
+    if (!isLoading && data) {
+      setUser({
+        ...data,
+        public: data.status === 'PUBLIC',
+        profileImage: s3BaseUrl + data.profileImage,
+      });
+    }
+  }, [data, isLoading, setUser]);
 
   return (
     <View style={styles.profileContainer}>
