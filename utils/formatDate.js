@@ -12,6 +12,7 @@ export const getCurrentTimestamp = () => {
 };
 
 export const convertToIsoFormat = dateTimeStr => {
+  // console.log(dateTimeStr);
   // 날짜 구분자를 변경: "2023:11:18 16:07:54" -> "2023-11-18 16:07:54"
   let formattedStr = dateTimeStr.replace(/:/g, (match, offset) => (offset === 4 || offset === 7 ? '-' : match));
 

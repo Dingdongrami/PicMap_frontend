@@ -23,7 +23,7 @@ export const OthersProfile = ({ circleId }) => {
                 style={{ width: '100%', height: '100%', borderRadius: 500 }}
               />
             ) : (
-              <Text>{item.nickname}</Text>
+              <Text style={styles.text}>{item.nickname}</Text>
             )}
           </TouchableOpacity>
         ))}
@@ -47,5 +47,8 @@ const styles = StyleSheet.create({
     fontFamily: 'IropkeBatang',
     fontSize: 13,
     margin: 2,
+  },
+  text: {
+    fontFamily: 'IropkeBatang',
   },
 });
