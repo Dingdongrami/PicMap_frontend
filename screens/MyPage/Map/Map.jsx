@@ -1,126 +1,89 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import MapView from 'react-native-maps';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { Marker } from 'react-native-maps';
+import { examples } from './examples';
+import { INIT } from './examples';
 import { styles } from './styles';
-import { useRef } from 'react';
 
+import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
+
+const getRandomLatitude = (min = 48, max = 56) => {
+  return Math.random() * (max - min) + min
+}
+
+const getRandomLongitude = (min = 14, max = 24) => {
+  return Math.random() * (max - min) + min
+}
+
+const getZoomFromRegion = (region) => {
+  return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
+}
 
 export const Map = () => {
-  const mapRef = useRef(null);
-  const goToMonument = (monument) => {
-    mapRef.current.animateToRegion(monument, 3*250);
-  };
-  const INIT = {
-    latitude: 37.580112,
-    longitude: 126.977166,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
-  const examples = [
-    {
-      // ex1: {
-      //   latitude: 37.00,
-      //   longitude: 126.90,
-      //   latitudeDelta: 0.01,
-      //   longitudeDelta: 0.01,
-      //   source: require('../../../assets/example/ex1.png')
-      // },
-      id: 1,
-      coordinate: {
-        latitude: 37.00,
-        longitude: 126.90,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      },
-      source: require('../../../assets/example/ex1.png')
-    },
-    {
-      // ex2: {
-        // latitude: 32,
-        // longitude: 126.66,
-        // latitudeDelta: 0.01,
-        // longitudeDelta: 0.01,
-      //   source: require('../../../assets/example/ex2.png')
-      // }
-      id:1,
-      coordinate: {
-        latitude: 32,
-        longitude: 126.66,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,        
-      },
-      source: require('../../../assets/example/ex2.png')
-    },
-    {
-      // ex3: {
-        // latitude: 31.12,
-        // longitude: 126.977166,
-        // latitudeDelta: 0.01,
-        // longitudeDelta: 0.01,
-      //   source: require('../../../assets/example/ex3.png')
-      // },
-      id: 3,
-      coordinate: {
-        latitude: 31.12,
-        longitude: 126.977166,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      },
-      source: require('../../../assets/example/ex3.png') 
-    },
-    {
-      // ex4: {
-      //   latitude: 41.812246,
-      //   longitude: 2.087440,
-      //   latitudeDelta: 0.01,
-      //   longitudeDelta: 0.01,
-      //   source: require('../../../assets/example/ex4.png')
-      // },
-      id: 4,
-      coordinate: {
-        latitude: 41.812246,
-        longitude: 2.087440,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,        
-      },
-      source:  require('../../../assets/example/ex4.png')
-    },
-    {
-      // ex5: {
-        // latitude: 41.813073,
-        // longitude: 2.097226,
-        // latitudeDelta: 0.01,
-        // longitudeDelta: 0.01,
-      //   source: require('../../../assets/example/ex5.png')
-      // }
-      id: 5,
-      coordinate: {
-        latitude: 41.813073,
-        longitude: 2.097226,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      },
-      source: require('../../../assets/example/ex5.png')
+  const map = useRef(null)
+
+  const [zoom, setZoom] = useState(18);
+  const [markers, setMarkers] = useState([
+    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude },
+  ])
+  const [region, setRegion] = useState(INIT);
+
+  const generateMarkers = useCallback((lat, long) => {
+    const markersArray = [];
+
+    for (let i = 0; i < 30; i++) {
+      markersArray.push({
+        id: i,
+        // latitude: examples[i].coordinate.latitude,
+        // longitude: examples[i].coordinate.longitude
+        latitude: getRandomLatitude(lat - 0.3, lat + 0.3),
+        longitude: getRandomLongitude(long - 0.3, long + 0.3),
+      });
     }
-  ];
-  return (
-    <MapView
-      style={styles.map}
-      initialRegion={INIT}
-      // initialRegion={examples.default}
-      provider={PROVIDER_GOOGLE}>
-      {/* <Marker
-        coordinate={{
-          latitude: 37.580112,
-          longitude: 126.977166,
-        }}
-        pinColor="#2D63E2"
-        title="하이"
-        description="테스트"
-      /> */}
-      {examples.map((item, index) => (
-        <Marker key={index} coordinate={item} imageSource={item.source} />
-      ))}
-    </MapView>
+
+    setMarkers(markersArray)
+  }, [])
+
+  const onRegionChangeComplete = (newRegion) => {
+    setZoom(getZoomFromRegion(newRegion))
+    setRegion(newRegion)
+  }
+
+  useEffect(() => {
+    generateMarkers(region.latitude, region.longitude)
+  }, [])
+
+  const markerIcon = (
+    <View style={{ backgroundColor: '#00B386', borderRadius: 50, padding: 5 }}>
+      {/* 원하는 아이콘 혹은 이미지 */}
+      <Image 
+        source={require('../../../assets/example/ex2.png')}
+        style={{width: 25, height: 25}}
+      />
+    </View>
   );
-};
+
+  return (
+    <View style={styles.container}>
+      <ClusteredMapView
+        clusterColor="#00B386"
+        ref={map}
+        mapType="standard"
+        style={styles.mapView}
+        initialRegion={region}
+        onRegionChangeComplete={onRegionChangeComplete}>
+        {markers.map((item) => (
+          <Marker
+            // style={{backgroundColor: '#00B386'}}
+            image={()=>markerIcon}
+            key={item.id}
+            coordinate={{
+              latitude: item.latitude,
+              longitude: item.longitude,
+            }}
+          />
+        ))}
+      </ClusteredMapView>
+    </View>
+  )
+}

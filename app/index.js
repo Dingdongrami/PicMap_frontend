@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
-  const ctx = require.context('./app');
+  // const ctx = require.context('./app');
   const [fontsLoaded] = useFonts({
     IropkeBatang: require('../assets/fonts/IropkeBatangM.ttf'),
   });

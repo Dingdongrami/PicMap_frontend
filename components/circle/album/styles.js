@@ -26,21 +26,25 @@ export const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  realImage:{
+    width: "100%",
+    height: "100%"
+  },
   imageCon4check: {
     flex: 1,
     flexDirection: 'column',
     width: 120,
     height: 120,
     borderWidth: 0.5,
-    borderColor: '#44403C',
+    borderColor: '#D6ffD3D1',
     // marginHorizontal: 2,
     // marginVertical: 2,
   },
   image4check: {
-    width: 45,
-    height: 31,
-    marginLeft: 37,
-    marginTop: 21,
+    width: "100%",
+    height: "100%",
+    // marginLeft: 37,
+    // marginTop: 21,
   },
   photoRow: {
     flexDirection: 'row',

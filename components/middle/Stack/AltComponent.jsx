@@ -1,7 +1,7 @@
 import { Post, Circle, Map } from '../../../screens/MyPage';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MyProfile } from '../../MyProfile';
+import MyProfile from '../../MyProfile/MyProfile';
 
 const Tab = createBottomTabNavigator();
 
