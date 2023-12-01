@@ -11,6 +11,7 @@ export const Post = () => {
     queryFn: fetchCircle,
     refetchOnWindowFocus: true,
   });
+  console.log(data);
 
   return (
     <SafeAreaView style={styles.container}>
