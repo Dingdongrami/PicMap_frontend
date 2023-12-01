@@ -1,5 +1,5 @@
 import { useCameraPermissions, PermissionStatus, launchCameraAsync } from 'expo-image-picker';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 
 const useCamera = onImageCaptured => {
   const [cameraPermissionInformation, requestCameraPermission] = useCameraPermissions(); // 카메라 접근 권한
@@ -30,15 +30,14 @@ const useCamera = onImageCaptured => {
       }
 
       const image = await launchCameraAsync({
-        allowsEditing: true,
         aspect: [16, 9],
-        quality: 0.5,
+        quality: 1,
+        // allowsEditing: true,
+        exif: true,
       });
       if (!image.canceled) {
         // 이미지가 취소되지 않았다면 실행할 코드
-        onImageCaptured(image.assets[0].uri);
-        // setNewCircle({ ...newCircle, image: image.assets[0].uri });
-        // setModalVisible(!isModalVisible);
+        onImageCaptured(image.assets[0]);
       }
       // console.log(image);
     } catch (error) {

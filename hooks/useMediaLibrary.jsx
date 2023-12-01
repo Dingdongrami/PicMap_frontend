@@ -4,9 +4,9 @@ import {
   MediaTypeOptions,
   launchImageLibraryAsync,
 } from 'expo-image-picker';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 
-const useMediaLibrary = onImageCaptured => {
+const useMediaLibrary = (onImageSelected, multiple = false) => {
   const [imagePermissionInformation, requestImagePermission] = useMediaLibraryPermissions(); // 미디어 라이브러리 접근 권한
 
   async function verifyImagePermissions() {
@@ -36,14 +36,16 @@ const useMediaLibrary = onImageCaptured => {
 
       const image = await launchImageLibraryAsync({
         mediaTypes: MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.5,
+        allowsMultipleSelection: multiple,
+        selectionLimit: multiple ? 10 : 1,
+        // aspect: [1, 1],
+        quality: 1,
+        exif: true,
       });
 
       if (!image.canceled) {
-        // 이미지가 취소되지 않았다면 실행할 코드
-        onImageCaptured(image.assets[0].uri);
+        // 각 이미지의 URI만 추출하여 배열로 만듭니다.
+        onImageSelected(image.assets);
       }
     } catch (error) {
       Alert.alert('미디어 라이브러리를 사용할 수 없습니다.', '다시 시도해주세요.');

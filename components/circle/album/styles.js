@@ -66,6 +66,11 @@ export const comStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  image: {
+    width: '100%',
+    height: '100%',
+    contentFit: 'contain',
+  },
   scrollCon: {
     borderTopWidth: 0.5,
     borderColor: '#78716C',

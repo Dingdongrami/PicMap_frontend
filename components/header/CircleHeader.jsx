@@ -9,9 +9,9 @@ import { useNavigation } from '@react-navigation/native';
 import { NestedModal } from '../Modal/NestedModal';
 import { CircleModal } from '../Modal/CircleModal';
 import { EditModal } from '../Modal/EditModal';
+import HeaderIcon from './HeaderIcon';
 
 const CircleHeader = () => {
-  const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
   const [isEditVisible, setEditVisible] = useState(false);
@@ -98,19 +98,7 @@ const CircleHeader = () => {
     <View style={styles.container}>
       <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>PicMap</Text>
       <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <Ionicons name="search-sharp" size={25} color={'#44403C'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('TimeLine')}>
-          <FontAwesome name="globe" size={26} color={'#44403C'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPage')}>
-          {user.profile ? (
-            <Image source={user.profile} style={styles.image} contentFit="cover" />
-          ) : (
-            <FontAwesome name="user-circle-o" style={{ marginLeft: 2 }} size={26} color={'#44403C'} />
-          )}
-        </TouchableOpacity>
+        <HeaderIcon />
         <CircleModal
           isModalVisible={isModalVisible}
           toggleModal={toggleModal}

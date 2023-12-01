@@ -6,7 +6,7 @@ const getAuthToken = async () => await SecureStore.getItemAsync('token');
 
 const instance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_SERVER_URL,
-  timeout: 5000,
+  // timeout: 5000,
 });
 
 // // 요청 인터셉터를 추가하여 요청이 전송되기 전에 실행됩니다.
@@ -36,4 +36,8 @@ circleInstance.defaults.baseURL += '/api/circles';
 const photoInstance = axios.create(instance.defaults);
 photoInstance.defaults.baseURL += '/api/photos';
 
-export { circleInstance, photoInstance, instance as default };
+/* 유저 API 요청을 위한 인스턴스 */
+const userInstance = axios.create(instance.defaults);
+userInstance.defaults.baseURL += '/api/user';
+
+export { circleInstance, photoInstance, userInstance, instance as default };

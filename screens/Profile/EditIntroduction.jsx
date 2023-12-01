@@ -11,15 +11,15 @@ export const EditIntroduction = ({ navigation }) => {
   const setUser = useSetRecoilState(userState);
 
   // 로컬 상태를 사용하여 사용자의 입력을 관리합니다.
-  const [introduction, setIntroduction] = useState(user.introduction);
+  const [introduce, setIntroduce] = useState(user.introduce);
 
   const onPressConfirm = () => {
     // 공백 문자만 있거나 빈 문자열이 아닌지 확인합니다.
-    if (!introduction.trim()) {
+    if (!introduce.trim()) {
       Alert.alert('한줄소개를 입력해주세요.');
     } else {
       // Recoil 상태를 업데이트합니다.
-      setUser(prevUser => ({ ...prevUser, introduction: introduction.trim() }));
+      setUser(prevUser => ({ ...prevUser, introduce: introduce.trim() }));
       navigation.goBack();
     }
   };
@@ -36,8 +36,8 @@ export const EditIntroduction = ({ navigation }) => {
       </View>
       <TextInput
         style={styles.longInput}
-        value={introduction}
-        onChangeText={setIntroduction} // 직접 로컬 상태를 업데이트합니다.
+        value={introduce}
+        onChangeText={setIntroduce} // 직접 로컬 상태를 업데이트합니다.
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="한줄소개"

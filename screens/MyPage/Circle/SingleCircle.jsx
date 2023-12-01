@@ -9,16 +9,17 @@ import { selectState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 import { photoInstance } from '../../../api/instance';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPhotos } from '../../../api/circleApi';
+import { fetchPhotos } from '../../../api/photoApi';
 
 export const SingleCircle = ({ route }) => {
-  const { itemId } = route.params; //써클의 id값 찾아내기
+  const { circleId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
+  // 써클의 사진들을 불러오기
   const { data, isLoading, isError } = useQuery({
     queryKey: ['photo'],
-    queryFn: () => fetchPhotos(itemId),
+    queryFn: () => fetchPhotos(circleId),
   });
 
   const handleScroll = e => {
@@ -31,13 +32,15 @@ export const SingleCircle = ({ route }) => {
     }
   };
 
+  // 써클의 사진의 id를 전달받아서 사진을 불러오기
   const renderItem = ({ item, index }) => (
     <View style={{ flex: 0.33 }}>
-      <SinglePhotoIcon item={item} />
+      <SinglePhotoIcon photo={item} />
     </View>
   );
 
-  console.log('data', data);
+  // console.log(data);
+
   if (!isReady) {
     return <SplashUI />;
   } else {
@@ -46,20 +49,20 @@ export const SingleCircle = ({ route }) => {
         <FlatList
           data={data}
           numColumns={3}
-          keyExtractor={item => item.photoId}
-          ListHeaderComponent={HeaderComponent}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={() => <HeaderComponent circleId={circleId} />}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
         />
-        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} />
+        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} circleId={circleId} />
       </View>
     );
   }
 };
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ circleId }) => {
   const [isMap, setIsMap] = useState(true);
   const [selection, setSelection] = useRecoilState(selectState);
   const changeSelection = () => {
@@ -83,10 +86,11 @@ const HeaderComponent = () => {
       onPress: changeSelection,
     },
   ]);
+
   return (
     <View style={{ marginBottom: 5 }}>
       <View style={styles.personBox}>
-        <OthersProfile />
+        <OthersProfile circleId={circleId} />
       </View>
       <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
       <View style={styles.wrapper}>

@@ -8,39 +8,81 @@ import { userState } from '../../stores/user-store';
 import Checkbox from 'expo-checkbox';
 import useCamera from '../../hooks/useCamera';
 import useMediaLibrary from '../../hooks/useMediaLibrary';
+import { s3BaseUrl } from '../../constants/config';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { updateUser, updateUserProfileImage } from '../../api/userApi';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
   const [isModalVisible, setModalVisible] = useState(false);
 
   // 써클 썸네일 업로드를 위한 함수
-  const { selectImageHandler } = useMediaLibrary(onImageCaptured);
+  const { selectImageHandler } = useMediaLibrary(onImageSelected);
   const { takeImageHandler } = useCamera(onImageCaptured);
 
-  // 이미지 캡쳐가 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
-  function onImageCaptured(uri) {
-    setUser({ ...user, profile: uri });
+  const queryClient = useQueryClient();
+
+  // 유저 정보를 가져오는 쿼리
+  const { data } = useQuery({
+    queryKey: ['user', 17],
+    queryFn: () => fetchUser(17),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+  // 유저 정보를 업데이트하는 뮤테이션
+  const userMutate = useMutation({
+    mutationFn: args => updateUser(args.userId, args.userData),
+    onSuccess: data => {
+      setUser({ ...data, public: data.status === 'PUBLIC' });
+      queryClient.invalidateQueries('user');
+    },
+  });
+  // 유저 프로필 이미지를 업데이트하는 뮤테이션
+  const userProfileMutate = useMutation({
+    mutationFn: args => updateUserProfileImage(args.userId, args.userProfileImage),
+    onSuccess: data => {
+      setUser({ ...data, public: data.status === 'PUBLIC' });
+      queryClient.invalidateQueries('user');
+    },
+    onError: error => {
+      Alert.alert('프로필 이미지 업로드에 실패했습니다.');
+    },
+  });
+
+  // 이미지 선택이 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
+  function onImageSelected(photo) {
+    setUser({ ...user, profileImage: photo[0].uri });
     setModalVisible(!isModalVisible);
   }
 
-  const onDeleteImage = useCallback(() => {
-    setUser({ ...user, profile: null });
-    setModalVisible(false);
-  }, []);
-
-  const onToggleModal = useCallback(() => {
+  // 이미지 캡쳐가 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
+  function onImageCaptured(photoUri) {
+    setUser({ ...user, profileImage: photoUri });
     setModalVisible(!isModalVisible);
-  }, [isModalVisible]);
+  }
 
-  const onPressConfirm = useCallback(() => {
-    setUser(user);
-    navigation.goBack();
-  }, [user, user.profile, setUser, navigation]);
+  const onDeleteImage = () => {
+    setUser({ ...user, profileImage: null }); // 이미지 삭제를 위해 빈 문자열로 설정
+    setModalVisible(false);
+  };
 
-  const onPressCancel = useCallback(() => {
-    setUser(user); // API 연동 후 수정
+  const onToggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const onPressConfirm = () => {
+    userMutate.mutate({ userId: user.id, userData: { ...user, status: user.public ? 'PUBLIC' : 'PRIVATE' } });
+    userProfileMutate.mutate({ userId: user.id, userProfileImage: user.profileImage });
     navigation.goBack();
-  }, [user, navigation]);
+  };
+
+  const onPressCancel = () => {
+    setUser({ ...data, public: data.status === 'PUBLIC' });
+    navigation.goBack();
+  };
 
   const onPressEditUsername = () => {
     navigation.navigate('EditUsername');
@@ -83,8 +125,8 @@ export const EditProfile = ({ navigation }) => {
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 25 }}
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
-      {user.profile ? (
-        <Image source={user.profile} style={styles.image} contentFit="cover" />
+      {user.profileImage ? (
+        <Image source={user.profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
@@ -100,7 +142,7 @@ export const EditProfile = ({ navigation }) => {
           </View>
           <TextInput
             style={styles.input}
-            value={user?.username}
+            value={user?.nickname}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="사용자 이름"
@@ -116,7 +158,7 @@ export const EditProfile = ({ navigation }) => {
           </View>
           <TextInput
             style={styles.input}
-            value={user?.introduction}
+            value={user?.introduce}
             autoCapitalize="none"
             autoCorrect={false}
             placeholder="한줄소개"
