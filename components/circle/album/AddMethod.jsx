@@ -4,6 +4,7 @@ import { selectState } from '../../../stores/circle-selection';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
 import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
+import * as Location from 'expo-location';
 
 export const AddMethod = ({ onPress, expansion, circleId }) => {
   const [selection] = useRecoilState(selectState);
@@ -12,7 +13,7 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
 
   const { selectImageHandler } = useMediaLibrary(onImageSelected, true);
   const { takeImageHandler } = useCamera(onImageCaptured);
-  const { getLocationPermission, getLocation } = useLocation();
+  const { getLocationPermission } = useLocation();
 
   const mediaLibraryMutation = useMutation({
     mutationFn: args => uploadPhotos(args.photos, args.circleId),
@@ -33,14 +34,15 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
   }
 
   // 호이스팅을 위해 함수 선언식으로 작성
-  function onImageCaptured(uri) {
+  async function onImageCaptured(photo) {
     const permission = getLocationPermission();
     if (!permission) {
       return;
     }
-    const location = getLocation();
-    // console.log(location);
-    cameraMutation.mutate({ photoUri: uri, circleId, location });
+    const location = await Location.getCurrentPositionAsync({});
+
+    console.log('ImageCaptured', photo);
+    cameraMutation.mutate({ photoUri: photo.uri, circleId, location });
   }
 
   if (expansion) {
@@ -65,7 +67,7 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>
-            <Pressable>
+            <Pressable onPress={selectImageHandler}>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
             <Pressable>

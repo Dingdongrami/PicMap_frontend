@@ -39,7 +39,7 @@ export const SingleCircle = ({ route }) => {
     </View>
   );
 
-  console.log(data);
+  // console.log(data);
 
   if (!isReady) {
     return <SplashUI />;
