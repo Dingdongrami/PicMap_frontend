@@ -65,7 +65,7 @@ export const EditProfile = ({ navigation }) => {
   }
 
   const onDeleteImage = () => {
-    setUser({ ...user, profileImage: null }); // 이미지 삭제를 위해 빈 문자열로 설정
+    setUser({ ...user, profileImage: '' }); // 이미지 삭제를 위해 빈 문자열로 설정
     setModalVisible(false);
   };
 

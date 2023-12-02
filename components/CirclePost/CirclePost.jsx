@@ -4,7 +4,7 @@ import { getPhotoBorderStyle } from '../../utils/getPhotoBorderStyles';
 import { Image } from 'expo-image';
 import { s3BaseUrl } from '../../constants/config';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPhotos } from '../../api/photoApi';
+import { fetchLatestFourPhotos, fetchPhotos } from '../../api/photoApi';
 import { useNavigation } from 'expo-router';
 
 const CirclePost = ({ circle }) => {
@@ -13,7 +13,7 @@ const CirclePost = ({ circle }) => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['circlePost', circleId],
-    queryFn: () => fetchPhotos(circleId),
+    queryFn: () => fetchLatestFourPhotos(circleId),
   });
 
   //각 써클로 접속하는 함수
@@ -25,7 +25,7 @@ const CirclePost = ({ circle }) => {
     data?.length > 3 && (
       <>
         <Pressable style={styles.circle} onPress={enterCircle}>
-          {data.slice(-4).map((photo, index) => (
+          {data.map((photo, index) => (
             <View key={index} style={styles.photoWrapper}>
               <Image
                 style={[styles.photo, getPhotoBorderStyle(index)]}

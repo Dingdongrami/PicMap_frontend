@@ -9,7 +9,7 @@ export const fetchPhotos = async circleId => {
 
 export const fetchLatestFourPhotos = async circleId => {
   //써클의 사진들을 가져오는 함수
-  const { data } = await photoInstance.get('latest-four');
+  const { data } = await photoInstance.get(`latest-four?circleId=${circleId}`);
   return data;
 };
 
