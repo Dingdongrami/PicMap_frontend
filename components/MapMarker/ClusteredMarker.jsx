@@ -12,10 +12,10 @@ const ClusteredMarker = ({
   clusterTextColor,
   clusterFontFamily,
   tracksViewChanges,
+  thumbnail
 }) => {
   const points = properties.point_count;
   const { width, height, fontSize, size } = returnMarkerStyle(points);
-
   return (
     <Marker
       key={`${geometry.coordinates[0]}_${geometry.coordinates[1]}`}

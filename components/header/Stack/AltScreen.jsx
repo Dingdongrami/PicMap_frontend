@@ -20,6 +20,7 @@ import CircleDetailHeader from '../CircleDetailHeader';
 import JustGoBackHeader from '../JustGoBackHeader';
 import { ZoomInMap } from '../../circle';
 import { AltComponent, AltUserComponent, AltSearchComponent } from '../../middle';
+import { MapList } from '../../MapMarker/MapList';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ const AltScreen = () => {
       })}>
       <Stack.Group>
         <Stack.Screen name="MyPage" component={AltComponent} />
+        <Stack.Screen name="MapList" component={MapList} />
         <Stack.Screen name="Search" component={AltSearchComponent} />
         <Stack.Screen name="TimeLine" component={TimeLine} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
