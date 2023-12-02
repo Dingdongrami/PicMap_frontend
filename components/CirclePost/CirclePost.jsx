@@ -25,7 +25,7 @@ const CirclePost = ({ circle }) => {
     data?.length > 3 && (
       <>
         <Pressable style={styles.circle} onPress={enterCircle}>
-          {data.slice(0, 4).map((photo, index) => (
+          {data.slice(-4).map((photo, index) => (
             <View key={index} style={styles.photoWrapper}>
               <Image
                 style={[styles.photo, getPhotoBorderStyle(index)]}
