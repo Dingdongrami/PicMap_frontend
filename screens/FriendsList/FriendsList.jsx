@@ -5,7 +5,7 @@ import { PersonRow } from '../../components';
 import { styles } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { CircleDetailHeader } from '../../components/header/CircleDetailHeader';
+import CircleDetailHeader from '../../components/header/CircleDetailHeader';
 import { BottomModal } from '../../components/Modal';
 
 const FriendsList = () => {
@@ -59,24 +59,24 @@ const FriendsList = () => {
     {
       user: {
         profileImage: '',
-        username: '이지민',
-        introduction: '안녕하세요',
+        nickname: '이지민',
+        introduce: '안녕하세요',
       },
       button: isRemoveActive && removeButton,
     },
     {
       user: {
         profileImage: '',
-        username: '공소연',
-        introduction: '반가워요',
+        nickname: '공소연',
+        introduce: '반가워요',
       },
       button: isRemoveActive && removeButton,
     },
     {
       user: {
         profileImage: '',
-        username: '김민정',
-        introduction: '안녕하세용',
+        nickname: '김민정',
+        introduce: '안녕하세용',
       },
       button: isRemoveActive && removeButton,
     },

@@ -15,24 +15,24 @@ const UserSearch = () => {
     {
       user: {
         profileImage: '',
-        username: '이지민',
-        introduction: '안녕하세요',
+        nickname: '이지민',
+        introduce: '안녕하세요',
       },
       button: personAddButton,
     },
     {
       user: {
         profileImage: '',
-        username: '공소연',
-        introduction: '반가워요',
+        nickname: '공소연',
+        introduce: '반가워요',
       },
       button: personAddButton,
     },
     {
       user: {
         profileImage: '',
-        username: '김민정',
-        introduction: '안녕하세용',
+        nickname: '김민정',
+        introduce: '안녕하세용',
       },
       button: personAddButton,
     },

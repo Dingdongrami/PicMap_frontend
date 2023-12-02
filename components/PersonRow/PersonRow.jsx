@@ -22,7 +22,7 @@ const PersonRow = ({ user, button }) => {
         </View>
       )}
       <Pressable onPress={onPressUser}>
-        <Text style={styles.username}>{user.username}</Text>
+        <Text style={styles.username}>{user.nickname}</Text>
       </Pressable>
       {button && (
         <Pressable onPress={button?.onPress} style={styles.buttonWrapper}>
