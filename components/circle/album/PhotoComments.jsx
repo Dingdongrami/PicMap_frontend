@@ -18,7 +18,7 @@ const config = {
 };
 
 //사진클릭시 접속하는 화면
-export const PhotoComments = () => {
+export const PhotoComments = ({ photo }) => {
   const [heart, setHeart] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
@@ -56,6 +56,8 @@ export const PhotoComments = () => {
   const onBlurTypeComment = () => {
     height.value = withSpring(height.value - 260, config);
   };
+
+  console.log(photo);
 
   return (
     <Animated.View style={[comStyles.scrollCon, { height: height }]}>

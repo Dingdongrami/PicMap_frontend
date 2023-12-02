@@ -15,7 +15,7 @@ export const SinglePhotoIcon = ({ photo, handleSelectedPhotos, selectedPhotos })
   const navigation = useNavigation();
 
   const navigateToPhotoCom = () => {
-    navigation.navigate('PhotoCom', { photoId: photo.id });
+    navigation.navigate('PhotoCom', { photo });
   };
 
   const togglePhotoSelection = () => {
