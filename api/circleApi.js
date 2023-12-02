@@ -63,3 +63,18 @@ export const createCircle = async newCircleData => {
     }
   }
 };
+
+export const joinPublicCircle = async (userId, circleId) => {
+  try {
+    const { data } = await circleInstance.post('/join', {
+      circleId,
+      userId,
+    });
+    return data;
+  } catch (error) {
+    console.error(error.response.data);
+    console.error(error.response.status);
+    console.error(error.response.headers);
+    console.error(error.response.config.data);
+  }
+};
