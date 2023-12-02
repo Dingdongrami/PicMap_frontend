@@ -27,12 +27,18 @@ const CircleCreate = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   // 써클 썸네일 업로드를 위한 함수
-  const { selectImageHandler } = useMediaLibrary(onImageCaptured);
+  const { selectImageHandler } = useMediaLibrary(onImageSelected);
   const { takeImageHandler } = useCamera(onImageCaptured);
 
+  // 이미지 선택이 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
+  function onImageSelected(photo) {
+    setNewCircle({ ...newCircle, thumbnail: photo[0].uri });
+    setModalVisible(!isModalVisible);
+  }
+
   // 이미지 캡쳐가 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
-  function onImageCaptured(uri) {
-    setNewCircle({ ...newCircle, thumbnail: uri });
+  function onImageCaptured(photo) {
+    setNewCircle({ ...newCircle, thumbnail: photo.uri });
     setModalVisible(!isModalVisible);
   }
 
