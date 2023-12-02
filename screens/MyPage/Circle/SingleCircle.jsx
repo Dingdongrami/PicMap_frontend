@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { useState, useMemo, useEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
@@ -108,7 +108,19 @@ const HeaderComponent = ({ circleId, photoDeleteMutation, selectedPhotos }) => {
     {
       text: '삭제',
       onPress: () => {
-        photoDeleteMutation.mutate();
+        // 선택된 사진을 삭제할건지 묻는 모달창 띄우기
+        Alert.alert('사진 삭제', '선택된 사진을 삭제할까요?', [
+          {
+            text: '취소',
+          },
+          {
+            text: '삭제',
+            onPress: () => {
+              // 선택된 사진 삭제하기
+              photoDeleteMutation.mutate();
+            },
+          },
+        ]);
       },
     },
     {
