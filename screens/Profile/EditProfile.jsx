@@ -10,7 +10,7 @@ import useCamera from '../../hooks/useCamera';
 import useMediaLibrary from '../../hooks/useMediaLibrary';
 import { s3BaseUrl } from '../../constants/config';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { updateUser, updateUserProfileImage } from '../../api/userApi';
+import { updateUser, updateUserProfileImage, updateUserProfileNoImage } from '../../api/userApi';
 
 export const EditProfile = ({ navigation }) => {
   const [user, setUser] = useRecoilState(userState);
@@ -51,6 +51,17 @@ export const EditProfile = ({ navigation }) => {
       Alert.alert('프로필 이미지 업로드에 실패했습니다.');
     },
   });
+  // 유저 프로필 이미지가 null일 때 뮤테이션
+  const userProfileNullMutate = useMutation({
+    mutationFn: args => updateUserProfileNoImage(args.userId),
+    onSuccess: data => {
+      setUser({ ...data, public: data.status === 'PUBLIC' });
+      queryClient.invalidateQueries('user');
+    },
+    onError: error => {
+      Alert.alert('프로필 이미지 업로드에 실패했습니다.');
+    },
+  });
 
   // 이미지 선택이 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
   function onImageSelected(photo) {
@@ -65,7 +76,7 @@ export const EditProfile = ({ navigation }) => {
   }
 
   const onDeleteImage = () => {
-    setUser({ ...user, profileImage: '' }); // 이미지 삭제를 위해 빈 문자열로 설정
+    setUser({ ...user, profileImage: null });
     setModalVisible(false);
   };
 
@@ -75,7 +86,11 @@ export const EditProfile = ({ navigation }) => {
 
   const onPressConfirm = () => {
     userMutate.mutate({ userId: user.id, userData: { ...user, status: user.public ? 'PUBLIC' : 'PRIVATE' } });
-    userProfileMutate.mutate({ userId: user.id, userProfileImage: user.profileImage });
+    if (!user.profileImage) {
+      userProfileNullMutate.mutate({ userId: user.id });
+    } else {
+      userProfileMutate.mutate({ userId: user.id, userProfileImage: user.profileImage });
+    }
     navigation.goBack();
   };
 
@@ -126,7 +141,7 @@ export const EditProfile = ({ navigation }) => {
       showsVerticalScrollIndicator={false}>
       <BottomModal isModalVisible={isModalVisible} onToggleModal={onToggleModal} buttons={editButtons} />
       {user.profileImage ? (
-        <Image source={user.profileImage} style={styles.image} contentFit="cover" />
+        <Image source={user.profileImage || s3BaseUrl + user.profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
