@@ -5,22 +5,44 @@ import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
 import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/circle';
 import { FlatList } from 'react-native-gesture-handler';
-import { selectState } from '../../../stores/circle-selection';
+import { circleSelectButtonState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
-import { photoInstance } from '../../../api/instance';
-import { useQuery } from '@tanstack/react-query';
-import { fetchPhotos } from '../../../api/photoApi';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { deletePhoto, fetchPhotos } from '../../../api/photoApi';
 
 export const SingleCircle = ({ route }) => {
   const { circleId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
+
+  const queryClient = useQueryClient();
+  const photoDeleteMutation = useMutation({
+    mutationFn: () => deletePhoto(selectedPhotos),
+    onSuccess: data => {
+      queryClient.invalidateQueries('photo');
+      setSelectedPhotos([]);
+    },
+  });
+
   // 써클의 사진들을 불러오기
   const { data, isLoading, isError } = useQuery({
     queryKey: ['photo'],
     queryFn: () => fetchPhotos(circleId),
   });
+
+  const handleSelectedPhotos = photoId => {
+    setSelectedPhotos(prevSelectedPhotos => {
+      if (prevSelectedPhotos.includes(photoId)) {
+        // 이미 선택된 사진이면 제거
+        return prevSelectedPhotos.filter(id => id !== photoId);
+      } else {
+        // 선택되지 않은 사진이면 추가
+        return [...prevSelectedPhotos, photoId];
+      }
+    });
+  };
 
   const handleScroll = e => {
     //스크롤 위치를 확인
@@ -34,12 +56,14 @@ export const SingleCircle = ({ route }) => {
 
   // 써클의 사진의 id를 전달받아서 사진을 불러오기
   const renderItem = ({ item, index }) => (
-    <View style={{ flex: 0.33 }}>
-      <SinglePhotoIcon photo={item} />
-    </View>
+    <Pressable style={{ flex: 0.33 }}>
+      <SinglePhotoIcon photo={item} handleSelectedPhotos={handleSelectedPhotos} selectedPhotos={selectedPhotos} />
+    </Pressable>
   );
 
-  // console.log(data);
+  useEffect(() => {
+    console.log(selectedPhotos);
+  }, [selectedPhotos]);
 
   if (!isReady) {
     return <SplashUI />;
@@ -50,7 +74,13 @@ export const SingleCircle = ({ route }) => {
           data={data}
           numColumns={3}
           keyExtractor={item => item.id}
-          ListHeaderComponent={() => <HeaderComponent circleId={circleId} />}
+          ListHeaderComponent={() => (
+            <HeaderComponent
+              circleId={circleId}
+              photoDeleteMutation={photoDeleteMutation}
+              selectedPhotos={selectedPhotos}
+            />
+          )}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
@@ -62,12 +92,14 @@ export const SingleCircle = ({ route }) => {
   }
 };
 
-const HeaderComponent = ({ circleId }) => {
+const HeaderComponent = ({ circleId, photoDeleteMutation, selectedPhotos }) => {
   const [isMap, setIsMap] = useState(true);
-  const [selection, setSelection] = useRecoilState(selectState);
+  const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
+
   const changeSelection = () => {
-    setSelection(!selection);
+    setCircleSelectButtonActive(!circleSelectButtonActive);
   };
+
   const selectOptions = useMemo(() => [
     {
       text: '전체 선택',
@@ -75,7 +107,9 @@ const HeaderComponent = ({ circleId }) => {
     },
     {
       text: '삭제',
-      // onPress
+      onPress: () => {
+        photoDeleteMutation.mutate();
+      },
     },
     {
       text: '저장',
@@ -95,7 +129,7 @@ const HeaderComponent = ({ circleId }) => {
       <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
       <View style={styles.wrapper}>
         <Text style={styles.imageText}>사진</Text>
-        {!selection ? (
+        {!circleSelectButtonActive ? (
           <Pressable onPress={changeSelection}>
             <Text style={styles.optionText}>선택</Text>
           </Pressable>
