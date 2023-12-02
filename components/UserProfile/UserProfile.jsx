@@ -5,6 +5,7 @@ import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 import { useState } from 'react';
 import CustomToast from '../CustomToast';
+import { s3BaseUrl } from '../../constants/config';
 
 const UserProfile = ({ user, onPressFriendRequest }) => {
   const [showToast, setShowToast] = useState(false);
@@ -21,8 +22,8 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
 
   return (
     <View style={styles.profileContainer}>
-      {user.profileImageImage ? (
-        <Image source={user.profileImage} style={styles.image} contentFit="cover" />
+      {user.profileImage ? (
+        <Image source={s3BaseUrl + user.profileImage} style={styles.image} contentFit="cover" />
       ) : (
         <View style={styles.noImageWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.noImage} />
@@ -31,9 +32,9 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
       <View style={styles.rightWrapper}>
         <View style={styles.iconTextWrapper}>
           <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
-          <Text style={styles.usernameText}>{user.username}</Text>
+          <Text style={styles.usernameText}>{user.nickname}</Text>
         </View>
-        <Text style={styles.onelineText}>{user.introduction}</Text>
+        <Text style={styles.onelineText}>{user.introduce}</Text>
         <View style={styles.buttonWrapper}>
           <Pressable style={styles.pinkButton} onPress={onPressRequest}>
             <Image source={require('../../assets/icons/person_add.png')} style={styles.friendsImage} />
