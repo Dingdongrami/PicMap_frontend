@@ -16,7 +16,11 @@ const CircleSearch = () => {
     <View style={[styles.container, styles.circleContainer]}>
       <FlatList
         data={data}
-        renderItem={({ item }) => <CircleRoom circle={item} />}
+        renderItem={({ item }) => (
+          <View style={{ flex: 0.5 }}>
+            <CircleRoom circle={item} />
+          </View>
+        )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         showsVerticalScrollIndicator={false}
