@@ -8,7 +8,7 @@ import { fetchCircle } from '../../../api/circleApi';
 export const Post = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['circle'],
-    queryFn: fetchCircle,
+    queryFn: () => fetchCircle(17),
     refetchOnWindowFocus: true,
   });
 

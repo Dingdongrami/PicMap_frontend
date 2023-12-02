@@ -9,15 +9,20 @@ import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import CustomToast from '../CustomToast';
 import { s3BaseUrl } from '../../constants/config';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCircle } from '../../api/circleApi';
 
-export const CircleRoom = ({ circle }) => {
+export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
   const [isModalVisible, setModalVisible] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const navigation = useNavigation();
 
-  const isJoined = true; // TODO: Add logic to check if the user is a member of the circle.
+  const myCircleData = useQuery({
+    queryKey: ['circle'],
+    queryFn: () => fetchCircle(17),
+  });
 
   // Function to handle the modal toggle
   const toggleModal = () => {
@@ -35,6 +40,15 @@ export const CircleRoom = ({ circle }) => {
   //각 써클로 접속하는 함수
   const enterCircle = () => {
     return navigation.navigate('SplashUI', { circleId: circle.id });
+  };
+
+  const handleCircleRoomClick = circleId => {
+    let isJoined = myCircleData.data.some(circle => circle.id === circleId);
+    if (isJoined) {
+      enterCircle();
+    } else {
+      onPressJoin();
+    }
   };
 
   const joinCircle = () => {
@@ -59,8 +73,8 @@ export const CircleRoom = ({ circle }) => {
         onBackdropPress={toggleModal}>
         <View style={modalStyles.modalContainer}>
           <View style={modalStyles.modalLine} />
-          {circle.image ? (
-            <Image style={modalStyles.circleImage} source={circle.image} />
+          {circle.thumbnail ? (
+            <Image style={modalStyles.circleImage} source={s3BaseUrl + circle.thumbnail} />
           ) : (
             <View style={modalStyles.circleNoImageWrapper}>
               <Image style={modalStyles.circleNoImage} source={require('../../assets/icons/image.png')} />
@@ -79,7 +93,7 @@ export const CircleRoom = ({ circle }) => {
         </View>
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
-      <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
+      <Pressable style={styles.circleRoom} onPress={() => handleCircleRoomClick(circle.id)}>
         {circle.thumbnail ? (
           <Image style={styles.circlePhoto} source={s3BaseUrl + circle.thumbnail} ContentFit="cover" />
         ) : (

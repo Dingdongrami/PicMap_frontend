@@ -1,7 +1,7 @@
 import { circleInstance } from './instance';
 
-export const fetchCircle = async () => {
-  const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
+export const fetchCircle = async userId => {
+  const { data } = await circleInstance.get(`/list/${userId}`); // 15는 임시로 넣은 userId
   return data;
 };
 
