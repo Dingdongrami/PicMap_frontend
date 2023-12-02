@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 8,
     marginBottom: 20,
-    borderBottomColor: '#44403C',
+    borderColor: '#44403C',
     borderWidth: 0.5,
   },
   circleNoImageWrapper: {
@@ -92,7 +92,7 @@ export const editStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },  
+  },
   modalContainer: {
     position: 'absolute',
     justifyContent: 'center',
@@ -107,7 +107,7 @@ export const editStyle = StyleSheet.create({
     fontSize: 15,
     color: '#78716C',
     textAlign: 'center',
-    marginTop: 18
+    marginTop: 18,
   },
   inputBox: {
     marginTop: 14,
@@ -118,19 +118,19 @@ export const editStyle = StyleSheet.create({
     padding: 10,
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   cancelBox: {
     width: 6,
     height: 5.7,
     // position: 'absolute',
-    marginLeft: 210
+    marginLeft: 210,
   },
   optionBox: {
     marginTop: 19,
     display: 'flex',
     flexDirection: 'row',
-    gap: 9
+    gap: 9,
   },
   singleBox1: {
     width: 115,
@@ -138,7 +138,7 @@ export const editStyle = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 0.5,
     borderBottomColor: '#A8A29E',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   singleBox2: {
     width: 115,
@@ -146,12 +146,12 @@ export const editStyle = StyleSheet.create({
     backgroundColor: '#FFECEA',
     borderWidth: 0.5,
     borderBottomColor: '#A8A29E',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
     fontFamily: 'IropkeBatang',
     fontSize: 15,
     color: '#78716C',
     textAlign: 'center',
-  }
-})
+  },
+});

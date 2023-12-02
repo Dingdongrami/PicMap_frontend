@@ -31,9 +31,6 @@ export const uploadPhotos = async (photos, circleId) => {
     const jsonData = JSON.stringify({
       userId: 17, // 혹은 다른 방법으로 userId를 설정
       circleId: circleId,
-      // latitude: photos.exif.GPSLatitude,
-      // longitude: photos.exif.GPSLongitude,
-      // shootingDate: convertToIsoFormat(photos.exif.DateTimeOriginal),
     });
 
     // JSON 데이터 추가
@@ -108,5 +105,19 @@ export const uploadShootingPhoto = async (photo, circleId, location) => {
     console.error('응답 상태:', error.response.status);
     console.error('응답 헤더:', error.response.headers);
     console.error('요청 데이터:', error.response.config.data);
+  }
+};
+
+export const deletePhoto = async photoIdList => {
+  try {
+    const { data } = await photoInstance.delete('/delete', {
+      data: [...photoIdList],
+    });
+    return data;
+  } catch (error) {
+    console.error(error.response.data);
+    console.error(error.response.status);
+    console.error(error.response.headers);
+    console.error(error.response.config.data);
   }
 };

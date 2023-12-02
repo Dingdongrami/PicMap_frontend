@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const selectState = atom({
-  key: 'selectState',
-  default: false
+export const circleSelectButtonState = atom({
+  key: 'circleSelectButtonState',
+  default: false,
 });
