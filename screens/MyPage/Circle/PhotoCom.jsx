@@ -14,8 +14,6 @@ export const PhotoCom = () => {
     queryFn: () => fetchOnePhoto(photo.id),
   });
 
-  console.log('photo', photo);
-
   return (
     <View style={{ flex: 1 }}>
       <View style={comStyles.imageContainer}>

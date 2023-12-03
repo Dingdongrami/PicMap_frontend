@@ -40,7 +40,12 @@ photoInstance.defaults.baseURL += '/api/photos';
 const userInstance = axios.create(instance.defaults);
 userInstance.defaults.baseURL += '/api/user';
 
+/* 좋아요 API 요청을 위한 인스턴스 */
 const likeInstance = axios.create(instance.defaults);
 likeInstance.defaults.baseURL += '/api/likes';
 
-export { circleInstance, photoInstance, userInstance, likeInstance, instance as default };
+/* 댓글 API 요청을 위한 인스턴스 */
+const commentInstance = axios.create(instance.defaults);
+commentInstance.defaults.baseURL += '/api/comments';
+
+export { circleInstance, photoInstance, userInstance, likeInstance, commentInstance, instance as default };

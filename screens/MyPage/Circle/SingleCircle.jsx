@@ -22,7 +22,11 @@ export const SingleCircle = ({ route }) => {
   const queryClient = useQueryClient();
 
   // 써클의 사진들을 불러오기
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: photoData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['photo'],
     queryFn: () => fetchPhotos(circleId),
   });
@@ -41,7 +45,7 @@ export const SingleCircle = ({ route }) => {
     mutationFn: args => fetchSortedPhotos(args.circleId, args.sortType),
     onSuccess: data => {
       queryClient.setQueryData(['photo'], data);
-      console.log('실시간 정렬');
+      // console.log('실시간 정렬');
     },
   });
 
@@ -86,7 +90,7 @@ export const SingleCircle = ({ route }) => {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
         <FlatList
-          data={data}
+          data={photoData}
           numColumns={3}
           keyExtractor={item => item.id}
           ListHeaderComponent={() => (
