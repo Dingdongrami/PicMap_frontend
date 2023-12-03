@@ -43,4 +43,4 @@ userInstance.defaults.baseURL += '/api/user';
 const likeInstance = axios.create(instance.defaults);
 likeInstance.defaults.baseURL += '/api/likes';
 
-export { circleInstance, photoInstance, userInstance, instance as default };
+export { circleInstance, photoInstance, userInstance, likeInstance, instance as default };

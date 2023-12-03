@@ -5,6 +5,8 @@ import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import Comment from './Comment';
 import { comments } from '../../../data/comment-dummy';
 import PersonRow from '../../PersonRow/PersonRow';
+import { deleteLike, updateLike } from '../../../api/likeApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Get the full height of the screen
 const screenHeight = Dimensions.get('window').height;
@@ -24,6 +26,21 @@ export const PhotoComments = ({ photo }) => {
   const [isFullScrolled, setIsFullScrolled] = useState(false);
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const height = useSharedValue(40);
+  const queryClient = useQueryClient();
+
+  const { mutate: updateLikeMutate } = useMutation({
+    mutationFn: () => updateLike(photo.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries('onePhoto');
+    },
+  });
+
+  const { mutate: deleteLikeMutate } = useMutation({
+    mutationFn: () => deleteLike(photo.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries('onePhoto');
+    },
+  });
 
   const onPressScrollUp = () => {
     if (!isScrolled && !isFullScrolled) {
@@ -68,11 +85,15 @@ export const PhotoComments = ({ photo }) => {
             contentFit="cover"
             style={{ width: 14, height: 14 }}
           />
-          <Text style={comStyles.count}>25</Text>
+          <Text style={comStyles.count}>{photo?.commentCount}</Text>
         </View>
         <View style={comStyles.commentInfoBox}>
-          <Pressable onPress={() => setHeart(!heart)}>
-            {heart ? (
+          <Pressable
+            onPress={() => {
+              setHeart(!heart);
+              heart ? deleteLikeMutate() : updateLikeMutate();
+            }}>
+            {!heart ? (
               <Image
                 source={require('../../../assets/icons/heart_unfilled.png')}
                 contentFit="cover"
@@ -87,7 +108,7 @@ export const PhotoComments = ({ photo }) => {
             )}
           </Pressable>
           <Pressable onPress={onPressLikeCount}>
-            <Text style={comStyles.count}>25</Text>
+            <Text style={comStyles.count}>{photo?.likeCount}</Text>
           </Pressable>
         </View>
       </Pressable>
