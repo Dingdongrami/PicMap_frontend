@@ -207,7 +207,7 @@ export const PhotoComments = ({ photo }) => {
           <>
             <View style={comStyles.commentWrapper}>
               {comments?.length > 0 ? (
-                <Comment comment={comments[0]} />
+                <Comment comment={comments[0]} onPressDelete={() => handleCommentDelete(item?.id)} />
               ) : (
                 <Text style={comStyles.noCommentsText}>댓글이 없어요.</Text>
               )}
