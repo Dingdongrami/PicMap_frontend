@@ -23,7 +23,7 @@ const CircleHeader = () => {
   const nestedToggle = () => {
     setNestedVisible(!isNestedVisible);
   };
-  const userArray = () => {
+  const photoArray = () => {
     setModalVisible(false);
     setTimeout(() => {
       setNestedVisible(true);
@@ -52,11 +52,11 @@ const CircleHeader = () => {
     },
     //정렬맞춤을 위해 한칸띄움
     {
-      text: ' 유저 정렬',
+      text: ' 사진 정렬',
       icon: require('../../assets/icons/filter_user_icon.png'),
       iconStyle: styles.user_array,
       textStyle: {},
-      onPress: userArray,
+      onPress: photoArray,
     },
     {
       text: '써클 이름 변경',
@@ -69,7 +69,7 @@ const CircleHeader = () => {
 
   const arrayOptions = useMemo(() => [
     {
-      text: '이름 순',
+      text: '좋아요 순',
       icon: require('../../assets/icons/check_btn.png'),
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
