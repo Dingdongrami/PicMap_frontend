@@ -70,7 +70,7 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
             <Pressable onPress={selectImageHandler}>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={takeImageHandler}>
               <Image source={require('../../../assets/icons/camera_add.png')} contentFit="cover" style={styles.icon2} />
             </Pressable>
           </View>
