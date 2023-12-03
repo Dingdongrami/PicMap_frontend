@@ -23,7 +23,7 @@ const config = {
 
 //사진클릭시 접속하는 화면
 export const PhotoComments = ({ photo }) => {
-  const [heart, setHeart] = useState(false);
+  const [isLiked, setIsLiked] = useState(false); // 좋아요 여부
   const [comment, setComment] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
@@ -43,6 +43,7 @@ export const PhotoComments = ({ photo }) => {
     mutationFn: args => addComment(args.photoId, args.comment),
     onSuccess: () => {
       queryClient.invalidateQueries('comments');
+      setIsLiked(true);
     },
   });
 
@@ -51,6 +52,7 @@ export const PhotoComments = ({ photo }) => {
     mutationFn: commentId => deleteComment(commentId),
     onSuccess: () => {
       queryClient.invalidateQueries('comments');
+      setIsLiked(false);
     },
   });
 
@@ -152,22 +154,19 @@ export const PhotoComments = ({ photo }) => {
         <View style={comStyles.commentInfoBox}>
           <Pressable
             onPress={() => {
-              setHeart(!heart);
-              heart ? deleteLikeMutate() : updateLikeMutate();
+              if (isLiked) {
+                deleteLikeMutate();
+                setIsLiked(false);
+              } else {
+                updateLikeMutate();
+                setIsLiked(true);
+              }
             }}>
-            {!heart ? (
-              <Image
-                source={require('../../../assets/icons/heart_unfilled.png')}
-                contentFit="cover"
-                style={{ width: 18, height: 18 }}
-              />
-            ) : (
-              <Image
-                source={require('../../../assets/icons/heart_filled.png')}
-                contentFit="cover"
-                style={{ width: 18, height: 18 }}
-              />
-            )}
+            <Image
+              source={require('../../../assets/icons/heart_filled.png')}
+              contentFit="cover"
+              style={{ width: 18, height: 18 }}
+            />
           </Pressable>
           <Pressable onPress={onPressLikeCount}>
             <Text style={comStyles.count}>{photo?.likeCount}</Text>
@@ -207,7 +206,9 @@ export const PhotoComments = ({ photo }) => {
           <>
             <View style={comStyles.commentWrapper}>
               {comments?.length > 0 ? (
-                <Comment comment={comments[0]} onPressDelete={() => handleCommentDelete(item?.id)} />
+                isScrolled && (
+                  <Comment comment={comments[0]} onPressDelete={() => handleCommentDelete(comments[0].id)} />
+                )
               ) : (
                 <Text style={comStyles.noCommentsText}>댓글이 없어요.</Text>
               )}
