@@ -34,7 +34,7 @@ export const returnMapZoom = (region, bBox, minZoom) => {
 
 //마커의 지리적 위치정보와 이미지를 표현
 export const markerToGeoJSONFeature = (marker, index) => {
-  // console.log(marker.props.imageUri);
+  console.log(marker.props.imageUri);
   return {
     type: 'Feature',
     geometry: {

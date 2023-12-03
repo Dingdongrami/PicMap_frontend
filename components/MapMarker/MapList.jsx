@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { View, FlatList, Pressable, Image } from 'react-native';
+import { View, FlatList, Pressable } from 'react-native';
+import { Image } from 'expo-image';
 import { useState } from 'react';
 import { photoStyles } from './styles';
 
@@ -9,6 +10,7 @@ export const MapList = ({route}) => {
   const [items, setItems] = useState([
     { index: 0, coordinates: [], imageUri: ""}
   ]);
+
   // locsArray에서 순회하면서 [{},{}] 이런 형식으로 만드는 것
   const childrenItems = useCallback(() => {
     const childArray = [];
@@ -19,9 +21,9 @@ export const MapList = ({route}) => {
         index: locsArray[i].properties.index
       });
     }
-    console.log(childArray);
+    console.log(JSON.stringify(childArray));
     setItems(childArray);
-  });
+  }, []);  
 
   useEffect(() => {
     childrenItems();
@@ -30,9 +32,7 @@ export const MapList = ({route}) => {
   const renderItem = ({item, index}) => (
     <View style={photoStyles.albumContainer}>
       <View style={photoStyles.imageContainer}>
-        <Pressable>
-          <Image source={item.imageUri} style={photoStyles.imageIcon}/>
-        </Pressable>
+        <Image source={item.imageUri} style={photoStyles.imageIcon} />
       </View>
     </View>
   );
