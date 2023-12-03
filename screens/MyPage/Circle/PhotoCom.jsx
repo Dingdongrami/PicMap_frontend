@@ -8,10 +8,10 @@ import { Image } from 'expo-image';
 
 export const PhotoCom = () => {
   const route = useRoute();
-  const photoId = route.params.photoId;
+  const photo = route.params.photo;
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['onePhoto', photoId],
-    queryFn: () => fetchOnePhoto(photoId),
+    queryKey: ['onePhoto', photo.id],
+    queryFn: () => fetchOnePhoto(photo.id),
   });
 
   return (
@@ -19,7 +19,7 @@ export const PhotoCom = () => {
       <View style={comStyles.imageContainer}>
         <Image source={s3BaseUrl + data?.filePath} style={comStyles.image} />
       </View>
-      <PhotoComments />
+      <PhotoComments photo={data} />
     </View>
   );
 };

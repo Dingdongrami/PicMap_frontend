@@ -5,19 +5,32 @@ import { styles as buttonStyles } from '../../screens/Profile/styles';
 import Modal from 'react-native-modal';
 import React, { useEffect, useState } from 'react';
 import { Image } from 'expo-image';
-import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import CustomToast from '../CustomToast';
 import { s3BaseUrl } from '../../constants/config';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { fetchCircle, joinPublicCircle } from '../../api/circleApi';
 
-export const CircleRoom = ({ circle }) => {
+export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
   const [filteredData, setFilteredData] = useState([]); // public: true
   const [isModalVisible, setModalVisible] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const navigation = useNavigation();
 
-  const isJoined = true; // TODO: Add logic to check if the user is a member of the circle.
+  const queryClient = useQueryClient();
+  const myCircleData = useQuery({
+    queryKey: ['circle'],
+    queryFn: () => fetchCircle(17),
+  });
+
+  const joinMutation = useMutation({
+    mutationFn: args => joinPublicCircle(args.userId, args.circleId),
+    onSuccess: () => {
+      console.log('joinMutation success');
+      queryClient.invalidateQueries('circle');
+    },
+  });
 
   // Function to handle the modal toggle
   const toggleModal = () => {
@@ -26,9 +39,6 @@ export const CircleRoom = ({ circle }) => {
 
   // 사용자가 가입되지 않은 써클일 경우 모달을 띄우는 함수
   const onPressJoin = () => {
-    // TODO: Add logic to check if the user is not a member of the circle.
-    // If they're not a member, toggle the modal.
-    // For now, we'll assume the user is not a member and just toggle the modal.
     toggleModal();
   };
 
@@ -37,10 +47,20 @@ export const CircleRoom = ({ circle }) => {
     return navigation.navigate('SplashUI', { circleId: circle.id });
   };
 
+  const handleCircleRoomClick = circleId => {
+    let isJoined = myCircleData.data.some(circle => circle.id === circleId);
+    if (isJoined) {
+      enterCircle();
+    } else {
+      onPressJoin();
+    }
+  };
+
   const joinCircle = () => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
+    joinMutation.mutate({ userId: 17, circleId: circle.id });
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('가입 성공');
@@ -59,8 +79,8 @@ export const CircleRoom = ({ circle }) => {
         onBackdropPress={toggleModal}>
         <View style={modalStyles.modalContainer}>
           <View style={modalStyles.modalLine} />
-          {circle.image ? (
-            <Image style={modalStyles.circleImage} source={circle.image} />
+          {circle.thumbnail ? (
+            <Image style={modalStyles.circleImage} source={s3BaseUrl + circle.thumbnail} />
           ) : (
             <View style={modalStyles.circleNoImageWrapper}>
               <Image style={modalStyles.circleNoImage} source={require('../../assets/icons/image.png')} />
@@ -79,7 +99,7 @@ export const CircleRoom = ({ circle }) => {
         </View>
       </Modal>
       {/* Wrap the circleRoom in a Pressable to detect touches */}
-      <Pressable style={styles.circleRoom} onPress={isJoined ? enterCircle : onPressJoin}>
+      <Pressable style={styles.circleRoom} onPress={() => handleCircleRoomClick(circle.id)}>
         {circle.thumbnail ? (
           <Image style={styles.circlePhoto} source={s3BaseUrl + circle.thumbnail} ContentFit="cover" />
         ) : (

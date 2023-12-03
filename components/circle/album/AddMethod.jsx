@@ -1,13 +1,13 @@
 import { View, Pressable, StyleSheet, Image, Animated, Linking, Alert } from 'react-native';
 import { useRecoilState } from 'recoil';
-import { selectState } from '../../../stores/circle-selection';
+import { circleSelectButtonState } from '../../../stores/circle-selection';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
 import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
 import * as Location from 'expo-location';
 
 export const AddMethod = ({ onPress, expansion, circleId }) => {
-  const [selection] = useRecoilState(selectState);
+  const [circleSelectButtonActive] = useRecoilState(circleSelectButtonState);
   const imageStyles = [styles.overlay];
   const queryClient = useQueryClient();
 
@@ -63,7 +63,7 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
   }
 
   return (
-    !selection && (
+    !circleSelectButtonActive && (
       <Pressable onPress={onPress}>
         {expansion ? (
           <View style={styles.addition}>

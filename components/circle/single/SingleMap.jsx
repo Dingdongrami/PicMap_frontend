@@ -9,13 +9,12 @@ import { INIT } from './examples';
 
 const ZOOM_THRESHOLD = 10;
 const getRandomLatitude = (min = 48, max = 56) => {
-  return Math.random() * (max - min) + min
-}
+  return Math.random() * (max - min) + min;
+};
 
 const getRandomLongitude = (min = 14, max = 24) => {
-  return Math.random() * (max - min) + min
-}
-
+  return Math.random() * (max - min) + min;
+};
 
 //singlemap을 따로 export 할 시에 에러발생...함수 다시 생각해봐야할듯
 export const SingleMap = () => {
@@ -28,8 +27,8 @@ export const SingleMap = () => {
     //지도가 확대되면 개별 확대 화면으로 넘어감
     if (zoomLevel > ZOOM_THRESHOLD) {
       // zoomInFunction();
-      // return () => navigation.navigate('ZoomInMap');
-      return navigation.navigate('ZoomInMap');
+      return () => navigation.navigate('ZoomInMap');
+      // return navigation.navigate('ZoomInMap');
     }
   };
 
@@ -44,9 +43,7 @@ export const SingleMap = () => {
     console.log('Map error:', error);
   };
 
-  const [markers, setMarkers] = useState([
-    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude },
-  ])
+  const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude }]);
   const [region, setRegion] = useState(INIT);
 
   const generateMarkers = useCallback((lat, long) => {
@@ -62,16 +59,16 @@ export const SingleMap = () => {
       });
     }
 
-    setMarkers(markersArray)
-  }, [])
-  
-  useEffect(() => {
-    generateMarkers(region.latitude, region.longitude)
+    setMarkers(markersArray);
   }, []);
-  
-  const getZoomFromRegion = (region) => {
-    return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
-  }
+
+  useEffect(() => {
+    generateMarkers(region.latitude, region.longitude);
+  }, []);
+
+  const getZoomFromRegion = region => {
+    return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
+  };
 
   return (
     <ClusteredMapView
@@ -86,16 +83,15 @@ export const SingleMap = () => {
       provider={PROVIDER_GOOGLE}
       onError={handleError}
       onRegionChange={zoomInRegion}>
-        {markers.map((item) => (
-          <Marker
+      {markers.map(item => (
+        <Marker
           key={item.id}
           coordinate={{
             latitude: 37.580112,
             longitude: 126.977166,
           }}
-          />
-        ))}
-
+        />
+      ))}
     </ClusteredMapView>
   );
 };

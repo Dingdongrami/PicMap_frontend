@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   image: {
-    width: 26,
-    height: 26,
+    width: 30,
+    height: 30,
     borderRadius: 500,
     borderColor: '#44403C',
     borderWidth: 0.5,
@@ -63,13 +63,13 @@ export const styles = StyleSheet.create({
     height: 16,
   },
   circle_name: {
-   width: 22,
-   height: 22,
-   opacity: 1,
+    width: 22,
+    height: 22,
+    opacity: 1,
   },
   circle_none: {
     width: 22,
     height: 22,
     opacity: 0,
-  }
+  },
 });

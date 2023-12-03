@@ -3,44 +3,39 @@ import { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import Checkbox from 'expo-checkbox';
-import { selectState } from '../../../stores/circle-selection';
+import { circleSelectButtonState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 import { Image } from 'expo-image';
 import { s3BaseUrl } from '../../../constants/config';
+import { useMutation } from '@tanstack/react-query';
 
-export const SinglePhotoIcon = ({ photo }) => {
-  const [selection, setSelection] = useRecoilState(selectState);
-  const [checkedPhotos, setCheckedPhotos] = useState([]);
+export const SinglePhotoIcon = ({ photo, handleSelectedPhotos, selectedPhotos }) => {
+  const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
+
   const navigation = useNavigation();
 
-  const clickPhoto = item => {
-    navigation.navigate('PhotoCom', { photoId: photo.id });
+  const navigateToPhotoCom = () => {
+    navigation.navigate('PhotoCom', { photo });
   };
 
-  const onChangeCheckbox = () => {
-    const itemIndex = photo.id;
-    const newCheckedPhotos = [...checkedPhotos];
-    newCheckedPhotos[itemIndex] = !newCheckedPhotos[itemIndex];
-    setCheckedPhotos(newCheckedPhotos);
-  };
-
-  // selection이 false가 되면 checkedPhotos를 초기화
-  useEffect(() => {
-    if (!selection) {
-      setCheckedPhotos([]);
+  const togglePhotoSelection = () => {
+    if (circleSelectButtonActive) {
+      handleSelectedPhotos(photo.id);
+    } else {
+      navigateToPhotoCom();
     }
-  }, [selection]);
+  };
 
   return (
-    <View style={styles.albumContainer}>
+    <Pressable style={styles.albumContainer} onPress={togglePhotoSelection}>
       <View style={styles.photoRow}>
-        <Pressable onPress={!selection ? () => clickPhoto(photo.id) : () => onChangeCheckbox()}>
+        <Pressable onPress={() => togglePhotoSelection(photo.id)}>
           <View style={styles.imageContainer}>
-            {selection && (
+            {circleSelectButtonActive && (
               <Checkbox
-                value={checkedPhotos[photo.id]}
-                onValueChange={onChangeCheckbox}
-                color={checkedPhotos ? '#D6D3D1' : undefined}
+                value={selectedPhotos?.includes(photo.id)}
+                onValueChange={() => handleSelectedPhotos(photo.id)}
+                color={selectedPhotos?.includes(photo.id) ? '#D6D3D1' : undefined}
                 style={styles.checkbox}
               />
             )}
@@ -48,6 +43,6 @@ export const SinglePhotoIcon = ({ photo }) => {
           </View>
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   );
 };

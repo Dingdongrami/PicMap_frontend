@@ -3,10 +3,10 @@ import { styles } from './styles';
 import { CircleRoom } from '../../components/circle';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPublicCircle } from '../../api/circleApi';
+import { fetchCircle, fetchPublicCircle } from '../../api/circleApi';
 
 export const TimeLine = () => {
-  const { data, isSuccess } = useQuery({
+  const publicCircleData = useQuery({
     queryKey: ['public_circle'],
     queryFn: fetchPublicCircle,
     refetchOnWindowFocus: true,
@@ -23,7 +23,7 @@ export const TimeLine = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={publicCircleData.data}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}

@@ -33,3 +33,12 @@ export const updateUserProfileImage = async (userId, userProfileImage) => {
     console.log('updateUserProfileImage 에러: ', error.response);
   }
 };
+
+export const updateUserProfileNoImage = async userId => {
+  try {
+    const { data } = await userInstance.put(`/${userId}/no-profile`);
+    return data;
+  } catch (error) {
+    console.log('updateUserProfileNoImage 에러: ', error.response);
+  }
+};

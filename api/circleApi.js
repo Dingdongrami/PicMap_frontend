@@ -1,7 +1,7 @@
 import { circleInstance } from './instance';
 
-export const fetchCircle = async () => {
-  const { data } = await circleInstance.get(`/list/17`); // 15는 임시로 넣은 userId
+export const fetchCircle = async userId => {
+  const { data } = await circleInstance.get(`/list/${userId}`); // 15는 임시로 넣은 userId
   return data;
 };
 
@@ -61,5 +61,20 @@ export const createCircle = async newCircleData => {
       // 요청을 설정하는 중에 오류가 발생한 경우
       console.error('Error', error.message);
     }
+  }
+};
+
+export const joinPublicCircle = async (userId, circleId) => {
+  try {
+    const { data } = await circleInstance.post('/join', {
+      circleId,
+      userId,
+    });
+    return data;
+  } catch (error) {
+    console.error(error.response.data);
+    console.error(error.response.status);
+    console.error(error.response.headers);
+    console.error(error.response.config.data);
   }
 };
