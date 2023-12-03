@@ -57,7 +57,7 @@ export const PhotoComments = ({ photo }) => {
     height.value = withSpring(height.value - 260, config);
   };
 
-  console.log(photo);
+  // console.log(photo);
 
   return (
     <Animated.View style={[comStyles.scrollCon, { height: height }]}>

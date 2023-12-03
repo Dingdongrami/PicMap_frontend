@@ -16,7 +16,7 @@ const FriendsList = () => {
   const [isRemoveActive, setIsRemoveActive] = useState(false);
 
   const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+    setIsModalVisible(prev => !prev);
   };
 
   const toggleRemove = () => {

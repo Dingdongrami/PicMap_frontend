@@ -44,14 +44,12 @@ const AltScreen = () => {
         <Stack.Screen name="CircleCreateName" component={CircleCreateName} />
         <Stack.Screen name="CircleCreateDesc" component={CircleCreateDesc} />
         <Stack.Screen name="FriendsList" component={FriendsList} />
+        <Stack.Screen name="SingleCircle" component={SingleCircle} />
       </Stack.Group>
       <Stack.Group screenOptions={{ header: () => <JustGoBackHeader />, headerTitle: 'JustGoBackHeader' }}>
         <Stack.Screen name="UserPage" component={AltUserComponent} />
         <Stack.Screen name="ReceivedFriendRequest" component={ReceivedFriendRequest} />
         <Stack.Screen name="InviteUser" component={InviteUser} />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ header: () => <CircleHeader />, headerTitle: 'CircleHeader' }}>
-        <Stack.Screen name="SingleCircle" component={SingleCircle} />
       </Stack.Group>
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SplashUI" component={SplashUI} />

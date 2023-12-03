@@ -11,7 +11,7 @@ import { CircleModal } from '../Modal/CircleModal';
 import { EditModal } from '../Modal/EditModal';
 import HeaderIcon from './HeaderIcon';
 
-const CircleHeader = () => {
+const CircleHeader = ({ circleId, photoSortMutation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
   const [isEditVisible, setEditVisible] = useState(false);
@@ -52,7 +52,7 @@ const CircleHeader = () => {
     },
     //정렬맞춤을 위해 한칸띄움
     {
-      text: ' 유저 정렬',
+      text: ' 사진 정렬',
       icon: require('../../assets/icons/filter_user_icon.png'),
       iconStyle: styles.user_array,
       textStyle: {},
@@ -67,30 +67,30 @@ const CircleHeader = () => {
     },
   ]);
 
-  const arrayOptions = useMemo(() => [
+  const sortOptions = useMemo(() => [
     {
-      text: '이름 순',
+      text: '최신 순',
       icon: require('../../assets/icons/check_btn.png'),
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
       textStyle: {},
-      onPress: () => {},
+      onPress: () => photoSortMutation.mutate({ circleId, sortType: 'latest' }),
     },
     {
-      text: '최근 추가 순',
+      text: '과거 순',
       icon: require('../../assets/icons/check_btn.png'),
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
       textStyle: {},
-      onPress: () => {},
+      onPress: () => photoSortMutation.mutate({ circleId, sortType: 'oldest' }),
     },
     {
-      text: '오래된 순',
+      text: '좋아요 순',
       icon: require('../../assets/icons/check_btn.png'),
       iconStyle: styles.circle_name,
       defaultIconStyle: styles.circle_none,
       textStyle: {},
-      onPress: () => {},
+      onPress: () => photoSortMutation.mutate({ circleId, sortType: 'like' }),
     },
   ]);
 
@@ -106,7 +106,7 @@ const CircleHeader = () => {
           onDismiss={() => setModalVisible(false)}
         />
         {isNestedVisible && (
-          <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={arrayOptions} />
+          <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={sortOptions} />
         )}
         {isEditVisible && <EditModal isModalVisible={isEditVisible} />}
         <TouchableOpacity onPress={toggleModal}>

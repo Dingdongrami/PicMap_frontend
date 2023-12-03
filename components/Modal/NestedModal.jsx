@@ -16,16 +16,21 @@ export const NestedModal = ({ isModalVisible, toggleModal, buttons }) => {
         <View style={styles.modalLine} />
         <View style={styles.modalButtonContainer}>
           {buttons.map((button, index) => (
-            <Pressable 
-            key={index} 
-            onPress={() => {button.onPress; setSelectedIndex(index); }} 
-            style={({ pressed })=>[{opacity: pressed ? 0.4 : 1},styles.modalButton]}>
-              {index === selectedIndex &&
-              <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />}
-              <Text style={[styles.modalText, button.textStyle, {marginLeft: 78, position: 'absolute'}]}>{button.text}</Text>
+            <Pressable
+              key={index}
+              onPress={() => {
+                button.onPress();
+                setSelectedIndex(index);
+                toggleModal();
+              }}
+              style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.modalButton]}>
+              {index === selectedIndex && <Image source={button.icon} style={button.iconStyle} resizeMode="contain" />}
+              <Text style={[styles.modalText, button.textStyle, { marginLeft: 78, position: 'absolute' }]}>
+                {button.text}
+              </Text>
             </Pressable>
           ))}
-        </View> 
+        </View>
       </View>
     </Modal>
   );
