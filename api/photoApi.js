@@ -127,3 +127,19 @@ export const deletePhoto = async photoIdList => {
     console.error(error.response.config.data);
   }
 };
+
+export const fetchSortedPhotos = async (circleId, sortType) => {
+  try {
+    const response = await photoInstance.post('/sort', {
+      circleId,
+      sortType: sortType,
+    });
+    console.log('성공', response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error.response.data);
+    console.error(error.response.status);
+    console.error(error.response.headers);
+    console.error(error.response.config.data);
+  }
+};

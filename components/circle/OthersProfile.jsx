@@ -14,7 +14,7 @@ export const OthersProfile = ({ circleId }) => {
     queryFn: () => fetchMembers(circleId),
   });
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
