@@ -24,33 +24,31 @@ const AltComponent = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <MyProfile onPressEditProfile={onPressEditProfile} onPressFriendsList={onPressFriendsList} />
-      <Tab.Navigator
-      initialRouteName="Post">
-        <Tab.Group 
-        screenOptions={({ route }) => ({
-          // tabBarOptions: (props) => <Middle {...props} /> ,
-          safeAreaInsets: { bottom: 'never' }, // 여기에 이 속성을 추가하세요
-          headerShown: false,
-          tabBarIcon: () => null,
-          tabBarLabel: route.name,
-          tabBarActiveBackgroundColor: '#FFE3E0',
-          tabBarLabelStyle: {
-            color: '#44403C',
-            fontSize: 15,
-            fontFamily: 'IropkeBatang',
-            marginBottom: 9,
-          },
-          tabBarIndicatorStyle: {
-            display: 'none',
-          },
-          tabBarStyle: {
-            position: 'absolute',
-            top: 0,
-            zIndex: 1,
-            height: 42,
-            elevation: 0, // Add this line to remove shadow on Android
-          },
-        })}>
+      <Tab.Navigator initialRouteName="Post" safeAreaInsets={{ top: 0, bottom: 0 }}>
+        <Tab.Group
+          screenOptions={({ route }) => ({
+            // tabBarOptions: (props) => <Middle {...props} /> ,
+            headerShown: false,
+            tabBarIcon: () => null,
+            tabBarLabel: route.name,
+            tabBarActiveBackgroundColor: '#FFE3E0',
+            tabBarLabelStyle: {
+              color: '#44403C',
+              fontSize: 15,
+              fontFamily: 'IropkeBatang',
+              marginBottom: 9,
+            },
+            tabBarIndicatorStyle: {
+              display: 'none',
+            },
+            tabBarStyle: {
+              position: 'absolute',
+              top: 0,
+              zIndex: 1,
+              height: 42,
+              elevation: 0, // Add this line to remove shadow on Android
+            },
+          })}>
           <Tab.Screen
             name="Post"
             component={Post}

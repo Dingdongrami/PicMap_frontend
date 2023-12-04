@@ -17,7 +17,6 @@ const AltUserComponent = ({ route }) => {
         initialRouteName="Post"
         screenOptions={({ route }) => ({
           // tabBarOptions: (props) => <Middle {...props} /> ,
-          safeAreaInsets: { bottom: 'never' }, // 여기에 이 속성을 추가하세요
           headerShown: false,
           tabBarIcon: () => null,
           tabBarLabel: route.name,

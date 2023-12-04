@@ -154,7 +154,7 @@ export const comStyles = StyleSheet.create({
     width: '100%',
     fontSize: 14,
     fontFamily: 'IropkeBatang',
-    color: '#44403C',
+    color: '#78716C',
     textAlign: 'center',
     paddingVertical: 25,
   },
