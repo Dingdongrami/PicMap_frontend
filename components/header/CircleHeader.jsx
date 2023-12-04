@@ -1,8 +1,7 @@
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
-import { useRecoilState } from 'recoil';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
@@ -10,11 +9,13 @@ import { NestedModal } from '../Modal/NestedModal';
 import { CircleModal } from '../Modal/CircleModal';
 import { EditModal } from '../Modal/EditModal';
 import HeaderIcon from './HeaderIcon';
+import { editModalState } from '../../stores/edit-modal';
+import { useRecoilState } from 'recoil';
 
 const CircleHeader = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
-  const [isEditVisible, setEditVisible] = useState(false);
+  const [isEditVisible, setEditVisible] = useRecoilState(editModalState);
   const navigation = useNavigation();
 
   const toggleModal = () => {
@@ -36,9 +37,9 @@ const CircleHeader = () => {
   };
 
   const circleEdit = async () => {
-    setModalVisible(false);
+    setModalVisible(!isModalVisible);
     setTimeout(() => {
-      setEditVisible(true);
+      setEditVisible(!isEditVisible);
     }, 500);
   };
 
@@ -108,7 +109,7 @@ const CircleHeader = () => {
         {isNestedVisible && (
           <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={arrayOptions} />
         )}
-        {isEditVisible && <EditModal isModalVisible={isEditVisible} />}
+        {isEditVisible && <EditModal />}
         <TouchableOpacity onPress={toggleModal}>
           <View style={{ height: 24, justifyContent: 'center' }}>
             <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />

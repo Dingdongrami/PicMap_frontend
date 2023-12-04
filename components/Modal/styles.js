@@ -121,10 +121,7 @@ export const editStyle = StyleSheet.create({
     alignItems: 'center',
   },
   cancelBox: {
-    width: 6,
-    height: 5.7,
-    // position: 'absolute',
-    marginLeft: 210,
+    position: 'absolute',
   },
   optionBox: {
     marginTop: 19,
