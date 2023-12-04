@@ -13,8 +13,7 @@ export const styles = StyleSheet.create({
   },
   splashContainer: {
     flex: 1,
-    backgroundColor:
-      'linear-gradient(0deg, var(--pink2_40, rgba(255, 227, 224, 0.40)) 0%, var(--pink2_40, rgba(255, 227, 224, 0.40)) 100%), #FFF',
+    backgroundColor: '#FFECEA',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',

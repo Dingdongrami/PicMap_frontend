@@ -17,7 +17,7 @@ const LandingPage = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       closeModal();
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
