@@ -26,9 +26,9 @@ export const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
-  realImage:{
-    width: "100%",
-    height: "100%"
+  realImage: {
+    width: '100%',
+    height: '100%',
   },
   imageCon4check: {
     flex: 1,
@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
     // marginVertical: 2,
   },
   image4check: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     // marginLeft: 37,
     // marginTop: 21,
   },
@@ -149,5 +149,13 @@ export const comStyles = StyleSheet.create({
   count: {
     paddingHorizontal: 10,
     fontFamily: 'IropkeBatang',
+  },
+  noCommentsText: {
+    width: '100%',
+    fontSize: 14,
+    fontFamily: 'IropkeBatang',
+    color: '#44403C',
+    textAlign: 'center',
+    paddingVertical: 25,
   },
 });

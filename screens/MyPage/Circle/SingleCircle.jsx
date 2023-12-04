@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Alert } from 'react-native';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -8,16 +8,30 @@ import { FlatList } from 'react-native-gesture-handler';
 import { circleSelectButtonState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deletePhoto, fetchPhotos } from '../../../api/photoApi';
+import { deletePhoto, fetchPhotos, fetchSortedPhotos } from '../../../api/photoApi';
+import { useNavigation } from 'expo-router';
+import CircleHeader from '../../../components/header/CircleHeader';
 
 export const SingleCircle = ({ route }) => {
+  const navigation = useNavigation();
   const { circleId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const [isExpanded, setIsExpanded] = useState(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
-
   const queryClient = useQueryClient();
+
+  // 써클의 사진들을 불러오기
+  const {
+    data: photoData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['photo'],
+    queryFn: () => fetchPhotos(circleId),
+  });
+
+  // 사진 삭제하기
   const photoDeleteMutation = useMutation({
     mutationFn: () => deletePhoto(selectedPhotos),
     onSuccess: data => {
@@ -26,10 +40,13 @@ export const SingleCircle = ({ route }) => {
     },
   });
 
-  // 써클의 사진들을 불러오기
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['photo'],
-    queryFn: () => fetchPhotos(circleId),
+  // 사진 정렬하기
+  const photoSortMutation = useMutation({
+    mutationFn: args => fetchSortedPhotos(args.circleId, args.sortType),
+    onSuccess: data => {
+      queryClient.setQueryData(['photo'], data);
+      // console.log('실시간 정렬');
+    },
   });
 
   const handleSelectedPhotos = photoId => {
@@ -61,9 +78,11 @@ export const SingleCircle = ({ route }) => {
     </Pressable>
   );
 
-  useEffect(() => {
-    console.log(selectedPhotos);
-  }, [selectedPhotos]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => <CircleHeader circleId={circleId} photoSortMutation={photoSortMutation} />,
+    });
+  }, [navigation]);
 
   if (!isReady) {
     return <SplashUI />;
@@ -71,7 +90,7 @@ export const SingleCircle = ({ route }) => {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
         <FlatList
-          data={data}
+          data={photoData}
           numColumns={3}
           keyExtractor={item => item.id}
           ListHeaderComponent={() => (
