@@ -14,7 +14,7 @@ export const Post = () => {
   // console.log(data);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <FlatList
         data={data}
         renderItem={({ item, index }) => <CirclePost circle={item} />}
@@ -22,6 +22,6 @@ export const Post = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ alignItems: 'center' }}
       />
-    </SafeAreaView>
+    </View>
   );
 };

@@ -1,29 +1,41 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Modal } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Pressable } from 'react-native';
 import { Text } from 'react-native';
+import { SafeAreaView } from '@react-navigation/native';
 
 const LandingPage = ({ navigation }) => {
-  // 2초 뒤 마이페이지로 이동
+  const [modalVisible, setModalVisible] = useState(true);
+
+  // 모달을 닫는 함수
+  const closeModal = () => {
+    setModalVisible(false);
+    navigation.navigate('MyPage');
+  };
+
   useEffect(() => {
-    // setTimeout(() => {
-    //   navigation.navigate('MyPage');
-    // }, 5000);
+    const timer = setTimeout(() => {
+      closeModal();
+    }, 5000);
 
     return () => {
-      clearTimeout();
+      clearTimeout(timer);
     };
-  }, []);
+  }, [navigation]);
+
   return (
-    <Pressable onPress={() => navigation.navigate('MyPage')} style={styles.container}>
-      <Text style={styles.LogoText}>PicMap</Text>
-      <Pressable style={styles.textWrapper}>
-        <Text style={styles.text}>Sign in</Text>
+    <Modal transparent={true} visible={modalVisible} onRequestClose={closeModal} animationType="fade">
+      <Pressable style={styles.container} onPress={() => {}}>
+        <Text style={styles.LogoText}>PicMap</Text>
+        <Pressable style={styles.textWrapper}>
+          <Text style={styles.text}>Sign in</Text>
+        </Pressable>
+        <Pressable style={styles.textWrapper}>
+          <Text style={styles.text}>Sign up</Text>
+        </Pressable>
       </Pressable>
-      <Pressable style={styles.textWrapper}>
-        <Text style={styles.text}>Sign up</Text>
-      </Pressable>
-    </Pressable>
+    </Modal>
   );
 };
 
