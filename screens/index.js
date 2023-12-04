@@ -6,3 +6,4 @@ export { default as ReceivedFriendRequest } from './ReceivedFriendRequest/Receiv
 export { CircleSearch, UserSearch } from './Search';
 export { InviteUser } from './InviteUser';
 export { Circle, PhotoCom, SingleCircle, SplashUI, Map, Post } from './MyPage';
+export { LandingPage } from './LandingPage';

@@ -13,6 +13,7 @@ import {
   SplashUI,
   SingleCircle,
   PhotoCom,
+  LandingPage,
 } from '../../../screens';
 import Header from '../Header';
 import CircleHeader from '../CircleHeader';
@@ -27,12 +28,13 @@ const Stack = createNativeStackNavigator();
 const AltScreen = () => {
   return (
     <Stack.Navigator
-      initialRouteName="MyPage"
+      initialRouteName="LandingPage"
       screenOptions={({ navigation }) => ({
         header: props => <Header {...props} />,
         headerStatusBarHeight: 0,
       })}>
       <Stack.Group>
+        <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false }} />
         <Stack.Screen name="MyPage" component={AltComponent} />
         <Stack.Screen name="MapList" component={MapList} />
         <Stack.Screen name="Search" component={AltSearchComponent} />
