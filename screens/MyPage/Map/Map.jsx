@@ -4,7 +4,7 @@ import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT, locs } from './examples';
 import { styles } from './styles';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchAllPhotos } from '../../../api/mapphotoApi';
 import { s3BaseUrl } from '../../../constants/config';
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
@@ -16,12 +16,6 @@ const getZoomFromRegion = (region) => {
 export const Map = () => {
   const map = useRef(null);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['allPhotos'],
-    queryFn: ()=>fetchAllPhotos(17),
-    refetchWindowFocus: true,
-    // refetchOnMount: true,
-  });
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([
     { id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: "" },
@@ -33,8 +27,15 @@ export const Map = () => {
     longitudeDelta: INIT.longitudeDelta
   });
 
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['allPhotos'],
+    queryFn: ()=>fetchAllPhotos(17),
+    refetchWindowFocus: true,
+    // refetchOnMount: true,
+  });
+
   const allPhotoLength = data?.length;
-  const generateMarkers = useCallback(() => {
+  const generateMarkers = () => {
     const markersArray = [];
     for (let i = 0; i < allPhotoLength; i++) {
       if(data[i].latitude && data[i].longitude){
@@ -47,7 +48,7 @@ export const Map = () => {
       }
     }
     setMarkers(markersArray);
-  }, []);
+  };
 
   // console.log(JSON.stringify(data)+"엥");
   console.log(data);
@@ -60,7 +61,7 @@ export const Map = () => {
   useEffect(() => {
     data &&
     generateMarkers();
-  }, []);
+  }, [data]);
 
   if(isLoading) {
     return(
