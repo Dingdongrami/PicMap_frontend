@@ -196,7 +196,6 @@ const ClusteredMapView = forwardRef(
       const lats = coordinates.map(item => item.latitude);
       const longs = coordinates.map(item => item.longitude);
       if(Math.max(...lats)-Math.min(...lats) < 1 && Math.max(...longs)-Math.min(...longs) < 1){
-        console.log("엥");
         setIsNav(true);
         // locs.current = clusterChildren;
       }

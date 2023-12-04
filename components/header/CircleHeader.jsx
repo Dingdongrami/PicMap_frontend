@@ -1,8 +1,7 @@
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
-import { useRecoilState } from 'recoil';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
@@ -10,11 +9,13 @@ import { NestedModal } from '../Modal/NestedModal';
 import { CircleModal } from '../Modal/CircleModal';
 import { EditModal } from '../Modal/EditModal';
 import HeaderIcon from './HeaderIcon';
+import { editModalState } from '../../stores/edit-modal';
+import { useRecoilState } from 'recoil';
 
 const CircleHeader = ({ circleId, photoSortMutation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
-  const [isEditVisible, setEditVisible] = useState(false);
+  const [isEditVisible, setEditVisible] = useRecoilState(editModalState);
   const navigation = useNavigation();
 
   const toggleModal = () => {
@@ -23,7 +24,7 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
   const nestedToggle = () => {
     setNestedVisible(!isNestedVisible);
   };
-  const userArray = () => {
+  const photoArray = () => {
     setModalVisible(false);
     setTimeout(() => {
       setNestedVisible(true);
@@ -36,9 +37,9 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
   };
 
   const circleEdit = async () => {
-    setModalVisible(false);
+    setModalVisible(!isModalVisible);
     setTimeout(() => {
-      setEditVisible(true);
+      setEditVisible(!isEditVisible);
     }, 500);
   };
 
@@ -56,7 +57,7 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
       icon: require('../../assets/icons/filter_user_icon.png'),
       iconStyle: styles.user_array,
       textStyle: {},
-      onPress: userArray,
+      onPress: photoArray,
     },
     {
       text: '써클 이름 변경',
@@ -96,7 +97,7 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>PicMap</Text>
+      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang',   color: '#44403C' }}>PicMap</Text>
       <View style={styles.iconContainer}>
         <HeaderIcon />
         <CircleModal
@@ -108,7 +109,7 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
         {isNestedVisible && (
           <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={sortOptions} />
         )}
-        {isEditVisible && <EditModal isModalVisible={isEditVisible} />}
+        {isEditVisible && <EditModal />}
         <TouchableOpacity onPress={toggleModal}>
           <View style={{ height: 24, justifyContent: 'center' }}>
             <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />
