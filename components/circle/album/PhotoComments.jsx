@@ -1,7 +1,7 @@
-import { Text, View, Image, Pressable, Dimensions, TextInput, KeyboardAvoidingView, FlatList } from 'react-native';
+import { Text, View, Image, Pressable, Dimensions, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import { comStyles } from './styles';
-import { useState } from 'react';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+import { useEffect, useState } from 'react';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Comment from './Comment';
 // import { comments } from '../../../data/comment-dummy';
 import PersonRow from '../../PersonRow/PersonRow';
@@ -26,9 +26,10 @@ export const PhotoComments = ({ photo }) => {
   const [isLiked, setIsLiked] = useState(false); // 좋아요 여부
   const [comment, setComment] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolledComplete, setIsScrolledComplete] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
   const [isLikeClicked, setIsLikeClicked] = useState(false);
-  const height = useSharedValue(40);
+  const height = useSharedValue(40); // 댓글창 높이
   const queryClient = useQueryClient();
 
   // 댓글 불러오기
@@ -36,6 +37,7 @@ export const PhotoComments = ({ photo }) => {
     queryKey: ['comments', photo?.id],
     queryFn: () => fetchComments(photo?.id),
     enabled: !!photo?.id,
+    staleTime: 1000 * 60 * 60 * 24, // 24시간 동안 캐시된 데이터 사용
   });
 
   // 댓글 추가하기
@@ -76,7 +78,7 @@ export const PhotoComments = ({ photo }) => {
     if (!isScrolled && !isFullScrolled) {
       // Expanding to partially scrolled state
       height.value = withSpring(height.value + 151, config);
-      setIsScrolled(true);
+      setIsScrolledComplete(true);
     } else if (isScrolled && !isFullScrolled) {
       // Expanding to full-screen (90% of screen height)
       height.value = withSpring(fullScreenHeight, config);
@@ -140,6 +142,13 @@ export const PhotoComments = ({ photo }) => {
     );
   };
 
+  useEffect(() => {
+    if (isScrolledComplete) {
+      setIsScrolled(true);
+      setIsScrolledComplete(false);
+    }
+  }, [isScrolledComplete]);
+
   return (
     <Animated.View style={[comStyles.scrollCon, { height: height }]}>
       <Pressable style={comStyles.commuBox} onPress={onPressScrollUp}>
@@ -174,8 +183,8 @@ export const PhotoComments = ({ photo }) => {
         </View>
       </Pressable>
       <View style={{ flex: 1 }}>
-        {isFullScrolled ? (
-          isLikeClicked ? (
+        {isFullScrolled &&
+          (isLikeClicked ? (
             <FlatList
               data={comments}
               renderItem={({ item }) => <UserPersonRow userId={item?.userId} />}
@@ -201,14 +210,12 @@ export const PhotoComments = ({ photo }) => {
                 ListEmptyComponent={() => <Text style={comStyles.noCommentsText}>댓글이 없어요.</Text>}
               />
             )
-          )
-        ) : (
+          ))}
+        {isScrolled && !isFullScrolled && (
           <>
             <View style={comStyles.commentWrapper}>
               {comments?.length > 0 ? (
-                isScrolled && (
-                  <Comment comment={comments[0]} onPressDelete={() => handleCommentDelete(comments[0].id)} />
-                )
+                <Comment comment={comments[0]} onPressDelete={() => handleCommentDelete(comments[0].id)} />
               ) : (
                 <Text style={comStyles.noCommentsText}>댓글이 없어요.</Text>
               )}
