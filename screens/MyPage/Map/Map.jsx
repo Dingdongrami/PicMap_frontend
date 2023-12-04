@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT, locs } from './examples';
@@ -8,107 +8,135 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchAllPhotos } from '../../../api/mapphotoApi';
 import { s3BaseUrl } from '../../../constants/config';
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
-import { fetchCircle } from '../../../api/circleApi';
-
 
 const getZoomFromRegion = (region) => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
 }
 
-const getRandomLatitude = (min = 48, max = 56) => {
-  return Math.random() * (max - min) + min;
-};
-
-const getRandomLongitude = (min = 14, max = 24) => {
-  return Math.random() * (max - min) + min;
-};
-
 export const Map = () => {
   const map = useRef(null);
 
-  // const { data, isLoading, isError } = useQuery({
-  //   queryKey: ['allPhotos'],
-  //   queryFn: ()=>fetchAllPhotos(17),
-  //   refetchWindowFocus: true,
-  //   // refetchOnMount: true,
-  // });
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['circle'],
-    queryFn: () => fetchCircle(17),
-    refetchOnWindowFocus: true,
+    queryKey: ['allPhotos'],
+    queryFn: ()=>fetchAllPhotos(17),
+    refetchWindowFocus: true,
+    // refetchOnMount: true,
   });
-
-
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([
-    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: undefined },
-  ])
+    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: "" },
+  ]);
   const [region, setRegion] = useState({
     latitude: INIT.latitude,
     longitude: INIT.longitude,
     latitudeDelta: INIT.latitudeDelta,
     longitudeDelta: INIT.longitudeDelta
   });
-  console.log(data);
 
   const allPhotoLength = data?.length;
-  const generateMarkers = useCallback((lat, long) => {
+  const generateMarkers = useCallback(() => {
     const markersArray = [];
     for (let i = 0; i < allPhotoLength; i++) {
-      markersArray.push({
-        id: i,
-        // latitude: data[i].coordinates[0],
-        // longitude: data[i].coordinates[1],
-        latitude: getRandomLatitude(lat - 0.5, lat + 0.5),
-        longitude: getRandomLongitude(long - 0.5, long + 0.5),
-        thumbnail: s3BaseUrl + data[i].thumbnail,
-      });
-      // console.log(locs[i].imageUri);
+      if(data[i].latitude && data[i].longitude){
+        markersArray.push({
+          id: i,
+          latitude: data[i]?.latitude,
+          longitude: data[i]?.longitude,
+          thumbnail: s3BaseUrl + data[i]?.filePath,
+        });
+      }
     }
     setMarkers(markersArray);
-  }, [])
+  }, []);
+
+  // console.log(JSON.stringify(data)+"엥");
+  console.log(data);
 
   const onRegionChangeComplete = (newRegion) => {
-    setZoom(getZoomFromRegion(newRegion))
-    setRegion(newRegion)
-  }
+    setZoom(getZoomFromRegion(newRegion));
+    setRegion(newRegion);
+  };
 
   useEffect(() => {
     data &&
-      generateMarkers(region.latitude, region.longitude);
-  }, [data]);
+    generateMarkers();
+  }, []);
 
-  return (
-    <View style={styles.container}>
-      { data &&
-        <ClusteredMapView
-        clusterColor="#00B386"
-        ref={map}
-        mapType="standard"
-        style={styles.mapView}
-        initialRegion={region}
-        onRegionChangeComplete={onRegionChangeComplete}>
-        {markers.map((item) => (
-          <Marker
-          key={item.id}
-          coordinate={{
-            latitude: item.latitude,
-            longitude: item.longitude,
-          }}
-          imageUri={item.thumbnail}
-          tracksViewChanges={false}>
-            <Image 
-            source={item.thumbnail}
-            style={{
-              width: 70,
-              height: 70,
-              borderRadius: 10
-            }}/>
-          </Marker> 
-        ))}
-      </ClusteredMapView>
-      }
+  if(isLoading) {
+    return(
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    )
+  }
+  else if(data){
+    return(
+      <View style={styles.container}>
+      {data && (
+          <ClusteredMapView
+          clusterColor="#00B386"
+          ref={map}
+          mapType="standard"
+          style={styles.mapView}
+          initialRegion={region}
+          onRegionChangeComplete={onRegionChangeComplete}>
+          {markers.map((item) => (
+            <Marker
+            key={item.id}
+            coordinate={{
+              latitude: item.latitude,
+              longitude: item.longitude,
+            }}
+            imageUri={item.thumbnail}
+            tracksViewChanges={false}>
+              <Image 
+              source={item.thumbnail}
+              style={{
+                width: 70,
+                height: 70,
+                borderRadius: 10
+              }}/>
+            </Marker> 
+          ))}
+          </ClusteredMapView>
+      )}
     </View>
-  )
+    )
+  }
+
 }
 
+
+{/*
+    <View style={styles.container}>
+      {data && (
+          <ClusteredMapView
+          clusterColor="#00B386"
+          ref={map}
+          mapType="standard"
+          style={styles.mapView}
+          initialRegion={region}
+          onRegionChangeComplete={onRegionChangeComplete}>
+          {markers.map((item) => (
+            <Marker
+            key={item.id}
+            coordinate={{
+              latitude: item.latitude,
+              longitude: item.longitude,
+            }}
+            imageUri={item.thumbnail}
+            tracksViewChanges={false}>
+              <Image 
+              source={item.thumbnail}
+              style={{
+                width: 70,
+                height: 70,
+                borderRadius: 10
+              }}/>
+            </Marker> 
+          ))}
+          </ClusteredMapView>
+      )}
+    </View>
+
+*/}

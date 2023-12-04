@@ -97,7 +97,7 @@ const CircleHeader = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>PicMap</Text>
+      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang',   color: '#44403C' }}>PicMap</Text>
       <View style={styles.iconContainer}>
         <HeaderIcon />
         <CircleModal
