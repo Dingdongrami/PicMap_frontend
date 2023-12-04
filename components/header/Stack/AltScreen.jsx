@@ -40,6 +40,7 @@ const AltScreen = () => {
       screenOptions={({ navigation }) => ({
         header: props => <Header {...props} />,
         // headerStatusBarHeight: 0,
+        contentStyle: { backgroundColor: '#ffffff' },
       })}>
       <Stack.Group>
         <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false }} />
