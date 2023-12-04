@@ -13,6 +13,7 @@ import {
   SplashUI,
   SingleCircle,
   PhotoCom,
+  LandingPage,
 } from '../../../screens';
 import Header from '../Header';
 import CircleHeader from '../CircleHeader';
@@ -21,18 +22,28 @@ import JustGoBackHeader from '../JustGoBackHeader';
 import { ZoomInMap } from '../../circle';
 import { AltComponent, AltUserComponent, AltSearchComponent } from '../../middle';
 import { MapList } from '../../MapMarker/MapList';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
-
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+};
 const AltScreen = () => {
   return (
     <Stack.Navigator
-      initialRouteName="MyPage"
+      initialRouteName="LandingPage"
+      safeAreaInsets={{ top: 0, bottom: 0 }}
       screenOptions={({ navigation }) => ({
         header: props => <Header {...props} />,
-        headerStatusBarHeight: 0,
+        // headerStatusBarHeight: 0,
+        contentStyle: { backgroundColor: '#ffffff' },
       })}>
       <Stack.Group>
+        <Stack.Screen name="LandingPage" component={LandingPage} options={{ headerShown: false }} />
         <Stack.Screen name="MyPage" component={AltComponent} />
         <Stack.Screen name="MapList" component={MapList} />
         <Stack.Screen name="Search" component={AltSearchComponent} />

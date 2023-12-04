@@ -10,12 +10,7 @@ import { s3BaseUrl } from '../../../constants/config';
 
 const Comment = ({ comment, isFullScrolled = false, onPressDelete }) => {
   const navigation = useNavigation();
-  const {
-    data: user,
-    isLoading,
-    isFetching,
-    isPending,
-  } = useQuery({
+  const { data: user } = useQuery({
     queryKey: ['user', comment?.userId],
     queryFn: () => fetchUser(comment?.userId),
     enabled: !!comment?.userId,
