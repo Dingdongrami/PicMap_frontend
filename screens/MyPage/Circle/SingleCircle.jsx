@@ -1,9 +1,10 @@
 import { View, Text, Pressable, Alert } from 'react-native';
-import { useState, useMemo, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
 import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/circle';
+import { MemorizedSingleMap } from '../../../components/circle/single/SingleMap';
 import { FlatList } from 'react-native-gesture-handler';
 import { circleSelectButtonState } from '../../../stores/circle-selection';
 import { useRecoilState } from 'recoil';
@@ -17,7 +18,6 @@ export const SingleCircle = ({ route }) => {
   const { circleId } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(null);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const queryClient = useQueryClient();
 
@@ -105,13 +105,13 @@ export const SingleCircle = ({ route }) => {
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
         />
-        <AddMethod onPress={() => setIsExpanded(!isExpanded)} expansion={isExpanded} circleId={circleId} />
+        <AddMethod circleId={circleId} />
       </View>
     );
   }
 };
 
-const HeaderComponent = ({ circleId, photoDeleteMutation, selectedPhotos }) => {
+const HeaderComponent = React.memo(({ circleId, photoDeleteMutation, selectedPhotos }) => {
   const [isMap, setIsMap] = useState(true);
   const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
 
@@ -157,7 +157,7 @@ const HeaderComponent = ({ circleId, photoDeleteMutation, selectedPhotos }) => {
       <View style={styles.personBox}>
         <OthersProfile circleId={circleId} />
       </View>
-      <View style={styles.mapContainer}>{isMap && <SingleMap />}</View>
+      <View style={styles.mapContainer}>{isMap && <MemorizedSingleMap />}</View>
       <View style={styles.wrapper}>
         <Text style={styles.imageText}>사진</Text>
         {!circleSelectButtonActive ? (
@@ -176,4 +176,4 @@ const HeaderComponent = ({ circleId, photoDeleteMutation, selectedPhotos }) => {
       </View>
     </View>
   );
-};
+});

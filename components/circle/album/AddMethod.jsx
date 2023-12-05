@@ -5,8 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
 import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
 import * as Location from 'expo-location';
+import { useState } from 'react';
 
-export const AddMethod = ({ onPress, expansion, circleId }) => {
+export const AddMethod = ({ circleId }) => {
+  const [isExpanded, setIsExpanded] = useState(null);
   const [circleSelectButtonActive] = useRecoilState(circleSelectButtonState);
   const imageStyles = [styles.overlay];
   const queryClient = useQueryClient();
@@ -45,11 +47,11 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
     cameraMutation.mutate({ photoUri: photo.uri, circleId, location });
   }
 
-  if (expansion) {
-    const animation = new Animated.Value(expansion ? 0 : 1);
+  if (isExpanded) {
+    const animation = new Animated.Value(isExpanded ? 0 : 1);
 
     Animated.timing(animation, {
-      toValue: expansion ? 1 : 0,
+      toValue: isExpanded ? 1 : 0,
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -64,8 +66,8 @@ export const AddMethod = ({ onPress, expansion, circleId }) => {
 
   return (
     !circleSelectButtonActive && (
-      <Pressable onPress={onPress}>
-        {expansion ? (
+      <Pressable onPress={() => setIsExpanded(!isExpanded)}>
+        {isExpanded ? (
           <View style={styles.addition}>
             <Pressable onPress={selectImageHandler}>
               <Image source={require('../../../assets/icons/album_add.png')} contentFit="cover" style={styles.icon1} />
