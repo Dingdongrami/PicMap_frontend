@@ -64,7 +64,7 @@ export const Map = () => {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#D0C8C8" />
       </View>
     );
   } else if (data) {
