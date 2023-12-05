@@ -10,6 +10,7 @@ export const Post = () => {
     queryKey: ['circle'],
     queryFn: () => fetchCircle(17),
     refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
   // console.log(data);
 
