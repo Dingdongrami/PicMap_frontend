@@ -15,6 +15,13 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
     // TODO: 친구요청 로직을 여기에 추가하세요.
     // 친구요청 중인 상태를 전역 상태로 관리하세요.
 
+    // 만약 나 자신이라면
+    if (user.id === 17) {
+      setToastMessage('나 자신은 영원한 나의 친구입니다.');
+      setShowToast(true);
+      return;
+    }
+
     // 친구요청 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('친구 요청 완료');
     setShowToast(true);
@@ -31,14 +38,16 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
       )}
       <View style={styles.rightWrapper}>
         <View style={styles.iconTextWrapper}>
-          <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
+          {user.status === 'PRIVATE' && (
+            <Image source={require('../../assets/icons/private.png')} style={styles.privateImage} />
+          )}
           <Text style={styles.usernameText}>{user.nickname}</Text>
         </View>
         <Text style={styles.onelineText}>{user.introduce}</Text>
         <View style={styles.buttonWrapper}>
           <Pressable style={styles.pinkButton} onPress={onPressRequest}>
             <Image source={require('../../assets/icons/person_add.png')} style={styles.friendsImage} />
-            <Text style={styles.buttonText}>{showToast ? '친구 요청 중' : '친구 요청'}</Text>
+            <Text style={styles.buttonText}>{showToast && user.id != 17 ? '친구 요청 중' : '친구 요청'}</Text>
           </Pressable>
         </View>
       </View>

@@ -4,6 +4,8 @@ import { CirclePost } from '../../../components/CirclePost';
 import { styles } from './styles';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCircle } from '../../../api/circleApi';
+import { Image } from 'expo-image';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const Post = ({ route }) => {
   const { user } = route.params;
@@ -12,8 +14,6 @@ export const Post = ({ route }) => {
     queryFn: () => fetchCircle(user.id),
     refetchOnWindowFocus: true,
   });
-
-  console.log(user);
 
   return (
     <View style={styles.container}>

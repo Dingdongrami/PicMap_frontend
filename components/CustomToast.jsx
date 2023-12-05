@@ -4,10 +4,10 @@ const CustomToast = ({ text, show }) => {
   if (text && show) {
     Toast.show(text, {
       duration: Toast.durations.SHORT,
-      position: -60,
+      position: -80,
       animation: true,
       delay: 0,
-      backgroundColor: 'rgba(255, 236, 234, 0.80)',
+      backgroundColor: 'rgba(255, 236, 234, 0.90)',
       textColor: '#44403C',
       textStyle: { fontFamily: 'IropkeBatang', fontSize: 15 },
       containerStyle: {
