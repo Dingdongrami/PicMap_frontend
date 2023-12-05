@@ -28,8 +28,9 @@ const AltUserComponent = ({ route }) => {
           <Text
             style={{
               fontFamily: 'IropkeBatang',
-              fontSize: 16.5,
+              fontSize: 16,
               marginLeft: 10,
+              color: '#44403C',
             }}>
             비공개 계정입니다.
           </Text>
