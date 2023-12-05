@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
-import { INIT, locs } from './examples';
+import { INIT } from './examples';
 import { styles } from './styles';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchAllPhotos } from '../../../api/mapphotoApi';
 import { s3BaseUrl } from '../../../constants/config';
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
@@ -17,7 +17,7 @@ const getZoomFromRegion = region => {
 export const Map = () => {
   const map = useRef(null);
 
-  const [zoom, setZoom] = useState(18);
+  
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
     latitude: INIT.latitude,
@@ -103,39 +103,3 @@ export const Map = () => {
     );
   }
 };
-
-{
-  /*
-    <View style={styles.container}>
-      {data && (
-          <ClusteredMapView
-          clusterColor="#00B386"
-          ref={map}
-          mapType="standard"
-          style={styles.mapView}
-          initialRegion={region}
-          onRegionChangeComplete={onRegionChangeComplete}>
-          {markers.map((item) => (
-            <Marker
-            key={item.id}
-            coordinate={{
-              latitude: item.latitude,
-              longitude: item.longitude,
-            }}
-            imageUri={item.thumbnail}
-            tracksViewChanges={false}>
-              <Image 
-              source={item.thumbnail}
-              style={{
-                width: 70,
-                height: 70,
-                borderRadius: 10
-              }}/>
-            </Marker> 
-          ))}
-          </ClusteredMapView>
-      )}
-    </View>
-
-*/
-}

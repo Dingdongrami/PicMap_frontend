@@ -190,7 +190,7 @@ const HeaderComponent = React.memo(({ circleId, photoData }) => {
         <OthersProfile circleId={circleId} />
       </View>
       <View style={styles.mapContainer}>
-        <MemorizedSingleMap />
+        <MemorizedSingleMap data={photoData} />
       </View>
       <View style={styles.wrapper}>
         <Text style={styles.imageText}></Text>

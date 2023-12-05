@@ -1,8 +1,8 @@
 export const INIT = {
   latitude: 37.580112,
   longitude: 126.977166,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
+  latitudeDelta: 5,
+  longitudeDelta: 5,
 };
 
 export const examples = [
