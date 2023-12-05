@@ -70,7 +70,7 @@ export const SingleCircle = ({ route }) => {
           data={photoData}
           numColumns={3}
           keyExtractor={item => item.id}
-          ListHeaderComponent={() => <HeaderComponent circleId={circle?.id} />}
+          ListHeaderComponent={() => <HeaderComponent circleId={circle?.id} photoData={photoData} />}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
@@ -82,7 +82,7 @@ export const SingleCircle = ({ route }) => {
   }
 };
 
-const HeaderComponent = React.memo(({ circleId }) => {
+const HeaderComponent = React.memo(({ circleId, photoData }) => {
   const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
   const [selectedPhotos, setSelectedPhotos] = useRecoilState(selectedPhotosState);
   const queryClient = useQueryClient();
@@ -160,7 +160,7 @@ const HeaderComponent = React.memo(({ circleId }) => {
         <MemorizedSingleMap />
       </View>
       <View style={styles.wrapper}>
-        <Text style={styles.imageText}>사진</Text>
+        <Text style={styles.imageText}></Text>
         {!circleSelectButtonActive ? (
           <Pressable onPress={changeSelection}>
             <Text style={styles.optionText}>선택</Text>
