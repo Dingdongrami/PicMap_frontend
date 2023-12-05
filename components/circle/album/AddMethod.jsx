@@ -6,9 +6,11 @@ import { uploadPhotos, uploadShootingPhoto } from '../../../api/photoApi';
 import { useCamera, useMediaLibrary, useLocation } from '../../../hooks';
 import * as Location from 'expo-location';
 import { useState } from 'react';
+import { isPhotoUploadingState } from '../../../stores/circle-store';
 
 export const AddMethod = ({ circleId }) => {
   const [isExpanded, setIsExpanded] = useState(null);
+  const [isPhotoUploading, setIsPhotoUploading] = useRecoilState(isPhotoUploadingState);
   const [circleSelectButtonActive] = useRecoilState(circleSelectButtonState);
   const imageStyles = [styles.overlay];
   const queryClient = useQueryClient();
@@ -20,23 +22,28 @@ export const AddMethod = ({ circleId }) => {
   const mediaLibraryMutation = useMutation({
     mutationFn: args => uploadPhotos(args.photos, args.circleId),
     onSuccess: data => {
+      setIsPhotoUploading(false);
       queryClient.invalidateQueries('photo');
     },
   });
   const cameraMutation = useMutation({
     mutationFn: args => uploadShootingPhoto(args.photoUri, args.circleId, args.location),
     onSuccess: data => {
+      setIsPhotoUploading(false);
       queryClient.invalidateQueries('photo');
     },
   });
 
   // 호이스팅을 위해 함수 선언식으로 작성
   async function onImageSelected(photos) {
+    setIsPhotoUploading(true);
     mediaLibraryMutation.mutate({ photos, circleId });
   }
 
   // 호이스팅을 위해 함수 선언식으로 작성
   async function onImageCaptured(photo) {
+    setIsPhotoUploading(true);
+
     const permission = getLocationPermission();
     if (!permission) {
       return;

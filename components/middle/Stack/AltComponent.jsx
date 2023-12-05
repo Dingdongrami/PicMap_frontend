@@ -36,7 +36,7 @@ const AltComponent = ({ navigation }) => {
               color: '#44403C',
               fontSize: 15,
               fontFamily: 'IropkeBatang',
-              marginBottom: 9,
+              marginBottom: 9.5,
             },
             tabBarIndicatorStyle: {
               display: 'none',
@@ -50,7 +50,7 @@ const AltComponent = ({ navigation }) => {
             },
           })}>
           <Tab.Screen
-            name="Post"
+            name="사진"
             component={Post}
             options={{
               tabBarItemStyle: {
@@ -62,7 +62,7 @@ const AltComponent = ({ navigation }) => {
             }}
           />
           <Tab.Screen
-            name="Map"
+            name="지도"
             component={Map}
             options={{
               tabBarItemStyle: {
@@ -75,7 +75,7 @@ const AltComponent = ({ navigation }) => {
             }}
           />
           <Tab.Screen
-            name="Circle"
+            name="써클"
             component={Circle}
             options={{
               tabBarItemStyle: {

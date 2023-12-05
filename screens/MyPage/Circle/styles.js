@@ -74,22 +74,25 @@ export const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 20,
   },
   imageText: {
     fontFamily: 'IropkeBatang',
     color: '#44403C',
+    fontSize: 15,
     marginLeft: 16,
     marginRight: 'auto',
   },
   optionText: {
     fontFamily: 'IropkeBatang',
     backgroundColor: '#FFECEA',
+    fontSize: 15,
     marginRight: 16,
     color: '#44403C',
   },
   optionText2: {
     fontFamily: 'IropkeBatang',
+    fontSize: 15,
     color: '#44403C',
     backgroundColor: '#FFECEA',
   },

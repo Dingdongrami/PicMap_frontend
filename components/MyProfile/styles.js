@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
   onelineText: {
     width: 218,
     fontFamily: 'IropkeBatang',
-    fontSize: 12,
+    fontSize: 13,
     marginTop: 13,
     marginBottom: 15,
     color: '#44403C',
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'IropkeBatang',
-    fontSize: 11.5,
+    fontSize: 13,
     color: '#44403C',
   },
   editImage: {

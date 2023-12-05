@@ -8,17 +8,16 @@ import { fetchLatestFourPhotos, fetchPhotos } from '../../api/photoApi';
 import { useNavigation } from 'expo-router';
 
 const CirclePost = ({ circle }) => {
-  const circleId = circle.id;
   const navigation = useNavigation();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['circlePost', circleId],
-    queryFn: () => fetchLatestFourPhotos(circleId),
+    queryKey: ['circlePost', circle.id],
+    queryFn: () => fetchLatestFourPhotos(circle.id),
   });
 
   //각 써클로 접속하는 함수
   const enterCircle = () => {
-    return navigation.navigate('SplashUI', { circleId: circle.id });
+    return navigation.navigate('SplashUI', { circle });
   };
 
   return (

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 10,
     fontFamily: 'IropkeBatang',
-    fontSize: 13,
+    fontSize: 14,
     color: '#44403C',
     paddingLeft: 44,
   },

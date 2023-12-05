@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   albumContainer: {
     width: '100%',
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 2,
+    padding: 2,
   },
   imageContainer: {
     position: 'relative',
@@ -69,7 +69,7 @@ export const comStyles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    contentFit: 'contain',
+    // contentFit: 'contain',
   },
   scrollCon: {
     borderTopWidth: 0.5,

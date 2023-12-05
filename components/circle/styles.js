@@ -37,10 +37,12 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height: 29,
+    height: 27,
   },
   circleNameText: {
     fontFamily: 'IropkeBatang',
+    fontSize: 15,
     backgroundColor: '#FFECEA',
+    paddingHorizontal: 5,
   },
 });

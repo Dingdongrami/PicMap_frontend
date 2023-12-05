@@ -8,28 +8,27 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchAllPhotos } from '../../../api/mapphotoApi';
 import { s3BaseUrl } from '../../../constants/config';
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
+import { ActivityIndicator } from 'react-native';
 
-const getZoomFromRegion = (region) => {
-  return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2)
-}
+const getZoomFromRegion = region => {
+  return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
+};
 
 export const Map = () => {
   const map = useRef(null);
 
   const [zoom, setZoom] = useState(18);
-  const [markers, setMarkers] = useState([
-    { id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: "" },
-  ]);
+  const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
     latitude: INIT.latitude,
     longitude: INIT.longitude,
     latitudeDelta: INIT.latitudeDelta,
-    longitudeDelta: INIT.longitudeDelta
+    longitudeDelta: INIT.longitudeDelta,
   });
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['allPhotos'],
-    queryFn: ()=>fetchAllPhotos(17),
+    queryFn: () => fetchAllPhotos(17),
     refetchWindowFocus: true,
     // refetchOnMount: true,
   });
@@ -38,7 +37,7 @@ export const Map = () => {
   const generateMarkers = () => {
     const markersArray = [];
     for (let i = 0; i < allPhotoLength; i++) {
-      if(data[i].latitude && data[i].longitude){
+      if (data[i].latitude && data[i].longitude) {
         markersArray.push({
           id: i,
           latitude: data[i]?.latitude,
@@ -53,62 +52,60 @@ export const Map = () => {
   // console.log(JSON.stringify(data)+"엥");
   console.log(data);
 
-  const onRegionChangeComplete = (newRegion) => {
+  const onRegionChangeComplete = newRegion => {
     setZoom(getZoomFromRegion(newRegion));
     setRegion(newRegion);
   };
 
   useEffect(() => {
-    data &&
-    generateMarkers();
+    data && generateMarkers();
   }, [data]);
 
-  if(isLoading) {
-    return(
+  if (isLoading) {
+    return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" />
       </View>
-    )
-  }
-  else if(data){
-    return(
+    );
+  } else if (data) {
+    return (
       <View style={styles.container}>
-      {data && (
+        {data && (
           <ClusteredMapView
-          clusterColor="#00B386"
-          ref={map}
-          mapType="standard"
-          style={styles.mapView}
-          initialRegion={region}
-          onRegionChangeComplete={onRegionChangeComplete}>
-          {markers.map((item) => (
-            <Marker
-            key={item.id}
-            coordinate={{
-              latitude: item.latitude,
-              longitude: item.longitude,
-            }}
-            imageUri={item.thumbnail}
-            tracksViewChanges={false}>
-              <Image 
-              source={item.thumbnail}
-              style={{
-                width: 70,
-                height: 70,
-                borderRadius: 10
-              }}/>
-            </Marker> 
-          ))}
+            clusterColor="#00B386"
+            ref={map}
+            mapType="standard"
+            style={styles.mapView}
+            initialRegion={region}
+            onRegionChangeComplete={onRegionChangeComplete}>
+            {markers.map(item => (
+              <Marker
+                key={item.id}
+                coordinate={{
+                  latitude: item.latitude,
+                  longitude: item.longitude,
+                }}
+                imageUri={item.thumbnail}
+                tracksViewChanges={false}>
+                <Image
+                  source={item.thumbnail}
+                  style={{
+                    width: 70,
+                    height: 70,
+                    borderRadius: 10,
+                  }}
+                />
+              </Marker>
+            ))}
           </ClusteredMapView>
-      )}
-    </View>
-    )
+        )}
+      </View>
+    );
   }
+};
 
-}
-
-
-{/*
+{
+  /*
     <View style={styles.container}>
       {data && (
           <ClusteredMapView
@@ -140,4 +137,5 @@ export const Map = () => {
       )}
     </View>
 
-*/}
+*/
+}

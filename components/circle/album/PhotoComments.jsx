@@ -120,6 +120,17 @@ export const PhotoComments = ({ photo }) => {
     deleteCommentMutate(commentId);
   };
 
+  // 좋아요 핸들링
+  const handleLike = () => {
+    if (isLiked) {
+      deleteLikeMutate();
+      setIsLiked(false);
+    } else {
+      updateLikeMutate();
+      setIsLiked(true);
+    }
+  };
+
   // PersonRow 컴포넌트 내에서 각 사용자의 정보를 가져오기
   const UserPersonRow = ({ userId }) => {
     const {
@@ -161,23 +172,14 @@ export const PhotoComments = ({ photo }) => {
           <Text style={comStyles.count}>{photo?.commentCount}</Text>
         </View>
         <View style={comStyles.commentInfoBox}>
-          <Pressable
-            onPress={() => {
-              if (isLiked) {
-                deleteLikeMutate();
-                setIsLiked(false);
-              } else {
-                updateLikeMutate();
-                setIsLiked(true);
-              }
-            }}>
+          <Pressable onPress={handleLike}>
             <Image
               source={require('../../../assets/icons/heart_filled.png')}
               contentFit="cover"
               style={{ width: 18, height: 18 }}
             />
           </Pressable>
-          <Pressable onPress={onPressLikeCount}>
+          <Pressable onPress={handleLike}>
             <Text style={comStyles.count}>{photo?.likeCount}</Text>
           </Pressable>
         </View>
