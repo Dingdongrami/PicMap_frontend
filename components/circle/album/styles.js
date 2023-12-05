@@ -69,7 +69,7 @@ export const comStyles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    contentFit: 'contain',
+    // contentFit: 'contain',
   },
   scrollCon: {
     borderTopWidth: 0.5,
