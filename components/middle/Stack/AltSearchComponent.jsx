@@ -39,7 +39,7 @@ const AltSearchComponent = ({ route }) => {
             color: '#44403C',
             fontSize: 15,
             fontFamily: 'IropkeBatang',
-            marginBottom: 9,
+            marginBottom: 9.5,
           },
           tabBarIndicatorStyle: {
             display: 'none',
@@ -53,7 +53,7 @@ const AltSearchComponent = ({ route }) => {
           },
         })}>
         <Tab.Screen
-          name="User"
+          name="유저"
           component={UserSearch}
           options={{
             tabBarItemStyle: {
@@ -65,7 +65,7 @@ const AltSearchComponent = ({ route }) => {
           }}
         />
         <Tab.Screen
-          name="Circle"
+          name="써클"
           component={CircleSearch}
           options={{
             tabBarItemStyle: {

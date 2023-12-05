@@ -25,7 +25,7 @@ const AltUserComponent = ({ route }) => {
             color: '#44403C',
             fontSize: 15,
             fontFamily: 'IropkeBatang',
-            marginBottom: 9,
+            marginBottom: 9.5,
           },
           tabBarIndicatorStyle: {
             display: 'none',
@@ -39,7 +39,7 @@ const AltUserComponent = ({ route }) => {
           },
         })}>
         <Tab.Screen
-          name="Post"
+          name="사진"
           component={Post}
           options={{
             tabBarItemStyle: {
@@ -51,7 +51,7 @@ const AltUserComponent = ({ route }) => {
           }}
         />
         <Tab.Screen
-          name="Map"
+          name="지도"
           component={Map}
           options={{
             tabBarItemStyle: {
