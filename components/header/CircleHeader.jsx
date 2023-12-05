@@ -12,7 +12,7 @@ import HeaderIcon from './HeaderIcon';
 import { editModalState } from '../../stores/edit-modal';
 import { useRecoilState } from 'recoil';
 
-const CircleHeader = ({ circleId, photoSortMutation }) => {
+const CircleHeader = ({ circleName, circleId, photoSortMutation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
   const [isEditVisible, setEditVisible] = useRecoilState(editModalState);
@@ -97,7 +97,9 @@ const CircleHeader = ({ circleId, photoSortMutation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang',   color: '#44403C' }}>PicMap</Text>
+      <Text style={{ fontSize: 20, fontFamily: 'IropkeBatang', color: '#44403C' }}>
+        {circleName ? circleName : 'PicMap'}
+      </Text>
       <View style={styles.iconContainer}>
         <HeaderIcon />
         <CircleModal

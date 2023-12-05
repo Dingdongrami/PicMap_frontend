@@ -44,7 +44,7 @@ export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
 
   //각 써클로 접속하는 함수
   const enterCircle = () => {
-    return navigation.navigate('SplashUI', { circleId: circle.id });
+    return navigation.navigate('SplashUI', { circle: circle });
   };
 
   const handleCircleRoomClick = circleId => {
@@ -60,14 +60,14 @@ export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
-    joinMutation.mutate({ userId: 17, circleId: circle.id });
+    joinMutation.mutate({ userId: 17, circle: circle });
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('가입 성공');
     setShowToast(true);
   };
 
-  // console.log(s3Url + circle.thumbnail);
+  // console.log('써클룸으로부터', circle);
 
   return (
     <>

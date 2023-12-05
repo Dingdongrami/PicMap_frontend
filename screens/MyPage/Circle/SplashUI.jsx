@@ -16,10 +16,10 @@ export const SplashUI = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
   const [user, setUser] = useRecoilState(userState);
-  const { circleId } = route.params;
+  const { circle } = route.params;
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['circleMembers', circleId],
-    queryFn: () => fetchMembers(circleId),
+    queryKey: ['circleMembers', circle?.id],
+    queryFn: () => fetchMembers(circle?.id),
   });
 
   const displayPerson = data ? (data.length > 4 ? data.slice(0, 4) : data) : [];
@@ -40,7 +40,7 @@ export const SplashUI = ({ route }) => {
   useEffect(() => {
     setTimeout(() => {
       setModalVisible(false);
-      navigation.navigate('SingleCircle', { circleId });
+      navigation.navigate('SingleCircle', { circle: circle });
       setIsReady(true);
     }, 2000);
   }, []);

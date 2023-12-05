@@ -16,19 +16,15 @@ import { selectedPhotosState } from '../../../stores/circle-store';
 
 export const SingleCircle = ({ route }) => {
   const navigation = useNavigation();
-  const { circleId } = route.params; //써클의 id값 찾아내기
+  const { circle } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
   const queryClient = useQueryClient();
 
   // 써클의 사진들을 불러오기
-  const {
-    data: photoData,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: photoData } = useQuery({
     queryKey: ['photo'],
-    queryFn: () => fetchPhotos(circleId),
+    queryFn: () => fetchPhotos(circle?.id),
   });
 
   // 사진 정렬하기
@@ -59,7 +55,9 @@ export const SingleCircle = ({ route }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      header: () => <CircleHeader circleId={circleId} photoSortMutation={photoSortMutation} />,
+      header: () => (
+        <CircleHeader circleName={circle?.name} circleId={circle?.id} photoSortMutation={photoSortMutation} />
+      ),
     });
   }, [navigation]);
 
@@ -72,13 +70,13 @@ export const SingleCircle = ({ route }) => {
           data={photoData}
           numColumns={3}
           keyExtractor={item => item.id}
-          ListHeaderComponent={() => <HeaderComponent circleId={circleId} />}
+          ListHeaderComponent={() => <HeaderComponent circleId={circle?.id} />}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
         />
-        <AddMethod circleId={circleId} />
+        <AddMethod circleId={circle?.id} />
       </View>
     );
   }
