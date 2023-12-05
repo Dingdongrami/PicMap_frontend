@@ -9,3 +9,8 @@ export const newCircleState = atom({
     public: true,
   },
 });
+
+export const selectedPhotosState = atom({
+  key: 'selectedPhotosState',
+  default: [],
+});
