@@ -35,11 +35,14 @@ export const SinglePhotoIcon = ({ photo, handleSelectedPhotos, selectedPhotos })
               <Checkbox
                 value={selectedPhotos?.includes(photo.id)}
                 onValueChange={() => handleSelectedPhotos(photo.id)}
-                color={selectedPhotos?.includes(photo.id) ? '#D6D3D1' : undefined}
+                color={selectedPhotos?.includes(photo.id) ? '#44403C' : '#FFFFFF'}
                 style={styles.checkbox}
               />
             )}
-            <Image source={s3BaseUrl + photo.filePath} style={styles.imageIcon} />
+            <Image
+              source={s3BaseUrl + photo.filePath}
+              style={[styles.imageIcon, selectedPhotos?.includes(photo.id) ? { opacity: 0.5 } : null]}
+            />
           </View>
         </Pressable>
       </View>

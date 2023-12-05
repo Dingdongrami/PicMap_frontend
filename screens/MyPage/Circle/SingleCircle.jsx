@@ -49,6 +49,7 @@ export const SingleCircle = ({ route }) => {
     },
   });
 
+  // 사진 선택하기
   const handleSelectedPhotos = photoId => {
     setSelectedPhotos(prevSelectedPhotos => {
       if (prevSelectedPhotos.includes(photoId)) {
@@ -59,6 +60,21 @@ export const SingleCircle = ({ route }) => {
         return [...prevSelectedPhotos, photoId];
       }
     });
+  };
+
+  // 모든 사진 선택하기
+  const selectAllPhotos = () => {
+    setSelectedPhotos(prevPhotos => {
+      // Check if all photos are already selected
+      const allSelected = prevPhotos.length === photoData.length;
+      // If all photos are selected, deselect all. Else, select all.
+      return allSelected ? [] : photoData.map(photo => photo.id);
+    });
+  };
+
+  // selectedPhotos 비우기
+  const clearSelectedPhotos = () => {
+    setSelectedPhotos([]);
   };
 
   const handleScroll = e => {
@@ -98,6 +114,8 @@ export const SingleCircle = ({ route }) => {
               circleId={circleId}
               photoDeleteMutation={photoDeleteMutation}
               selectedPhotos={selectedPhotos}
+              selectAllPhotos={selectAllPhotos}
+              clearSelectedPhotos={clearSelectedPhotos}
             />
           )}
           onScroll={handleScroll}
@@ -111,18 +129,21 @@ export const SingleCircle = ({ route }) => {
   }
 };
 
-const HeaderComponent = React.memo(({ circleId, photoDeleteMutation, selectedPhotos }) => {
+const HeaderComponent = React.memo(({ circleId, photoDeleteMutation, selectAllPhotos, clearSelectedPhotos }) => {
   const [isMap, setIsMap] = useState(true);
   const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
 
   const changeSelection = () => {
     setCircleSelectButtonActive(!circleSelectButtonActive);
+    clearSelectedPhotos();
   };
 
   const selectOptions = useMemo(() => [
     {
       text: '전체 선택',
-      // onPress:
+      onPress: () => {
+        selectAllPhotos();
+      },
     },
     {
       text: '삭제',
