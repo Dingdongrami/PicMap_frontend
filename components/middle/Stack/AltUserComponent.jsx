@@ -41,6 +41,7 @@ const AltUserComponent = ({ route }) => {
         <Tab.Screen
           name="사진"
           component={Post}
+          initialParams={{ user: user }}
           options={{
             tabBarItemStyle: {
               height: 42,
@@ -53,6 +54,7 @@ const AltUserComponent = ({ route }) => {
         <Tab.Screen
           name="지도"
           component={Map}
+          initialParams={{ user: user }}
           options={{
             tabBarItemStyle: {
               height: 42,
