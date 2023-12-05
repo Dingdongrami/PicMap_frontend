@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Map } from '../../../screens/MyPage/Map/Map';
 import ClusteredMapView from '../../MapMarker/ClusteredMapView';
 import { INIT } from './examples';
+import React from 'react';
 
 const ZOOM_THRESHOLD = 10;
 const getRandomLatitude = (min = 48, max = 56) => {
@@ -95,3 +96,5 @@ export const SingleMap = () => {
     </ClusteredMapView>
   );
 };
+
+export const MemorizedSingleMap = React.memo(SingleMap);
