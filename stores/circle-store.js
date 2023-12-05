@@ -14,3 +14,8 @@ export const selectedPhotosState = atom({
   key: 'selectedPhotosState',
   default: [],
 });
+
+export const isPhotoUploadingState = atom({
+  key: 'isPhotoUploadingState',
+  default: false,
+});

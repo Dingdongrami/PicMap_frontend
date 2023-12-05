@@ -12,17 +12,24 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deletePhoto, fetchPhotos, fetchSortedPhotos } from '../../../api/photoApi';
 import { useNavigation } from 'expo-router';
 import CircleHeader from '../../../components/header/CircleHeader';
-import { selectedPhotosState } from '../../../stores/circle-store';
+import { isPhotoUploadingState, selectedPhotosState } from '../../../stores/circle-store';
+import { ActivityIndicator } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export const SingleCircle = ({ route }) => {
   const navigation = useNavigation();
   const { circle } = route.params; //써클의 id값 찾아내기
   const [isReady, setIsReady] = useState(splashState);
   const [isMap, setIsMap] = useState(true);
+  const [isPhotoUploading, setIsPhotoUploading] = useRecoilState(isPhotoUploadingState);
   const queryClient = useQueryClient();
 
   // 써클의 사진들을 불러오기
-  const { data: photoData } = useQuery({
+  const {
+    data: photoData,
+    isFetching,
+    isLoading,
+  } = useQuery({
     queryKey: ['photo'],
     queryFn: () => fetchPhotos(circle?.id),
   });
@@ -47,11 +54,19 @@ export const SingleCircle = ({ route }) => {
   };
 
   // 써클의 사진의 id를 전달받아서 사진을 불러오기
-  const renderItem = ({ item, index }) => (
-    <Pressable style={{ flex: 0.33 }}>
-      <SinglePhotoIcon photo={item} />
-    </Pressable>
-  );
+  const renderItem = ({ item, index }) => {
+    return (
+      <Pressable style={{ flex: 0.3333 }}>
+        <SinglePhotoIcon photo={item} />
+      </Pressable>
+    );
+  };
+
+  // photoData가 변하면 isPhotoUploading을 false로 바꾸기
+  /*   useEffect(() => {
+    setIsPhotoUploading(false);
+  }, [photoData, isPhotoUploading]);
+ */
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -65,16 +80,33 @@ export const SingleCircle = ({ route }) => {
     return <SplashUI />;
   } else {
     return (
-      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff', position: 'relative' }}>
         <FlatList
           data={photoData}
           numColumns={3}
           keyExtractor={item => item.id}
           ListHeaderComponent={() => <HeaderComponent circleId={circle?.id} photoData={photoData} />}
+          ListFooterComponent={
+            isPhotoUploading ? (
+              <Spinner
+                size="large"
+                visible={isPhotoUploading}
+                textContent={'사진을 업로드 중입니다...'}
+                textStyle={{
+                  color: '#fff',
+                  fontFamily: 'IropkeBatang',
+                  fontSize: 16,
+                }}
+                animation="fade"
+                overlayColor="rgba(0, 0, 0, 0.4)"
+              />
+            ) : null
+          }
           onScroll={handleScroll}
           scrollEventThrottle={16}
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
+          columnWrapperStyle={{ paddingHorizontal: 1.5 }}
         />
         <AddMethod circleId={circle?.id} />
       </View>
@@ -93,6 +125,7 @@ const HeaderComponent = React.memo(({ circleId, photoData }) => {
     onSuccess: data => {
       queryClient.invalidateQueries('photo');
       setSelectedPhotos([]);
+      setCircleSelectButtonActive(false);
     },
   });
 
