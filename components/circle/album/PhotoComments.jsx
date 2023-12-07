@@ -1,6 +1,6 @@
 import { Text, View, Image, Pressable, Dimensions, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import { comStyles } from './styles';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import Comment from './Comment';
 // import { comments } from '../../../data/comment-dummy';
@@ -9,6 +9,7 @@ import { deleteLike, updateLike } from '../../../api/likeApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addComment, deleteComment, fetchComments } from '../../../api/commentsApi';
 import { fetchUser } from '../../../api/userApi';
+import { Keyboard } from 'react-native';
 
 // Get the full height of the screen
 const screenHeight = Dimensions.get('window').height;
@@ -18,7 +19,7 @@ const fullScreenHeight = screenHeight * 0.9;
 
 const config = {
   damping: 40, // Increase for slower oscillation
-  stiffness: 25, // Decrease for slower extension
+  stiffness: 30, // Decrease for slower extension
 };
 
 //사진클릭시 접속하는 화면
@@ -29,6 +30,7 @@ export const PhotoComments = ({ photo }) => {
   const [isScrolledComplete, setIsScrolledComplete] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
   const [isLikeClicked, setIsLikeClicked] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0); // 키보드 높이
   const height = useSharedValue(40); // 댓글창 높이
   const queryClient = useQueryClient();
 
@@ -98,16 +100,6 @@ export const PhotoComments = ({ photo }) => {
     if (isFullScrolled) setIsLikeClicked(!isLikeClicked);
   };
 
-  // 댓글 입력창 눌렀을 때
-  const onPressInTypeComment = () => {
-    height.value = withSpring(height.value + 260, config);
-  };
-
-  // 댓글 입력창 눌렀다가 벗어났을 때
-  const onBlurTypeComment = () => {
-    height.value = withSpring(height.value - 260, config);
-  };
-
   // 댓글 추가할 때
   const handleCommentSubmit = () => {
     if (!comment.trim()) return; // 빈 댓글은 제외
@@ -161,6 +153,32 @@ export const PhotoComments = ({ photo }) => {
       setIsScrolledComplete(false);
     }
   }, [isScrolledComplete]);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e => {
+      console.log('키보드 높이', e.endCoordinates.height);
+      setKeyboardHeight(e.endCoordinates.height);
+    });
+
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (keyboardHeight > 0) {
+      height.value = withSpring(keyboardHeight + 151, config);
+      setIsScrolled(true);
+      setIsScrolledComplete(true);
+    } else {
+      height.value = withSpring(40, config);
+    }
+  }, [keyboardHeight]);
 
   return (
     <Animated.View style={[comStyles.scrollCon, { height: height }]}>
@@ -234,8 +252,6 @@ export const PhotoComments = ({ photo }) => {
           onChangeText={setComment}
           style={comStyles.input}
           placeholder="댓글 달기..."
-          onPressIn={onPressInTypeComment}
-          onBlur={onBlurTypeComment}
           onSubmitEditing={handleCommentSubmit}
           returnKeyType="send" // 줄바꿈 버튼의 텍스트 설정
         />
