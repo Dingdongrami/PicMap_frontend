@@ -4,15 +4,14 @@ import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 //자식 element가 마커인지 판별
-export const isMarker = (child) =>
-  child && child.props && child.props.coordinate && child.props.cluster !== false;
+export const isMarker = child => child && child.props && child.props.coordinate && child.props.cluster !== false;
 
 //주어진 지도 영역을 표현하기 위한 상자
-export const calculateBBox = (region) => {
+export const calculateBBox = region => {
   let lngD;
   //경도가 음수인 경우 양수로 변환
-  if (region.longitudeDelta < 0) lngD = region.longitudeDelta + 360
-  else lngD = region.longitudeDelta
+  if (region.longitudeDelta < 0) lngD = region.longitudeDelta + 360;
+  else lngD = region.longitudeDelta;
 
   //[서쪽 경도, 남쪽 위도, 동쪽 경도, 북쪽 위도]
   return [
@@ -23,18 +22,17 @@ export const calculateBBox = (region) => {
   ];
 };
 
-//적절한 지도의 확대수준 
+//적절한 지도의 확대수준
 // region: 지도영역에 대한 정보, bBox: 경계상자에 대한 정보, minZoom: 최소확대수준
 export const returnMapZoom = (region, bBox, minZoom) => {
-  const viewport =
-    region.longitudeDelta >= 40 ? { zoom: minZoom } : GeoViewport.viewport(bBox, [width, height]);
+  const viewport = region.longitudeDelta >= 40 ? { zoom: minZoom } : GeoViewport.viewport(bBox, [width, height]);
 
   return viewport.zoom;
 };
 
 //마커의 지리적 위치정보와 이미지를 표현
 export const markerToGeoJSONFeature = (marker, index) => {
-  // console.log(marker.props.imageUri);
+  // console.log(marker.props.photoId);
   return {
     type: 'Feature',
     geometry: {
@@ -46,7 +44,8 @@ export const markerToGeoJSONFeature = (marker, index) => {
       index,
       ..._removeChildrenFromProps(marker.props),
       //이미지 URL
-      imageUri: marker.props.imageUri
+      imageUri: marker.props.imageUri,
+      photoId: marker.props.photoId,
     },
   };
 };
@@ -93,17 +92,17 @@ export const generateSpiral = (marker, clusterChildren, markerArray, index) => {
     }
   }
   return res;
-}
+};
 
 //개수에 따라 크기변화
-export const returnMarkerStyle = (points) => {
+export const returnMarkerStyle = points => {
   if (points >= 50) {
     return {
       width: 84,
       height: 84,
       size: 64,
       fontSize: 20,
-    }
+    };
   }
 
   if (points >= 25) {
@@ -112,7 +111,7 @@ export const returnMarkerStyle = (points) => {
       height: 78,
       size: 58,
       fontSize: 19,
-    }
+    };
   }
 
   if (points >= 15) {
@@ -121,7 +120,7 @@ export const returnMarkerStyle = (points) => {
       height: 72,
       size: 54,
       fontSize: 18,
-    }
+    };
   }
 
   if (points >= 10) {
@@ -130,7 +129,7 @@ export const returnMarkerStyle = (points) => {
       height: 66,
       size: 50,
       fontSize: 17,
-    }
+    };
   }
 
   if (points >= 8) {
@@ -139,7 +138,7 @@ export const returnMarkerStyle = (points) => {
       height: 60,
       size: 46,
       fontSize: 17,
-    }
+    };
   }
 
   if (points >= 4) {
@@ -148,7 +147,7 @@ export const returnMarkerStyle = (points) => {
       height: 54,
       size: 40,
       fontSize: 16,
-    }
+    };
   }
 
   return {
@@ -156,16 +155,16 @@ export const returnMarkerStyle = (points) => {
     height: 48,
     size: 36,
     fontSize: 15,
-  }
-}
+  };
+};
 
 // 자식속성을 제거한 새로운 객체 반환
-const _removeChildrenFromProps = (props) => {
+const _removeChildrenFromProps = props => {
   const newProps = {};
-  Object.keys(props).forEach((key) => {
+  Object.keys(props).forEach(key => {
     if (key !== 'children') {
       newProps[key] = props[key];
     }
-  })
+  });
   return newProps;
-}
+};
