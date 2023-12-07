@@ -7,12 +7,16 @@ import { INIT } from './examples';
 import { s3BaseUrl } from '../../../constants/config';
 
 import ClusteredMapView from '../../MapMarker/ClusteredMapView';
+import { useQueryClient } from '@tanstack/react-query';
+import { Pressable } from 'react-native';
+import { fetchOnePhoto } from '../../../api/photoApi';
 
-export const ZoomInMap = ({ route }) => {
+export const ZoomInMap = ({ route, navigation }) => {
   const clustered = route.params.locs.current; // 클릭된 클러스터링
   const photos = route.params.album; // 써클 속 사진들
-  console.log(clustered[0].geometry.coordinates[1]);
+  // console.log(clustered[0].geometry.coordinates[1]);
   const map = useRef(null);
+  const queryClient = useQueryClient();
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
     latitude: clustered[0].geometry.coordinates[1],
@@ -42,6 +46,19 @@ export const ZoomInMap = ({ route }) => {
     setRegion(newRegion);
   };
 
+  const navigateToPhotoCom = async item => {
+    const photo = await queryClient.fetchQuery({
+      queryKey: ['onePhoto', item.photoId],
+      queryFn: () => fetchOnePhoto(item.photoId),
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    });
+
+    navigation.navigate('PhotoCom', {
+      photo: photo,
+    });
+  };
+
   useEffect(() => {
     photos && generateMarkers();
   }, [photos]);
@@ -67,14 +84,16 @@ export const ZoomInMap = ({ route }) => {
                 imageUri={item.thumbnail}
                 photoId={item.photoId}
                 tracksViewChanges={false}>
-                <Image
-                  source={item.thumbnail}
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 10,
-                  }}
-                />
+                <Pressable onPress={() => navigateToPhotoCom(item)}>
+                  <Image
+                    source={item.thumbnail}
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 10,
+                    }}
+                  />
+                </Pressable>
               </Marker>
             ))}
           </ClusteredMapView>

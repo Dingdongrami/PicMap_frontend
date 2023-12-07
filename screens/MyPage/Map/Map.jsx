@@ -9,13 +9,17 @@ import { fetchAllPhotos } from '../../../api/mapphotoApi';
 import { s3BaseUrl } from '../../../constants/config';
 import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
 import { ActivityIndicator } from 'react-native';
+import { Pressable } from 'react-native';
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchOnePhoto } from '../../../api/photoApi';
 
 const getZoomFromRegion = region => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
 };
 
-export const Map = () => {
+export const Map = ({ navigation }) => {
   const map = useRef(null);
+  const queryClient = useQueryClient();
 
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
@@ -57,6 +61,19 @@ export const Map = () => {
     setRegion(newRegion);
   };
 
+  const navigateToPhotoCom = async item => {
+    const photo = await queryClient.fetchQuery({
+      queryKey: ['onePhoto', item.photoId],
+      queryFn: () => fetchOnePhoto(item.photoId),
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    });
+
+    navigation.navigate('PhotoCom', {
+      photo: photo,
+    });
+  };
+
   useEffect(() => {
     data && generateMarkers();
   }, [data]);
@@ -88,14 +105,16 @@ export const Map = () => {
                 imageUri={item.thumbnail}
                 photoId={item.photoId}
                 tracksViewChanges={false}>
-                <Image
-                  source={item.thumbnail}
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 10,
-                  }}
-                />
+                <Pressable onPress={() => navigateToPhotoCom(item)}>
+                  <Image
+                    source={item.thumbnail}
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 10,
+                    }}
+                  />
+                </Pressable>
               </Marker>
             ))}
           </ClusteredMapView>

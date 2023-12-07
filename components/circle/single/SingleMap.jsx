@@ -12,6 +12,9 @@ import { isPhotoUploadingState } from '../../../stores/circle-store';
 import { s3BaseUrl } from '../../../constants/config';
 
 import ForCircleMap from '../../MapMarker/ForCircleMap';
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchOnePhoto } from '../../../api/photoApi';
+import { Pressable } from 'react-native';
 
 const ZOOM_THRESHOLD = 10;
 
@@ -22,6 +25,7 @@ const getZoomFromRegion = region => {
 //singlemap을 따로 export 할 시에 에러발생...함수 다시 생각해봐야할듯
 export const SingleMap = ({ data }) => {
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
   const map = useRef(null);
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
@@ -45,6 +49,7 @@ export const SingleMap = ({ data }) => {
           latitude: data[i]?.latitude,
           longitude: data[i]?.longitude,
           thumbnail: s3BaseUrl + data[i]?.filePath,
+          photoId: data[i]?.id,
         });
       }
     }
@@ -57,6 +62,19 @@ export const SingleMap = ({ data }) => {
   const onRegionChangeComplete = newRegion => {
     setZoom(getZoomFromRegion(newRegion));
     setRegion(newRegion);
+  };
+
+  const onPressPhotoCom = async item => {
+    const photo = await queryClient.fetchQuery({
+      queryKey: ['onePhoto', item.photoId],
+      queryFn: () => fetchOnePhoto(item.photoId),
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    });
+
+    navigation.navigate('PhotoCom', {
+      photo: photo,
+    });
   };
 
   if (data) {
@@ -79,15 +97,18 @@ export const SingleMap = ({ data }) => {
                   longitude: item.longitude,
                 }}
                 imageUri={item.thumbnail}
+                photoId={item.photoId}
                 tracksViewChanges={false}>
-                <Image
-                  source={item.thumbnail}
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 10,
-                  }}
-                />
+                <Pressable onPress={() => onPressPhotoCom(item)}>
+                  <Image
+                    source={item.thumbnail}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 10,
+                    }}
+                  />
+                </Pressable>
               </Marker>
             ))}
           </ForCircleMap>

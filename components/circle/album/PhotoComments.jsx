@@ -40,6 +40,8 @@ export const PhotoComments = ({ photo }) => {
     // staleTime: 1000 * 60 * 60 * 24, // 24시간 동안 캐시된 데이터 사용
   });
 
+  // console.log(photo?.id, '/////', photo);
+
   // 댓글 추가하기
   const { mutate: addCommentMutate } = useMutation({
     mutationFn: args => addComment(args.photoId, args.comment),
