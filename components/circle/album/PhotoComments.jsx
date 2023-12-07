@@ -37,7 +37,7 @@ export const PhotoComments = ({ photo }) => {
     queryKey: ['comments', photo?.id],
     queryFn: () => fetchComments(photo?.id),
     enabled: !!photo?.id,
-    staleTime: 1000 * 60 * 60 * 24, // 24시간 동안 캐시된 데이터 사용
+    // staleTime: 1000 * 60 * 60 * 24, // 24시간 동안 캐시된 데이터 사용
   });
 
   // 댓글 추가하기

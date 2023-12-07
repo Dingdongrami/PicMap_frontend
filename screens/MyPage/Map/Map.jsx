@@ -17,7 +17,6 @@ const getZoomFromRegion = region => {
 export const Map = () => {
   const map = useRef(null);
 
-  
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
     latitude: INIT.latitude,
@@ -43,6 +42,7 @@ export const Map = () => {
           latitude: data[i]?.latitude,
           longitude: data[i]?.longitude,
           thumbnail: s3BaseUrl + data[i]?.filePath,
+          photoId: data[i]?.id,
         });
       }
     }
@@ -86,6 +86,7 @@ export const Map = () => {
                   longitude: item.longitude,
                 }}
                 imageUri={item.thumbnail}
+                photoId={item.photoId}
                 tracksViewChanges={false}>
                 <Image
                   source={item.thumbnail}

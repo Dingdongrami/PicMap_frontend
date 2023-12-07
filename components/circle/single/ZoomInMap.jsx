@@ -1,12 +1,12 @@
-import { Marker, } from "react-native-maps";
-import { styles } from "./styles";
-import { View } from "react-native";
-import { useState, useEffect, useRef } from "react";
-import { Image } from "expo-image";
-import { INIT } from "./examples";
-import { s3BaseUrl } from "../../../constants/config";
+import { Marker } from 'react-native-maps';
+import { styles } from './styles';
+import { View } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
+import { Image } from 'expo-image';
+import { INIT } from './examples';
+import { s3BaseUrl } from '../../../constants/config';
 
-import ClusteredMapView from "../../MapMarker/ClusteredMapView";
+import ClusteredMapView from '../../MapMarker/ClusteredMapView';
 
 export const ZoomInMap = ({ route }) => {
   const clustered = route.params.locs.current; // 클릭된 클러스터링
@@ -20,6 +20,7 @@ export const ZoomInMap = ({ route }) => {
     latitudeDelta: 3,
     longitudeDelta: 3,
   });
+
   const generateMarkers = () => {
     const markersArray = [];
     for (let i = 0; i < photos.length; i++) {
@@ -29,6 +30,7 @@ export const ZoomInMap = ({ route }) => {
           latitude: photos[i]?.latitude,
           longitude: photos[i]?.longitude,
           thumbnail: s3BaseUrl + photos[i]?.filePath,
+          photoId: photos[i]?.id,
         });
       }
     }
@@ -43,7 +45,6 @@ export const ZoomInMap = ({ route }) => {
   useEffect(() => {
     photos && generateMarkers();
   }, [photos]);
-
 
   if (photos) {
     return (
@@ -64,6 +65,7 @@ export const ZoomInMap = ({ route }) => {
                   longitude: item.longitude,
                 }}
                 imageUri={item.thumbnail}
+                photoId={item.photoId}
                 tracksViewChanges={false}>
                 <Image
                   source={item.thumbnail}
