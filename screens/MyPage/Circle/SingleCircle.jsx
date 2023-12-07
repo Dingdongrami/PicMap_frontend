@@ -57,7 +57,7 @@ export const SingleCircle = ({ route }) => {
   const renderItem = ({ item, index }) => {
     return (
       <Pressable style={{ flex: 0.3333 }}>
-        <SinglePhotoIcon photo={item} />
+        <SinglePhotoIcon photo={item} album={photoData} />
       </Pressable>
     );
   };

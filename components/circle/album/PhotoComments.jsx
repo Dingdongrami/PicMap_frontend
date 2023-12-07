@@ -22,7 +22,7 @@ const config = {
 };
 
 //사진클릭시 접속하는 화면
-export const PhotoComments = ({ photo }) => {
+export const PhotoComments = ({ photo, style }) => {
   const [isLiked, setIsLiked] = useState(false); // 좋아요 여부
   const [comment, setComment] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
