@@ -48,4 +48,16 @@ likeInstance.defaults.baseURL += '/api/likes';
 const commentInstance = axios.create(instance.defaults);
 commentInstance.defaults.baseURL += '/api/comments';
 
-export { circleInstance, photoInstance, userInstance, likeInstance, commentInstance, instance as default };
+/* 친구 API 요청을 위한 인스턴스 */
+const friendsInstance = axios.create(instance.defaults);
+friendsInstance.defaults.baseURL += '/api/friends';
+
+export {
+  circleInstance,
+  photoInstance,
+  userInstance,
+  likeInstance,
+  commentInstance,
+  friendsInstance,
+  instance as default,
+};

@@ -31,7 +31,7 @@ const useCamera = onImageCaptured => {
 
       const image = await launchCameraAsync({
         aspect: [16, 9],
-        quality: 0.5,
+        quality: 1,
         // allowsEditing: true,
         exif: true,
       });

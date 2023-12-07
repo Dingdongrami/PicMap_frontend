@@ -1,39 +1,42 @@
 import React, { useLayoutEffect, useMemo } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { PersonRow } from '../../components';
+import { acceptFriend, fetchReceivedRequests } from '../../api/friendsApi';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ReceivedFriendRequest = () => {
-  // 버튼 객체를 별도로 분리
-  const receiveButton = {
-    icon: require('../../assets/icons/add.png'),
-    style: { width: 10, height: 10 },
-    onPress: () => {},
+  const queryClient = useQueryClient();
+  const { data: userList } = useQuery({
+    queryKey: ['receivedList', 17],
+    queryFn: () => fetchReceivedRequests(17),
+    refetchOnWindowFocus: true,
+    enabled: true,
+  });
+
+  const { mutate: acceptMutate } = useMutation({
+    mutationFn: args => acceptFriend(args.requesterId, args.receiverId),
+    onSuccess: () => {
+      console.log('accept success');
+      queryClient.invalidateQueries(['receivedList', 17]);
+      queryClient.invalidateQueries(['friendsList', 17]);
+    },
+  });
+
+  const handleAccept = (requesterId, receiverId) => {
+    acceptMutate({ requesterId, receiverId });
   };
 
-  const userList = useMemo(
-    () => [
-      {
-        user: {
-          profileImage: '',
-          username: '도라에몽',
-          introduction: '파란색 고양이',
-        },
-        button: receiveButton,
-      },
-      {
-        user: {
-          profileImage: '',
-          username: '김씨네',
-          introduction: '삼계탕 맛있어요',
-        },
-        button: receiveButton,
-      },
-    ],
-    [],
-  );
-
-  const renderItem = ({ item, index }) => (
-    <PersonRow key={index} profileImage={item.profileImage} user={item.user} button={item.button} />
+  const renderItem = ({ item }) => (
+    <PersonRow
+      key={item?.requesterId}
+      user={item}
+      button={{
+        icon: require('../../assets/icons/add.png'),
+        style: { width: 10, height: 10 },
+        onPress: () => handleAccept(item?.requesterId, item?.receiverId),
+      }}
+    />
   );
 
   return (
@@ -41,8 +44,22 @@ const ReceivedFriendRequest = () => {
       style={{ flex: 1, width: '100%', backgroundColor: '#fff' }}
       data={userList}
       renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
+      keyExtractor={item => item.requesterId.toString()}
       showsVerticalScrollIndicator={false}
+      // 비어있는 경우
+      ListEmptyComponent={() => (
+        <Text
+          style={{
+            color: '#78716c',
+            fontSize: 14,
+            fontFamily: 'IropkeBatang',
+            flex: 1,
+            textAlign: 'center',
+            paddingVertical: 30,
+          }}>
+          받은 친구 요청이 없어요!
+        </Text>
+      )}
     />
   );
 };

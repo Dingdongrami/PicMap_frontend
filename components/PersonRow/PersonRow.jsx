@@ -4,28 +4,38 @@ import { Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { s3BaseUrl } from '../../constants/config';
+import { useQuery } from '@tanstack/react-query';
+import { fetchUser } from '../../api/userApi';
+import { useQueryClient } from '@tanstack/react-query';
 
 const PersonRow = ({ user, button }) => {
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
+  const { data } = useQuery({
+    queryKey: ['friend', user?.requesterId],
+    queryFn: () => fetchUser(user.requesterId),
+    select: data => data,
+    enabled: !!user,
+  });
 
   const onPressUser = () => {
     // console.log(navigation.getState());
-    navigation.navigate('UserPage', { user });
+    navigation.navigate('UserPage', { user: data });
   };
-
-  // console.log('user', user);
 
   return (
     <View style={styles.personRow}>
-      {user?.profileImage ? (
-        <Image source={s3BaseUrl + user.profileImage} style={styles.profileImage} contentFit="cover" />
+      {data?.profileImage ? (
+        <Pressable onPress={onPressUser}>
+          <Image source={s3BaseUrl + data?.profileImage} style={styles.profileImage} contentFit="cover" />
+        </Pressable>
       ) : (
         <View style={styles.personWrapper}>
           <Image source={require('../../assets/icons/user.png')} style={styles.defaultImage} contentFit="contain" />
         </View>
       )}
       <Pressable onPress={onPressUser}>
-        <Text style={styles.username}>{user?.nickname}</Text>
+        <Text style={styles.username}>{data?.nickname}</Text>
       </Pressable>
       {button && (
         <Pressable onPress={button?.onPress} style={styles.buttonWrapper}>

@@ -39,7 +39,7 @@ const useMediaLibrary = (onImageSelected, multiple = false) => {
         allowsMultipleSelection: multiple,
         selectionLimit: multiple ? 10 : 1,
         // aspect: [1, 1],
-        quality: 0.4,
+        quality: 1,
         exif: true,
       });
 

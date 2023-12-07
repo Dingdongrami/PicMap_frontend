@@ -6,9 +6,12 @@ import { styles } from './styles';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUser } from '../../api/userApi';
 import { s3BaseUrl } from '../../constants/config';
+import { useQueryClient } from '@tanstack/react-query';
 
 const HeaderIcon = () => {
   const navigation = useNavigation();
+  const queryClent = useQueryClient();
+  // const data = queryClent.getQueryData(['user', 17]);
   const { data } = useQuery({
     queryKey: ['user', 17],
     queryFn: () => fetchUser(17),

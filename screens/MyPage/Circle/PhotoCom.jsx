@@ -13,6 +13,8 @@ export const PhotoCom = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['onePhoto', photo.id],
     queryFn: () => fetchOnePhoto(photo.id),
+    staleTime: 1000 * 60 * 60 * 24,
+    cacheTime: 1000 * 60 * 60 * 24,
   });
 
   return (
