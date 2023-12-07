@@ -78,3 +78,17 @@ export const joinPublicCircle = async (userId, circleId) => {
     console.error(error.response.config.data);
   }
 };
+
+export const editCircleName = async (circleId, newCircleData) => {
+  try{
+    const { name } = newCircleData;
+    const response = await circleInstance.put(`/update/${circleId}`, name, {
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    });
+    return response.data;
+  }catch(error){
+    console.error(error.response);
+  }
+}

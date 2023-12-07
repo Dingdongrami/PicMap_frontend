@@ -116,12 +116,12 @@ export const editStyle = StyleSheet.create({
     borderWidth: 0.5,
     borderBottomColor: '#D6D3D1',
     padding: 10,
-    display: 'flex',
+    // display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
   cancelBox: {
-    position: 'absolute',
+    // position: 'absolute',
   },
   optionBox: {
     marginTop: 19,

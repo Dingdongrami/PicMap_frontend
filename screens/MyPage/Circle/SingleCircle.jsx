@@ -178,12 +178,9 @@ const HeaderComponent = React.memo(({ circleId, photoData }) => {
             fileProps
           );
           await Promise.all(itemChunk);
-          // await wait(1000);
+          await wait(1000);
         }
       })
-      // return(
-        // <CustomToast text={showToast.text} show={showToast.state} />
-      // )
     }
   }
   const selectOptions = useMemo(() => [
