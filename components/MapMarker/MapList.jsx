@@ -31,9 +31,9 @@ export const MapList = ({route}) => {
 
   const renderItem = ({item, index}) => (
     <View style={photoStyles.albumContainer}>
-      <View style={photoStyles.imageContainer}>
-        <Image source={item.imageUri} style={photoStyles.imageIcon} />
-      </View>
+        <View style={photoStyles.imageContainer}>
+          <Image source={item.imageUri} style={photoStyles.imageIcon} />              
+        </View>
     </View>
   );
 

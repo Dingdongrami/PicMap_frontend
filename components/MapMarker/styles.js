@@ -44,6 +44,6 @@ export const photoStyles = StyleSheet.create({
   imageIcon:{
     width: '100%',
     height: '100%',
-    contentFit: 'cover',
+    resizeMode: 'cover'
   }
 });
