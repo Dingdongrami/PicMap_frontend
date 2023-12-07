@@ -26,13 +26,15 @@ export const SingleMap = ({ data }) => {
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
+    // latitude: data[0]?.latitude || INIT.latitude,
+    // longitude: data[0]?.longitude || INIT.longitude,
     latitude: INIT.latitude,
     longitude: INIT.longitude,
-    latitudeDelta: INIT.latitudeDelta,
-    longitudeDelta: INIT.longitudeDelta,
+    latitudeDelta: 0.6,
+    longitudeDelta: 0.6,
   });
-    //사진업로드 중일때 지도도 spinning 하기
-    const [isPhotoUploading, setIsPhotoUploading] = useRecoilState(isPhotoUploadingState);
+  //사진업로드 중일때 지도도 spinning 하기
+  const [isPhotoUploading, setIsPhotoUploading] = useRecoilState(isPhotoUploadingState);
 
   const generateMarkers = () => {
     const markersArray = [];
@@ -49,8 +51,7 @@ export const SingleMap = ({ data }) => {
     setMarkers(markersArray);
   };
   useEffect(() => {
-    data && 
-    generateMarkers();
+    data && generateMarkers();
   }, [data]);
 
   const onRegionChangeComplete = newRegion => {
@@ -60,7 +61,7 @@ export const SingleMap = ({ data }) => {
 
   if (data) {
     return (
-      <View style={{width: "100%", height:"100%"}}>
+      <View style={{ width: '100%', height: '100%' }}>
         {data && (
           <ForCircleMap
             clusterColor="#00B386"

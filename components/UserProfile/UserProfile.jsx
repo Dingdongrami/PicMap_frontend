@@ -6,16 +6,18 @@ import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
 import CustomToast from '../CustomToast';
 import { s3BaseUrl } from '../../constants/config';
+import { useQueryClient } from '@tanstack/react-query';
+import heartIcon from '../../assets/icons/heart_filled.png';
 
 const UserProfile = ({ user, onPressFriendRequest }) => {
   const [showToast, setShowToast] = useState(false);
   const [isRequesting, setIsRequesting] = useState(false);
+  const [isAlreadyFriend, setIsAlreadyFriend] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const queryClient = useQueryClient();
+  const FriendsList = queryClient.getQueryData(['friendsList', 17]);
 
   const onPressRequest = () => {
-    // TODO: 친구요청 로직을 여기에 추가하세요.
-    // 친구요청 중인 상태를 전역 상태로 관리하세요.
-
     // 만약 나 자신이라면
     if (user.id === 17) {
       setToastMessage('나 자신은 영원한 나의 친구입니다.');
@@ -46,6 +48,25 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
     return () => clearTimeout(timer); // 컴포넌트가 언마운트되거나 showToast가 변경되기 전에 타이머 클리어
   }, [showToast]);
 
+  useEffect(() => {
+    let alreadyFriend = false;
+    let requesting = false;
+
+    FriendsList?.forEach(friend => {
+      if (friend.requesterId === user.id) {
+        if (friend.status === 'ACCEPTED') {
+          alreadyFriend = true;
+        }
+        if (friend.status === 'REQUESTED') {
+          requesting = true;
+        }
+      }
+    });
+
+    setIsAlreadyFriend(alreadyFriend);
+    setIsRequesting(requesting);
+  }, [FriendsList]);
+
   return (
     <View style={styles.profileContainer}>
       {user.profileImage ? (
@@ -65,8 +86,14 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
         <Text style={styles.onelineText}>{user.introduce}</Text>
         <View style={styles.buttonWrapper}>
           <Pressable style={styles.pinkButton} onPress={onPressRequest}>
-            <Image source={require('../../assets/icons/person_add.png')} style={styles.friendsImage} />
-            <Text style={styles.buttonText}>{isRequesting && user.id != 17 ? '친구 요청 중' : '친구 요청'}</Text>
+            {isAlreadyFriend ? (
+              <Image source={heartIcon} style={styles.friendsImage} />
+            ) : (
+              <Image source={require('../../assets/icons/person_add.png')} style={styles.friendsImage} />
+            )}
+            <Text style={styles.buttonText}>
+              {isAlreadyFriend ? '친구' : isRequesting ? '친구 요청 중' : '친구 요청'}
+            </Text>
           </Pressable>
         </View>
       </View>

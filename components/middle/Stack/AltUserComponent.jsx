@@ -3,18 +3,37 @@ import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserProfile from '../../UserProfile/UserProfile';
 import { Image } from 'expo-image';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 const AltUserComponent = ({ route }) => {
+  const [isFriend, setIsFriend] = useState(false); // [TODO] : 친구인지 아닌지 판단하는 로직 필요
   const onPressFriendRequest = () => {};
+  const queryClient = useQueryClient();
+  const FriendsList = queryClient.getQueryData(['friendsList', 17]);
 
   const user = route.params.user;
+
+  useEffect(() => {
+    let alreadyFriend = false;
+
+    FriendsList?.forEach(friend => {
+      if (friend.requesterId === user.id) {
+        if (friend.status === 'ACCEPTED') {
+          alreadyFriend = true;
+        }
+      }
+    });
+
+    setIsFriend(alreadyFriend);
+  }, [FriendsList]);
 
   return (
     <View style={{ flex: 1 }}>
       <UserProfile onPressFriendRequest={onPressFriendRequest} user={user} />
-      {user.status === 'PRIVATE' && user.id != 17 ? (
+      {!isFriend && user.status === 'PRIVATE' && user.id != 17 ? (
         <View
           style={{
             flexDirection: 'row',

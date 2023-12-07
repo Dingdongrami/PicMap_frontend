@@ -1,8 +1,8 @@
 export const INIT = {
   latitude: 37.580112,
   longitude: 126.977166,
-  latitudeDelta: 5,
-  longitudeDelta: 5,
+  latitudeDelta: 1,
+  longitudeDelta: 1,
 };
 
 export const examples = [
@@ -14,17 +14,17 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex1.png')
+    source: require('../../../assets/example/ex1.png'),
   },
   {
-    id:1,
+    id: 1,
     coordinate: {
       latitude: 36.680112,
       longitude: 128.66,
       latitudeDelta: 0.01,
-      longitudeDelta: 0.01,        
+      longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex2.png')
+    source: require('../../../assets/example/ex2.png'),
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex3.png') 
+    source: require('../../../assets/example/ex3.png'),
   },
   {
     id: 4,
@@ -42,9 +42,9 @@ export const examples = [
       latitude: 35.580102,
       longitude: 126.977166,
       latitudeDelta: 0.01,
-      longitudeDelta: 0.01,        
+      longitudeDelta: 0.01,
     },
-    source:  require('../../../assets/example/ex4.png')
+    source: require('../../../assets/example/ex4.png'),
   },
   {
     id: 5,
@@ -54,6 +54,6 @@ export const examples = [
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     },
-    source: require('../../../assets/example/ex5.png')
-  }
+    source: require('../../../assets/example/ex5.png'),
+  },
 ];

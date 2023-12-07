@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
   },
   usernameText: {
     fontFamily: 'IropkeBatang',
+    fontWeight: '700',
     fontSize: 13,
     color: '#44403C',
   },

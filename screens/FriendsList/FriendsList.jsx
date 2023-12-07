@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import CircleDetailHeader from '../../components/header/CircleDetailHeader';
 import { BottomModal } from '../../components/Modal';
+import { fetchFriends } from '../../api/friendsApi';
+import { useQuery } from '@tanstack/react-query';
 
 const FriendsList = () => {
   const navigation = useNavigation();
@@ -14,6 +16,11 @@ const FriendsList = () => {
   const [searchText, setSearchText] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isRemoveActive, setIsRemoveActive] = useState(false);
+  const { data: friendsList } = useQuery({
+    queryKey: ['friendsList', 17],
+    queryFn: () => fetchFriends(17),
+    // refetchOnWindowFocus: true,
+  });
 
   const toggleModal = () => {
     setIsModalVisible(prev => !prev);
@@ -55,35 +62,8 @@ const FriendsList = () => {
     [],
   );
 
-  const userList = [
-    {
-      user: {
-        profileImage: '',
-        nickname: '이지민',
-        introduce: '안녕하세요',
-      },
-      button: isRemoveActive && removeButton,
-    },
-    {
-      user: {
-        profileImage: '',
-        nickname: '공소연',
-        introduce: '반가워요',
-      },
-      button: isRemoveActive && removeButton,
-    },
-    {
-      user: {
-        profileImage: '',
-        nickname: '김민정',
-        introduce: '안녕하세용',
-      },
-      button: isRemoveActive && removeButton,
-    },
-  ];
-
   const renderItem = ({ item, index }) => (
-    <PersonRow key={index} profileImage={item.profileImage} user={item.user} button={item.button} />
+    <PersonRow key={index} user={item} button={isRemoveActive ? removeButton : null} />
   );
 
   const clearSearch = () => {
@@ -109,7 +89,7 @@ const FriendsList = () => {
       </View>
       <FlatList
         style={{ width: '100%' }}
-        data={userList}
+        data={friendsList}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
