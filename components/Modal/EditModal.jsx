@@ -4,16 +4,29 @@ import { styles, editStyle } from "./styles";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { editModalState } from "../../stores/edit-modal";
+import { useMutation } from "@tanstack/react-query";
+import { editCircleName } from "../../api/circleApi";
+import { useQueryClient } from "@tanstack/react-query";
  
-export const EditModal = () => {
+export const EditModal = ({circleId}) => {
   const [text, setText] = useState('');
   const [isVisible, setIsVisible] = useRecoilState(editModalState);
   const submit = () => {
+    editCircleNameMutation.mutate({circleId, circleData: {name: text}});
     setIsVisible(!isVisible);
   };
   const deletion = () => {
     setIsVisible(!isVisible);
   };
+  const queryClient = useQueryClient();
+
+  // 이름 편집하기 -> 바로 circle Header이름 변경
+  const editCircleNameMutation  = useMutation({
+    mutationFn: args => editCircleName(args.circleId, args.circleData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['circle', `${circleId}`])
+    }
+  })
   
   return(
     <View>   
@@ -27,12 +40,9 @@ export const EditModal = () => {
             <TextInput 
             style={editStyle.inputBox}
             keyboardType="default"
-            onChange={newText => setText(newText)}
-            defaultValue={text}
-            >
-              <Text>{text}</Text>
-              <Image source={require('../../assets/icons/cancel_btn.png')} style={editStyle.cancelBox} />
-            </TextInput>
+            onChange={event => setText(event.nativeEvent.text)}
+            value={text}
+            />
             <View style={editStyle.optionBox}>
               <Pressable onPress={deletion}>
                 <View style={editStyle.singleBox1}>

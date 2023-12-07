@@ -13,7 +13,6 @@ export const downloadFromUrl = async fileProps => {
 }
 
 const save = async (uri, filename, mimetype) => {
-  const [showToast, setShowToast] = useRecoilState(toastState);
   if(Platform.OS === "android"){
     const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
     if(permissions.granted){
