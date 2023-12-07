@@ -72,7 +72,7 @@ export const SingleMap = ({ data }) => {
       cacheTime: 1000 * 60 * 60 * 24,
     });
 
-    navigation.navigate('PhotoCom', {
+    navigation.navigate('MapPhotoCom', {
       photo: photo,
     });
   };

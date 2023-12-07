@@ -30,7 +30,7 @@ export const SinglePhotoIcon = ({ photo }) => {
   };
 
   const navigateToPhotoCom = () => {
-    navigation.navigate('PhotoCom', { photo });
+    navigation.navigate('CirclePhotoCom', { photo });
   };
 
   const togglePhotoSelection = () => {
