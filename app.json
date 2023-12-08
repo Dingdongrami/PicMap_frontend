@@ -48,7 +48,7 @@
       "router": {
         "origin": false
       },
-      "eas": {
+      "__eas__": {
         "projectId": "687e087e-20bb-4703-9a5a-27215980e5d1"
       }
     },
