@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IropkeBatang',
     color: '#44403C',
     letterSpacing: 2.8,
-    marginBottom: 220,
+    marginBottom: 240,
   },
   textWrapper: {
     height: 23.5,

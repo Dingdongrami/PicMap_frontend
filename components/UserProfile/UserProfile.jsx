@@ -32,7 +32,6 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
       return;
     }
 
-    // 친구요청 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('친구 요청 완료');
     setShowToast(true);
     setIsRequesting(true);
