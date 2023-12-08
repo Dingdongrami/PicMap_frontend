@@ -7,6 +7,7 @@ import { s3BaseUrl } from '../../constants/config';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUser } from '../../api/userApi';
 import { useQueryClient } from '@tanstack/react-query';
+import { TouchableOpacity } from 'react-native';
 
 const PersonRow = ({ user, button }) => {
   const navigation = useNavigation();
@@ -38,9 +39,9 @@ const PersonRow = ({ user, button }) => {
         <Text style={styles.username}>{data?.nickname}</Text>
       </Pressable>
       {button && (
-        <Pressable onPress={button?.onPress} style={styles.buttonWrapper}>
+        <TouchableOpacity onPress={button?.onPress} style={styles.buttonWrapper}>
           <Image source={button.icon} style={[styles.button, button.style]} contentFit="contain" />
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   );
