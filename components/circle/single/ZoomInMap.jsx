@@ -47,6 +47,7 @@ export const ZoomInMap = ({ route, navigation }) => {
   };
 
   const navigateToPhotoCom = async item => {
+    console.log("메롱")
     const photo = await queryClient.fetchQuery({
       queryKey: ['onePhoto', item.photoId],
       queryFn: () => fetchOnePhoto(item.photoId),

@@ -42,3 +42,13 @@ export const updateUserProfileNoImage = async userId => {
     console.log('updateUserProfileNoImage 에러: ', error.response);
   }
 };
+
+// 전체 유저 목록조회
+export const fetchAllUsers = async () => {
+  try{
+    const { data } = await userInstance.get(`/all`);
+    return data;
+  }catch(error){
+    console.error(error);
+  }
+}
