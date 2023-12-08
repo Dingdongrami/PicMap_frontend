@@ -4,7 +4,6 @@ import { comStyles, PhotoComments } from '../../../components/circle';
 import { s3BaseUrl } from '../../../constants/config';
 import { useQuery } from '@tanstack/react-query';
 import { fetchOnePhoto } from '../../../api/photoApi';
-import { Image } from 'expo-image';
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 
 export const MapPhotoCom = () => {
