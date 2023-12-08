@@ -50,7 +50,8 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.6",
     "recoil": "^0.7.7",
-    "supercluster": "^8.0.1"
+    "supercluster": "^8.0.1",
+    "expo-splash-screen": "~0.20.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
