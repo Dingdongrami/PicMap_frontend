@@ -12,7 +12,8 @@ import {
   InviteUser,
   SplashUI,
   SingleCircle,
-  PhotoCom,
+  MapPhotoCom,
+  CirclePhotoCom,
   LandingPage,
 } from '../../../screens';
 import Header from '../Header';
@@ -67,7 +68,8 @@ const AltScreen = () => {
       </Stack.Group>
       <Stack.Group screenOptions={{ header: () => <CircleDetailHeader />, headerTitle: 'CircleDetailHeader' }}>
         <Stack.Screen name="ZoomInMap" component={ZoomInMap} />
-        <Stack.Screen name="PhotoCom" component={PhotoCom} />
+        <Stack.Screen name="MapPhotoCom" component={MapPhotoCom} />
+        <Stack.Screen name="CirclePhotoCom" component={CirclePhotoCom} /> 
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -10,7 +10,7 @@ import { s3BaseUrl } from '../../../constants/config';
 import { useMutation } from '@tanstack/react-query';
 import { selectedPhotosState } from '../../../stores/circle-store';
 
-export const SinglePhotoIcon = ({ photo }) => {
+export const SinglePhotoIcon = ({ photo, album }) => {
   const [circleSelectButtonActive, setCircleSelectButtonActive] = useRecoilState(circleSelectButtonState);
   const [selectedPhotos, setSelectedPhotos] = useRecoilState(selectedPhotosState);
 
@@ -30,7 +30,7 @@ export const SinglePhotoIcon = ({ photo }) => {
   };
 
   const navigateToPhotoCom = () => {
-    navigation.navigate('PhotoCom', { photo });
+    navigation.navigate('CirclePhotoCom', { photo, album });
   };
 
   const togglePhotoSelection = () => {

@@ -54,7 +54,7 @@ export const ZoomInMap = ({ route, navigation }) => {
       cacheTime: 1000 * 60 * 60 * 24,
     });
 
-    navigation.navigate('PhotoCom', {
+    navigation.navigate('MapPhotoCom', {
       photo: photo,
     });
   };

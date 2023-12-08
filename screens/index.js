@@ -5,5 +5,5 @@ export { FriendsList } from './FriendsList';
 export { default as ReceivedFriendRequest } from './ReceivedFriendRequest/ReceivedFriendRequest';
 export { CircleSearch, UserSearch } from './Search';
 export { InviteUser } from './InviteUser';
-export { Circle, PhotoCom, SingleCircle, SplashUI, Map, Post } from './MyPage';
+export { Circle, MapPhotoCom, CirclePhotoCom, SingleCircle, SplashUI, Map, Post } from './MyPage';
 export { LandingPage } from './LandingPage';
