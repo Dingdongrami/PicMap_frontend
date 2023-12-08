@@ -15,6 +15,7 @@ import CircleHeader from '../../../components/header/CircleHeader';
 import { isPhotoUploadingState, selectedPhotosState } from '../../../stores/circle-store';
 import { ActivityIndicator } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Dimensions } from 'react-native';
 
 export const SingleCircle = ({ route }) => {
   const navigation = useNavigation();
@@ -106,7 +107,7 @@ export const SingleCircle = ({ route }) => {
           scrollEventThrottle={16}
           renderItem={renderItem}
           ListEmptyComponent={() => <Text style={styles.noPhotoText}>사진이 없네요!</Text>}
-          columnWrapperStyle={{ paddingHorizontal: 1.5 }}
+          columnWrapperStyle={{ paddingHorizontal: Dimensions.get('window').width * 0.01 }}
         />
         <AddMethod circleId={circle?.id} />
       </View>

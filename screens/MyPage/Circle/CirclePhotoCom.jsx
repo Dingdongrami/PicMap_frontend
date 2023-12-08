@@ -29,11 +29,11 @@ export const CirclePhotoCom = () => {
   });
 
   return (
-    <GestureHandlerRootView style={{ flex: 1,}}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       {/* <View style={comStyles.imageContainer}> */}
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {/* <View style={{flex:2}}> */}
-          <ListExample album={album} photo={photo}/>        
+        <ListExample album={album} photo={photo} />
         {/* </View> */}
       </View>
       {/* </View> */}
@@ -42,40 +42,53 @@ export const CirclePhotoCom = () => {
   );
 };
 
-const ListExample = ({album, photo}) => {
+const ListExample = ({ album, photo }) => {
   const dimension = useWindowDimensions();
   const itemPadding = 0;
+  const itemWidth = dimension.width - itemPadding * 2; // 각 항목의 너비
 
-  const renderItem = ({item}) => {
-    return(
-      <View style={{flex: 1}}>
-        <View style={{ flex: 1, alignItems: 'center',padding:itemPadding, justifyContent: 'center'}}>
+  // 현재 선택된 사진의 인덱스 찾기
+  const selectedIndex = album.findIndex(item => item.id === photo.id);
+
+  const getItemLayout = (data, index) => ({
+    length: itemWidth,
+    offset: itemWidth * index,
+    index,
+  });
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Zoom>
             <Image
               source={{
                 uri: s3BaseUrl + item?.filePath,
               }}
               style={{
-                width: dimension.width - itemPadding*2,
-                height: dimension.width - itemPadding*2,
+                width: dimension.width - itemPadding * 2,
+                height: dimension.height - itemPadding * 2,
               }}
-              contentFit='contain'
+              contentFit="contain"
             />
           </Zoom>
         </View>
         <PhotoComments photo={item} />
       </View>
-  )}
+    );
+  };
 
-  return(
+  return (
     <ZoomFlatList
-    data={album}
-    pagingEnabled
-    horizontal
-    keyExtractor={(item) => item.id}
-    renderItem={renderItem}
-    showsHorizontalScrollIndicator={false}
-    // ListFooterComponent={(item)=><PhotoComments photo={item}/>}
-  />
+      data={album}
+      initialScrollIndex={selectedIndex}
+      getItemLayout={getItemLayout}
+      pagingEnabled
+      horizontal
+      keyExtractor={item => item.id}
+      renderItem={renderItem}
+      showsHorizontalScrollIndicator={false}
+      // ListFooterComponent={(item)=><PhotoComments photo={item}/>}
+    />
   );
 };
