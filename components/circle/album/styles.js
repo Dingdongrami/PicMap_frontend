@@ -1,3 +1,4 @@
+import { Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -6,8 +7,8 @@ export const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 2,
-    flexDirection: 'column'
+    paddingBottom: Dimensions.get('window').width * 0.01,
+    flexDirection: 'column',
   },
   fixed: {
     position: 'absolute',
