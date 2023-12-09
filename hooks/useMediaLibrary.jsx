@@ -37,7 +37,7 @@ const useMediaLibrary = (onImageSelected, multiple = false) => {
       const image = await launchImageLibraryAsync({
         mediaTypes: MediaTypeOptions.Images,
         allowsMultipleSelection: multiple,
-        selectionLimit: multiple ? 10 : 1,
+        selectionLimit: multiple ? 5 : 1,
         // aspect: [1, 1],
         quality: 1,
         exif: true,
