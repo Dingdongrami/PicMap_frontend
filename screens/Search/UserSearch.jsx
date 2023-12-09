@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { PersonRow } from '../../components';
 import { styles } from './styles';
+import { fetchAllUsers } from '../../api/userApi';
 
 const UserSearch = () => {
   // 버튼 객체를 별도로 분리
@@ -10,6 +11,11 @@ const UserSearch = () => {
     style: styles.personAddIcon,
     onPress: () => {},
   };
+
+  const { data } = useQuery({
+    queryKey: ['user', 'search'],
+    queryFn: () => fetchAllUsers(),
+  })
 
   const userList = [
     {

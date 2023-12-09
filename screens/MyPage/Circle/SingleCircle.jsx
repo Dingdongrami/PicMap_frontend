@@ -1,9 +1,9 @@
 import { View, Text, Pressable, Alert } from 'react-native';
-import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useMemo, useLayoutEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
-import { SingleMap, SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/circle';
+import {  SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/circle';
 import { MemorizedSingleMap } from '../../../components/circle/single/SingleMap';
 import { FlatList } from 'react-native-gesture-handler';
 import { circleSelectButtonState } from '../../../stores/circle-selection';
@@ -13,9 +13,10 @@ import { deletePhoto, fetchPhotos, fetchSortedPhotos } from '../../../api/photoA
 import { useNavigation } from 'expo-router';
 import CircleHeader from '../../../components/header/CircleHeader';
 import { isPhotoUploadingState, selectedPhotosState } from '../../../stores/circle-store';
-import { ActivityIndicator } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Dimensions } from 'react-native';
+import { s3BaseUrl } from '../../../constants/config';
+import { downloadFromUrl } from '../../../api/downloadApi';
 
 export const SingleCircle = ({ route }) => {
   const navigation = useNavigation();
@@ -150,6 +151,41 @@ const HeaderComponent = React.memo(({ circleId, photoData }) => {
     clearSelectedPhotos();
   };
 
+  // selectePhotos 저장하기
+  const wait = async(ms) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    })
+  };
+
+  //선택한 사진(selectedPhotos) 로컬로 저장하기
+  //console.log(selectedPhotos);=> index번호 출력
+  const downloadSelection = () => {
+    let item_chunk_size = 20;
+    let itemArray = [];
+    let newArray = [];
+    for(let i=0; i<selectedPhotos.length; i++){
+      const downloads = photoData.filter(item => item.id === selectedPhotos[i]);
+      itemArray.push(...downloads);
+    }
+    for (let i = 0; i<itemArray.length; i+= item_chunk_size)  {
+      let myChunk = itemArray.slice(i, i+item_chunk_size);
+      newArray.push(...myChunk);
+    }
+    for( let i = 0; i<newArray.length; i++){
+      let itemChunk = newArray.map(async item => {
+        if(item.filePath){
+          const fileProps = {"uri": s3BaseUrl + item.filePath, "filename": item.filePath.split("/").reverse()[0]}
+          await downloadFromUrl(
+            fileProps
+          );
+          await Promise.all(itemChunk);
+          await wait(1000);
+        }
+      })
+    }
+  }
+
   const selectOptions = useMemo(() => [
     {
       text: '전체 선택',
@@ -177,7 +213,7 @@ const HeaderComponent = React.memo(({ circleId, photoData }) => {
     },
     {
       text: '저장',
-      // onPres
+      onPress: downloadSelection
     },
     {
       text: '취소',
