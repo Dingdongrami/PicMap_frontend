@@ -38,6 +38,10 @@ export const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 20,
+    height: 20,
   },
   button: {
     width: 12,

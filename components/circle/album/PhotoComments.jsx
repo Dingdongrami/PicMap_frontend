@@ -156,7 +156,7 @@ export const PhotoComments = ({ photo, style }) => {
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e => {
-      console.log('키보드 높이', e.endCoordinates.height);
+      // console.log('키보드 높이', e.endCoordinates.height);
       setKeyboardHeight(e.endCoordinates.height);
     });
 

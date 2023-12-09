@@ -4,30 +4,21 @@ import { Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { s3BaseUrl } from '../../constants/config';
-import { useQuery } from '@tanstack/react-query';
-import { fetchUser } from '../../api/userApi';
-import { useQueryClient } from '@tanstack/react-query';
+import { TouchableOpacity } from 'react-native';
 
-const PersonRow = ({ user, button }) => {
+const PersonRow = ({ user, button, circleId }) => {
   const navigation = useNavigation();
-  const queryClient = useQueryClient();
-  const { data } = useQuery({
-    queryKey: ['friend', user?.requesterId],
-    queryFn: () => fetchUser(user.requesterId),
-    select: data => data,
-    enabled: !!user,
-  });
 
   const onPressUser = () => {
     // console.log(navigation.getState());
-    navigation.navigate('UserPage', { user: data });
+    navigation.navigate('UserPage', { user });
   };
 
   return (
     <View style={styles.personRow}>
-      {data?.profileImage ? (
+      {user?.profileImage ? (
         <Pressable onPress={onPressUser}>
-          <Image source={s3BaseUrl + data?.profileImage} style={styles.profileImage} contentFit="cover" />
+          <Image source={s3BaseUrl + user?.profileImage} style={styles.profileImage} contentFit="cover" />
         </Pressable>
       ) : (
         <View style={styles.personWrapper}>
@@ -35,12 +26,12 @@ const PersonRow = ({ user, button }) => {
         </View>
       )}
       <Pressable onPress={onPressUser}>
-        <Text style={styles.username}>{data?.nickname}</Text>
+        <Text style={styles.username}>{user?.nickname}</Text>
       </Pressable>
       {button && (
-        <Pressable onPress={button?.onPress} style={styles.buttonWrapper}>
+        <TouchableOpacity onPress={button?.onPress} style={styles.buttonWrapper}>
           <Image source={button.icon} style={[styles.button, button.style]} contentFit="contain" />
-        </Pressable>
+        </TouchableOpacity>
       )}
     </View>
   );

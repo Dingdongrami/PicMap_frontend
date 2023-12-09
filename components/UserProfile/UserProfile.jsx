@@ -1,21 +1,40 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { styles } from '../MyProfile/styles';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../stores/user-store';
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
 import CustomToast from '../CustomToast';
 import { s3BaseUrl } from '../../constants/config';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import heartIcon from '../../assets/icons/heart_filled.png';
+import { fetchReceivedRequests, requestFriend } from '../../api/friendsApi';
 
 const UserProfile = ({ user, onPressFriendRequest }) => {
   const [showToast, setShowToast] = useState(false);
   const [isRequesting, setIsRequesting] = useState(false);
   const [isAlreadyFriend, setIsAlreadyFriend] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const queryClient = useQueryClient();
-  const FriendsList = queryClient.getQueryData(['friendsList', 17]);
+
+  const { data: friendsList } = useQuery({
+    queryKey: ['friendsList', 17],
+    queryFn: () => fetchFriends(17),
+    // refetchOnWindowFocus: true,
+  });
+  const { data: receivedFriendsList } = useQuery({
+    queryKey: ['receivedList', 17],
+    queryFn: () => fetchReceivedRequests(17),
+    select: data => {
+      return data.filter(friend => {
+        return friend.status === 'REQUESTED';
+      });
+    },
+  });
+
+  const { mutate: requestMutate } = useMutation({
+    mutationFn: args => requestFriend(args.requesterId, args.receiverId),
+    onSuccess: () => {
+      console.log('requestMutation success');
+    },
+  });
 
   const onPressRequest = () => {
     // 만약 나 자신이라면
@@ -31,7 +50,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
       return;
     }
 
-    // 친구요청 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
+    requestMutate({ requesterId: 17, receiverId: user.id });
     setToastMessage('친구 요청 완료');
     setShowToast(true);
     setIsRequesting(true);
@@ -52,7 +71,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
     let alreadyFriend = false;
     let requesting = false;
 
-    FriendsList?.forEach(friend => {
+    friendsList?.forEach(friend => {
       if (friend.requesterId === user.id) {
         if (friend.status === 'ACCEPTED') {
           alreadyFriend = true;
@@ -65,7 +84,22 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
 
     setIsAlreadyFriend(alreadyFriend);
     setIsRequesting(requesting);
-  }, [FriendsList]);
+  }, [friendsList]);
+
+  useEffect(() => {
+    let requesting = false;
+
+    receivedFriendsList?.forEach(friend => {
+      if (friend.receiverId === user.id) {
+        requesting = true;
+      }
+    });
+
+    setIsRequesting(requesting);
+  }, [receivedFriendsList]);
+
+  console.log('receivedFriendsList', receivedFriendsList);
+  console.log(user);
 
   return (
     <View style={styles.profileContainer}>
@@ -85,7 +119,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
         </View>
         <Text style={styles.onelineText}>{user.introduce}</Text>
         <View style={styles.buttonWrapper}>
-          <Pressable style={styles.pinkButton} onPress={onPressRequest}>
+          <Pressable style={styles.pinkButton} onPress={!isAlreadyFriend && !isRequesting ? onPressRequest : null}>
             {isAlreadyFriend ? (
               <Image source={heartIcon} style={styles.friendsImage} />
             ) : (
