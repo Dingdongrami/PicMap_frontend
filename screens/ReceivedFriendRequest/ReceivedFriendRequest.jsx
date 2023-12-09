@@ -4,6 +4,22 @@ import { PersonRow } from '../../components';
 import { acceptFriend, fetchReceivedRequests } from '../../api/friendsApi';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
+import { fetchUser } from '../../api/userApi';
+
+const FriendItem = ({ requesterId, receiverId, acceptButton }) => {
+  const { data: user } = useQuery({
+    queryKey: ['friendItem', requesterId],
+    queryFn: () => fetchUser(requesterId),
+  });
+
+  // acceptButton의 onPress 수정
+  const modifiedAcceptButton = {
+    ...acceptButton,
+    onPress: () => acceptButton.onPress(requesterId, receiverId),
+  };
+
+  return <PersonRow user={user} button={modifiedAcceptButton} />;
+};
 
 const ReceivedFriendRequest = () => {
   const queryClient = useQueryClient();
@@ -27,23 +43,19 @@ const ReceivedFriendRequest = () => {
     acceptMutate({ requesterId, receiverId });
   };
 
-  const renderItem = ({ item }) => (
-    <PersonRow
-      key={item?.requesterId}
-      user={item}
-      button={{
-        icon: require('../../assets/icons/add.png'),
-        style: { width: 10, height: 10 },
-        onPress: () => handleAccept(item?.requesterId, item?.receiverId),
-      }}
-    />
-  );
+  const acceptButton = {
+    icon: require('../../assets/icons/add.png'),
+    style: { width: 10, height: 10 },
+    onPress: (requesterId, receiverId) => handleAccept(requesterId, receiverId),
+  };
 
   return (
     <FlatList
       style={{ flex: 1, width: '100%', backgroundColor: '#fff' }}
       data={userList}
-      renderItem={renderItem}
+      renderItem={({ item, index }) => (
+        <FriendItem requesterId={item.requesterId} receiverId={item.receiverId} acceptButton={acceptButton} />
+      )}
       keyExtractor={item => item.requesterId.toString()}
       showsVerticalScrollIndicator={false}
       // 비어있는 경우

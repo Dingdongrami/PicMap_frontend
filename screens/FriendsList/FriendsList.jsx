@@ -9,7 +9,20 @@ import CircleDetailHeader from '../../components/header/CircleDetailHeader';
 import { BottomModal } from '../../components/Modal';
 import { fetchFriends } from '../../api/friendsApi';
 import { useQuery } from '@tanstack/react-query';
+import { fetchUser } from '../../api/userApi';
 
+// FriendItem 컴포넌트
+const FriendItem = ({ requesterId, isRemoveActive, removeButton }) => {
+  const { data: user } = useQuery({
+    queryKey: ['friendItem', requesterId],
+    queryFn: () => fetchUser(requesterId),
+    cacheTime: 1000 * 60 * 60 * 24,
+  });
+
+  return <PersonRow user={user} button={isRemoveActive ? removeButton : null} />;
+};
+
+// FriendsList 컴포넌트
 const FriendsList = () => {
   const navigation = useNavigation();
 
@@ -19,7 +32,7 @@ const FriendsList = () => {
   const { data: friendsList } = useQuery({
     queryKey: ['friendsList', 17],
     queryFn: () => fetchFriends(17),
-    // refetchOnWindowFocus: true,
+    cacheTime: 1000 * 60 * 60 * 24,
   });
 
   const toggleModal = () => {
@@ -62,10 +75,6 @@ const FriendsList = () => {
     [],
   );
 
-  const renderItem = ({ item, index }) => (
-    <PersonRow key={index} user={item} button={isRemoveActive ? removeButton : null} />
-  );
-
   const clearSearch = () => {
     setSearchText('');
   };
@@ -90,7 +99,9 @@ const FriendsList = () => {
       <FlatList
         style={{ width: '100%' }}
         data={friendsList}
-        renderItem={renderItem}
+        renderItem={({ item }) => (
+          <FriendItem requesterId={item?.requesterId} isRemoveActive={isRemoveActive} removeButton={removeButton} />
+        )}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
       />

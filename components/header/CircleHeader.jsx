@@ -33,7 +33,7 @@ const CircleHeader = ({ circleName, circleId, photoSortMutation }) => {
 
   const userPlus = () => {
     setModalVisible(false);
-    navigation.navigate('InviteUser');
+    navigation.navigate('InviteUser', { circleId });
   };
 
   const circleEdit = async () => {
@@ -111,7 +111,7 @@ const CircleHeader = ({ circleName, circleId, photoSortMutation }) => {
         {isNestedVisible && (
           <NestedModal isModalVisible={isNestedVisible} toggleModal={nestedToggle} buttons={sortOptions} />
         )}
-        {isEditVisible && <EditModal circleId={circleId}/>}
+        {isEditVisible && <EditModal circleId={circleId} />}
         <TouchableOpacity onPress={toggleModal}>
           <View style={{ height: 24, justifyContent: 'center' }}>
             <Image source={require('../../assets/icons/circle_array_btn.png')} style={styles.rightHeader} />

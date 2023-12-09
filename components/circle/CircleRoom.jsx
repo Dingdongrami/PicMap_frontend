@@ -60,7 +60,7 @@ export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
     toggleModal();
 
     // TODO: 가입 로직을 여기에 추가하세요.
-    joinMutation.mutate({ userId: 17, circle: circle });
+    joinMutation.mutate({ userId: 17, circleId: circle.id });
 
     // 가입 로직이 성공했다고 가정하고 토스트 메시지를 띄웁니다.
     setToastMessage('가입 성공');

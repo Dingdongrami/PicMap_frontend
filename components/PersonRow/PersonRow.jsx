@@ -4,6 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { s3BaseUrl } from '../../constants/config';
+import { TouchableOpacity } from 'react-native';
 
 const PersonRow = ({ user, button, circleId }) => {
   const navigation = useNavigation();

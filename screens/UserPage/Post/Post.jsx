@@ -40,6 +40,11 @@ export const Post = ({ route }) => {
             tintColor="#D0C8C8" // 로딩 인디케이터의 색상을 여기서 설정
           />
         }
+        ListEmptyComponent={() => (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>가입한 써클에 사진이 부족해요!</Text>
+          </View>
+        )}
       />
     </View>
   );
