@@ -1,8 +1,8 @@
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import { Image } from 'expo-image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { styles } from './styles';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../stores/user-store';
 import { splashState } from '../../../stores/splash-store';
@@ -10,12 +10,15 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchMembers } from '../../../api/circleApi';
 import { s3BaseUrl } from '../../../constants/config';
 import { Modal } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 export const SplashUI = ({ route }) => {
+  const inputRef = useRef(null)
   const [isReady, setIsReady] = useRecoilState(splashState);
   const [modalVisible, setModalVisible] = useState(true);
   const navigation = useNavigation();
   const [user, setUser] = useRecoilState(userState);
+  const [splash, setSplash] = useState(false);
   const { circle } = route.params;
   const { data, isLoading, isError } = useQuery({
     queryKey: ['circleMembers', circle?.id],
@@ -42,10 +45,11 @@ export const SplashUI = ({ route }) => {
       setModalVisible(false);
       navigation.navigate('SingleCircle', { circle: circle });
       setIsReady(true);
-    }, 2000);
+    }, 1000);
   }, []);
 
-  return (
+  
+  return( 
     <Modal visible={modalVisible} animationType="fade">
       <View style={styles.splashContainer}>
         <View style={styles.memberContainer}>
@@ -64,6 +68,14 @@ export const SplashUI = ({ route }) => {
         {/*애니메이션 추가 구현 필요 */}
         <Image source={require('../../../assets/icons/loading.png')} style={styles.splashImage} />
       </View>
-    </Modal>
-  );
+     </Modal>
+    );
+    // <View style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    //   <Pressable onPress={()=>navigation.navigate('MyPage')}>
+    //     <Entypo name="home" size={24} color="black" />
+    //   </Pressable>
+    // </View>
+    // // : 
+    // <View>
+    // <TextInput autoFocus={true} onFocus={()=> navigation.navigate('MyPage')} /></View>
 };

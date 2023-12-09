@@ -30,10 +30,10 @@ export const SingleMap = ({ data }) => {
   const [zoom, setZoom] = useState(18);
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
-    // latitude: data[0]?.latitude || INIT.latitude,
-    // longitude: data[0]?.longitude || INIT.longitude,
-    latitude: INIT.latitude,
-    longitude: INIT.longitude,
+    latitude: data[0]?.latitude || INIT.latitude,
+    longitude: data[0]?.longitude || INIT.longitude,
+    // latitude: data[0]?.latitude,
+    // longitude: data[0]?.longitude,
     latitudeDelta: 0.6,
     longitudeDelta: 0.6,
   });

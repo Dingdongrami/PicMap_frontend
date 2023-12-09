@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Alert } from 'react-native';
-import React, { useState, useMemo, useLayoutEffect } from 'react';
+import React, { useState, useMemo, useLayoutEffect, useEffect } from 'react';
 import { SplashUI } from './SplashUI';
 import { splashState } from '../../../stores/splash-store';
 import { styles } from './styles';
@@ -7,7 +7,7 @@ import {  SinglePhotoIcon, OthersProfile, AddMethod } from '../../../components/
 import { MemorizedSingleMap } from '../../../components/circle/single/SingleMap';
 import { FlatList } from 'react-native-gesture-handler';
 import { circleSelectButtonState } from '../../../stores/circle-selection';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deletePhoto, fetchPhotos, fetchSortedPhotos } from '../../../api/photoApi';
 import { useNavigation } from 'expo-router';

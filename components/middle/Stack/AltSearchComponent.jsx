@@ -1,4 +1,4 @@
-import { Text, View, Pressable, TextInput } from 'react-native';
+import { Text, View, Pressable, TextInput, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CircleSearch, UserSearch, MapSearch } from '../../../screens';
 import { styles } from '../../../screens/FriendsList/styles';
@@ -53,11 +53,11 @@ const AltSearchComponent = () => {
 
   const searchPress = async() => {
     if(searchText.trim() === ''){
-      alert('검색어가 입력되지 않았습니다.');
+      Alert('검색어가 입력되지 않았습니다.');
       return ;
     }
     if(filtered != 0) {
-      alert('검색결과가 없습니다.');
+      Alert('검색결과가 없습니다.');
     }
     if(routeName === '지도'){
       myList = async() => {

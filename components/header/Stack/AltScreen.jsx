@@ -32,6 +32,7 @@ const navTheme = {
     background: 'transparent',
   },
 };
+
 const AltScreen = () => {
   return (
     <Stack.Navigator

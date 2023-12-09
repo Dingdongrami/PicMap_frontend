@@ -1,11 +1,13 @@
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CirclePost } from '../../../components/CirclePost';
 import { styles } from './styles';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCircle } from '../../../api/circleApi';
 import { useQueryClient } from '@tanstack/react-query';
 import { RefreshControl } from 'react-native';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { splashState } from '../../../stores/splash-store';
 
 export const Post = () => {
   const queryClient = useQueryClient();
