@@ -25,7 +25,7 @@ const CircleSearch = ({filtered, route}) => {
   return (
     <View style={[styles.container, styles.circleContainer]}>
       <FlatList
-        data={filtered.length == 0 ? data : filtered}
+        data={filtered?.length == 0 ? data : filtered}
         renderItem={({ item }) => (
           <View style={{ flex: 0.5 }}>
             <CircleRoom circle={item} />

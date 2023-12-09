@@ -10,6 +10,7 @@ import {  fetchPublicCircle } from '../../../api/circleApi';
 import { tabState } from '../../../stores/tab-store';
 import { useRecoilValue } from 'recoil';
 import { searchLocations } from '../../../api/searchApi';
+import { allPublicPhotos } from '../../../api/mapphotoApi';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,34 +29,21 @@ const AltSearchComponent = () => {
     queryFn: () => fetchPublicCircle(),
   });
 
-  // const { data: maps, isLoading: isLoading3 } = useQuery({
-  //   queryKey: ['allPhotos'],
-  //   queryFn: () => fetchAllPhotos(17),
-  //   refetchWindowFocus: true,
-  //   staleTime: 1000 * 60 
-  // });
-
   // // 필터링 함수 
-  const handleFilter = (searchText) => {
+  const handleFilter = async (searchText) => {
     setSearchText(searchText);
     let myList=[];
     if(routeName === '유저'){
       myList = users.filter((item) => {
         return item.nickname?.toUpperCase().includes(searchText.toUpperCase()); 
       });
+      setFiltered(myList);
     }else if(routeName === '써클'){
       myList = circles.filter((item) => {
         return item.name?.toUpperCase().includes(searchText.toUpperCase()); 
       });
-
-    }else {
-      // myList = maps.filter((item) => {
-      //   return item.nickname?.toUpperCase().includes(searchText.toUpperCase()); 
-      // });
-      const { data } = searchLocations(searchText);
-      console.log(data);
-    }
-    setFiltered(myList);
+      setFiltered(myList);
+    } 
   };
 
   const clearSearch = () => {
@@ -63,12 +51,28 @@ const AltSearchComponent = () => {
     setSearchText('');
   };
 
-  const searchPress = () => {
+  const searchPress = async() => {
     if(searchText.trim() === ''){
       alert('검색어가 입력되지 않았습니다.');
-      return;
-    };
-    handleFilter(searchText);
+      return ;
+    }
+    if(filtered != 0) {
+      alert('검색결과가 없습니다.');
+    }
+    if(routeName === '지도'){
+      myList = async() => {
+        try{
+          const result = await searchLocations(searchText);
+          return result;
+        }catch(error){
+          console.error(error);
+        }
+      }
+      result = await myList();
+      setFiltered(result);
+    }else{
+      handleFilter(searchText);
+    }
   };
 
   return (

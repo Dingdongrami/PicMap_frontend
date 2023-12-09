@@ -15,6 +15,7 @@ import { fetchOnePhoto } from '../../api/photoApi';
 import { tabState } from '../../stores/tab-store';
 import { useRecoilState } from 'recoil';
 import { useIsFocused } from '@react-navigation/native';
+import { allPublicPhotos } from '../../api/mapphotoApi';
 
 const getZoomFromRegion = region => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
@@ -35,19 +36,11 @@ const MapSearch = ({ navigation, route, filtered,}) => {
   });
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['allPhotos'],
-    queryFn: () => fetchAllPhotos(17),
+    queryKey: ['allPhotos', 'public'],
+    queryFn: () => allPublicPhotos(),
     refetchWindowFocus: true,
     staleTime: 1000 * 60 
   });
-
-  // useEffect(() => {
-  //   if(filtered != 0){
-  //     setMarkers(filtered);
-  //   }else{
-  //     setMarkers(data);
-  //   }
-  // }, [filtered]);
 
   useEffect(()=>{
     if(isFocused){
@@ -55,21 +48,35 @@ const MapSearch = ({ navigation, route, filtered,}) => {
     }
   },[isFocused]);
 
-
-  const allPhotoLength = data?.length;
   const generateMarkers = () => {
     const markersArray = [];
-    for (let i = 0; i < allPhotoLength; i++) {
-      if (data[i].latitude && data[i].longitude) {
-        markersArray.push({
-          id: i,
-          latitude: data[i]?.latitude,
-          longitude: data[i]?.longitude,
-          thumbnail: s3BaseUrl + data[i]?.filePath,
-          photoId: data[i]?.id,
-        });
+    if(filtered != 0) {
+      for (let i = 0; i < filtered?.length; i++) {
+        if (filtered[i].photo.latitude && filtered[i].photo.longitude) {
+          markersArray.push({
+            id: i,
+            latitude: filtered[i]?.photo.latitude,
+            longitude: filtered[i]?.photo.longitude,
+            thumbnail: s3BaseUrl + filtered[i]?.photo.filePath,
+            photoId: filtered[i]?.photo.id,
+            circleName: filtered[i]?.circleName
+          });
+        }
+      }
+    }else{
+      for (let i = 0; i < data?.length; i++) {
+        if (data[i].latitude && data[i].longitude) {
+          markersArray.push({
+            id: i,
+            latitude: data[i]?.latitude,
+            longitude: data[i]?.longitude,
+            thumbnail: s3BaseUrl + data[i]?.filePath,
+            photoId: data[i]?.id,
+          });
+        }
       }
     }
+
     setMarkers(markersArray);
   };
 
@@ -92,8 +99,8 @@ const MapSearch = ({ navigation, route, filtered,}) => {
   };
 
   useEffect(() => {
-    data && generateMarkers();
-  }, [data]);
+    generateMarkers();
+  }, [data, filtered]);
 
   if (isLoading) {
     return (

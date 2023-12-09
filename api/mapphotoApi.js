@@ -12,3 +12,9 @@ export const fetchPublicPhotos = async userId => {
   const { data } = await photoInstance.get(`/get/public/${userId}`);
   return data;
 };
+
+// PUBLIC, GOVERN 써클 전체 사진 리스트 조회하는 함수
+export const allPublicPhotos = async () => {
+  const { data } = await photoInstance.get(`/get/all-circle`);
+  return data;
+};

@@ -30,7 +30,7 @@ const UserSearch = ({filtered, route, isLoading,}) => {
     <View style={styles.container}>
       <FlatList
         style={{ width: '100%', marginTop: 9 }}
-        data={filtered.length == 0 ? data : filtered}
+        data={filtered?.length == 0 ? data : filtered}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         showsVerticalScrollIndicator={false}
