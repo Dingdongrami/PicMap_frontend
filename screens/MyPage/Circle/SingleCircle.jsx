@@ -73,7 +73,7 @@ export const SingleCircle = ({ route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       header: () => (
-        <CircleHeader circleName={circle?.name} circleId={circle?.id} photoSortMutation={photoSortMutation} />
+        <CircleHeader circleName={circle?.name} circleId={circle?.id} status={circle?.status} photoSortMutation={photoSortMutation} />
       ),
     });
   }, [navigation]);

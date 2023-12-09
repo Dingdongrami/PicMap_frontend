@@ -12,7 +12,7 @@ import HeaderIcon from './HeaderIcon';
 import { editModalState } from '../../stores/edit-modal';
 import { useRecoilState } from 'recoil';
 
-const CircleHeader = ({ circleName, circleId, photoSortMutation }) => {
+const CircleHeader = ({ circleName, circleId, status, photoSortMutation }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isNestedVisible, setNestedVisible] = useState(false);
   const [isEditVisible, setEditVisible] = useRecoilState(editModalState);
@@ -39,7 +39,11 @@ const CircleHeader = ({ circleName, circleId, photoSortMutation }) => {
   const circleEdit = async () => {
     setModalVisible(!isModalVisible);
     setTimeout(() => {
-      setEditVisible(!isEditVisible);
+      if(status === "PRIVATE"){
+        setEditVisible(!isEditVisible);
+      }else{
+        alert("공개써클은 이름을 편집할 수 없습니다.");
+      }
     }, 500);
   };
 
