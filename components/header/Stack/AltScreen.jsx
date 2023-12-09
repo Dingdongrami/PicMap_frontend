@@ -17,7 +17,6 @@ import {
   LandingPage,
 } from '../../../screens';
 import Header from '../Header';
-import CircleHeader from '../CircleHeader';
 import CircleDetailHeader from '../CircleDetailHeader';
 import JustGoBackHeader from '../JustGoBackHeader';
 import { ZoomInMap } from '../../circle';
