@@ -10,7 +10,6 @@ import { tabState } from '../../stores/tab-store';
 import { useIsFocused } from '@react-navigation/native';
 
 const UserSearch = ({filtered, route, isLoading,}) => {
-  const [myList, setMyList] = useState([]);
   const [routeName, setRouteName] = useRecoilState(tabState);
   const isFocused = useIsFocused();
 
@@ -18,44 +17,26 @@ const UserSearch = ({filtered, route, isLoading,}) => {
     queryKey: ['user', 'search'],
     queryFn: () => fetchAllUsers(),
   });
-
-  useEffect(() => {
-    if(filtered != 0){
-      setMyList(filtered);
-    }else{
-      setMyList(data);
-    }
-  }, [filtered]);
-
   useEffect(()=>{
     if(isFocused)
       setRouteName(route.name);
   },[isFocused]);
 
   const renderItem = ({ item, index }) => (
-    <PersonRow key={index} profileImage={item.profileImage} user={item} button={item.button} />
+    <PersonRow key={index} user={item} />
   );
 
-  // if(isLoading){
-  //   return(
-  //     <View style={styles.container}>
-  //       <ActivityIndicator size="large" color="#D0C8c8"/>
-  //     </View>
-  //   )
-  // }else 
-  if(data) {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          style={{ width: '100%', marginTop: 9 }}
-          data={myList}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+  return (
+    <View style={styles.container}>
+      <FlatList
+        style={{ width: '100%', marginTop: 9 }}
+        data={filtered.length == 0 ? data : filtered}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
     );  
-  }
 };
 
 export default UserSearch;

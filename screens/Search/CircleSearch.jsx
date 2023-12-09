@@ -9,24 +9,13 @@ import { tabState } from '../../stores/tab-store';
 import { useRecoilState } from 'recoil';
 import { useIsFocused } from '@react-navigation/native';
 
-const CircleSearch = ({filtered, route, data}) => {
-  const [myList, setMyList] = useState(data);
+const CircleSearch = ({filtered, route}) => {
   const [routeName, setRouteName] = useRecoilState(tabState);
   const isFocused = useIsFocused();
-  // const { data } = useQuery({
-  //   queryKey: ['circle', 'search'],
-  //   queryFn: () => fetchPublicCircle(),
-  // });
-
-  // console.log(filtered);
-  useEffect(() => {
-    if(filtered != 0){
-      setMyList(filtered);
-    }else{
-      setMyList(data);
-    }
-  }, [filtered]);
-
+  const { data } = useQuery({
+    queryKey: ['circle', 'search'],
+    queryFn: () => fetchPublicCircle(),
+  });
   useEffect(()=>{
     if(isFocused){
       setRouteName(route.name);
@@ -36,7 +25,7 @@ const CircleSearch = ({filtered, route, data}) => {
   return (
     <View style={[styles.container, styles.circleContainer]}>
       <FlatList
-        data={myList}
+        data={filtered.length == 0 ? data : filtered}
         renderItem={({ item }) => (
           <View style={{ flex: 0.5 }}>
             <CircleRoom circle={item} />

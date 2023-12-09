@@ -9,6 +9,7 @@ import { fetchAllUsers } from '../../../api/userApi';
 import {  fetchPublicCircle } from '../../../api/circleApi';
 import { tabState } from '../../../stores/tab-store';
 import { useRecoilValue } from 'recoil';
+import { searchLocations } from '../../../api/searchApi';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,12 +28,12 @@ const AltSearchComponent = () => {
     queryFn: () => fetchPublicCircle(),
   });
 
-  const { data: maps, isLoading: isLoading3 } = useQuery({
-    queryKey: ['allPhotos'],
-    queryFn: () => fetchAllPhotos(17),
-    refetchWindowFocus: true,
-    staleTime: 1000 * 60 
-  });
+  // const { data: maps, isLoading: isLoading3 } = useQuery({
+  //   queryKey: ['allPhotos'],
+  //   queryFn: () => fetchAllPhotos(17),
+  //   refetchWindowFocus: true,
+  //   staleTime: 1000 * 60 
+  // });
 
   // // 필터링 함수 
   const handleFilter = (searchText) => {
@@ -51,6 +52,8 @@ const AltSearchComponent = () => {
       // myList = maps.filter((item) => {
       //   return item.nickname?.toUpperCase().includes(searchText.toUpperCase()); 
       // });
+      const { data } = searchLocations(searchText);
+      console.log(data);
     }
     setFiltered(myList);
   };

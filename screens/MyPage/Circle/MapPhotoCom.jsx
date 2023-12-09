@@ -4,7 +4,7 @@ import { comStyles, PhotoComments } from '../../../components/circle';
 import { s3BaseUrl } from '../../../constants/config';
 import { useQuery } from '@tanstack/react-query';
 import { fetchOnePhoto } from '../../../api/photoApi';
-import { ImageZoom } from '@likashefqet/react-native-image-zoom';
+import { Image } from 'expo-image';
 
 export const MapPhotoCom = () => {
   const route = useRoute();
@@ -19,13 +19,10 @@ export const MapPhotoCom = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={comStyles.imageContainer}>
-        <ImageZoom
+        <Image
           style={comStyles.image}
-          uri={s3BaseUrl + data?.filePath}
-          resizeMode="contain"
-          minScale={1}
-          maxScale={2.5}
-          renderLoader={() => <ActivityIndicator color="black" size="large" />}
+          source={s3BaseUrl + data?.filePath}
+          contentFit="contain"
         />
       </View>
       <PhotoComments photo={data} />

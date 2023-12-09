@@ -41,13 +41,13 @@ const MapSearch = ({ navigation, route, filtered,}) => {
     staleTime: 1000 * 60 
   });
 
-  useEffect(() => {
-    if(filtered != 0){
-      setMarkers(filtered);
-    }else{
-      setMarkers(data);
-    }
-  }, [filtered]);
+  // useEffect(() => {
+  //   if(filtered != 0){
+  //     setMarkers(filtered);
+  //   }else{
+  //     setMarkers(data);
+  //   }
+  // }, [filtered]);
 
   useEffect(()=>{
     if(isFocused){

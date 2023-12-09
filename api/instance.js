@@ -52,6 +52,10 @@ commentInstance.defaults.baseURL += '/api/comments';
 const friendsInstance = axios.create(instance.defaults);
 friendsInstance.defaults.baseURL += '/api/friends';
 
+/* 장소 검색 API 요청을 위한 인스턴스 */
+const searchInstance = axios.create(instance.defaults);
+searchInstance.defaults.baseURL += '/api/search';
+
 export {
   circleInstance,
   photoInstance,
@@ -59,5 +63,6 @@ export {
   likeInstance,
   commentInstance,
   friendsInstance,
+  searchInstance,
   instance as default,
 };
