@@ -138,7 +138,7 @@ const AltSearchComponent = () => {
             },
           }}
         >
-          {(props) => <CircleSearch {...props} filtered={filtered}/>}
+          {(props) => <CircleSearch {...props} filtered={filtered} data={circles}/>}
         </Tab.Screen>
         <Tab.Screen
           name="지도"

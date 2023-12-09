@@ -20,7 +20,7 @@ const getZoomFromRegion = region => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
 };
 
-const MapSearch = ({ navigation, route, filtered, }) => {
+const MapSearch = ({ navigation, route, filtered,}) => {
   const [routeName, setRouteName] = useRecoilState(tabState);
   const map = useRef(null);
   const queryClient = useQueryClient();
@@ -40,6 +40,14 @@ const MapSearch = ({ navigation, route, filtered, }) => {
     refetchWindowFocus: true,
     staleTime: 1000 * 60 
   });
+
+  useEffect(() => {
+    if(filtered != 0){
+      setMarkers(filtered);
+    }else{
+      setMarkers(data);
+    }
+  }, [filtered]);
 
   useEffect(()=>{
     if(isFocused){
