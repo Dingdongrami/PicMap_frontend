@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
     marginTop: 40,
   },
   emptyText: {
-    fontSize: 20,
+    fontSize: 15,
+    fontFamily: 'IropkeBatang',
     color: '#78716c',
     marginTop: 20,
   },
