@@ -25,8 +25,9 @@ export const EditModal = ({circleId}) => {
     mutationFn: args => editCircleName(args.circleId, args.circleData),
     onSuccess: () => {
       queryClient.invalidateQueries(['circle', `${circleId}`])
-    }
-  })
+    },
+    // select: data => data.filter(data.status)
+  });
   
   return(
     <View>   

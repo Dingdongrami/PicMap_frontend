@@ -16,7 +16,7 @@ export const Post = ({ route }) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['circle', user.id],
     queryFn: () => fetchCircle(user.id),
-    refetchOnWindowFocus: true,
+    select: data => data.filter(item => item.status=='PUBLIC')
   });
 
   const onRefresh = useCallback(async () => {

@@ -2,29 +2,30 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
-import { INIT } from '../../MyPage/Map/examples';
-import { styles } from '../../MyPage/Map/styles';
+import { INIT } from '../MyPage/Map/examples';
+import { styles } from '../MyPage/Map/styles';
 import { useQuery } from '@tanstack/react-query';
-import { s3BaseUrl } from '../../../constants/config';
-import ClusteredMapView from '../../../components/MapMarker/ClusteredMapView';
+import { fetchAllPhotos } from '../../api/mapphotoApi';
+import { s3BaseUrl } from '../../constants/config';
+import ClusteredMapView from '../../components/MapMarker/ClusteredMapView';
 import { ActivityIndicator } from 'react-native';
 import { Pressable } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
-import { fetchPublicPhotos } from '../../../api/mapphotoApi';
-import { fetchOnePhoto } from '../../../api/photoApi';
+import { fetchOnePhoto } from '../../api/photoApi';
+import { tabState } from '../../stores/tab-store';
+import { useRecoilState } from 'recoil';
+import { useIsFocused } from '@react-navigation/native';
+import { allPublicPhotos } from '../../api/mapphotoApi';
 
 const getZoomFromRegion = region => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
 };
 
-export const Map = ({ navigation, route }) => {
-  const mapRef = useRef(null);
+const MapSearch = ({ navigation, route, filtered,}) => {
+  const [routeName, setRouteName] = useRecoilState(tabState);
+  const map = useRef(null);
   const queryClient = useQueryClient();
-  const { user } = route.params;
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['map', user.id],
-    queryFn: () => fetchPublicPhotos(user.id),
-  });
+  const isFocused = useIsFocused();
 
   const [markers, setMarkers] = useState([{ id: 0, latitude: INIT.latitude, longitude: INIT.longitude, image: '' }]);
   const [region, setRegion] = useState({
@@ -33,27 +34,51 @@ export const Map = ({ navigation, route }) => {
     latitudeDelta: INIT.latitudeDelta,
     longitudeDelta: INIT.longitudeDelta,
   });
-  
 
-  const allPhotoLength = data?.length;
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['allPhotos', 'public'],
+    queryFn: () => allPublicPhotos(),
+    refetchWindowFocus: true,
+    staleTime: 1000 * 60 
+  });
+
+  useEffect(()=>{
+    if(isFocused){
+      setRouteName(route.name);
+    }
+  },[isFocused]);
+
   const generateMarkers = () => {
     const markersArray = [];
-    for (let i = 0; i < allPhotoLength; i++) {
-      if (data[i].latitude && data[i].longitude) {
-        markersArray.push({
-          id: i,
-          latitude: data[i]?.latitude,
-          longitude: data[i]?.longitude,
-          thumbnail: s3BaseUrl + data[i]?.filePath,
-          photoId: data[i]?.id,
-        });
+    if(filtered != 0) {
+      for (let i = 0; i < filtered?.length; i++) {
+        if (filtered[i].photo.latitude && filtered[i].photo.longitude) {
+          markersArray.push({
+            id: i,
+            latitude: filtered[i]?.photo.latitude,
+            longitude: filtered[i]?.photo.longitude,
+            thumbnail: s3BaseUrl + filtered[i]?.photo.filePath,
+            photoId: filtered[i]?.photo.id,
+            circleName: filtered[i]?.circleName
+          });
+        }
+      }
+    }else{
+      for (let i = 0; i < data?.length; i++) {
+        if (data[i].latitude && data[i].longitude) {
+          markersArray.push({
+            id: i,
+            latitude: data[i]?.latitude,
+            longitude: data[i]?.longitude,
+            thumbnail: s3BaseUrl + data[i]?.filePath,
+            photoId: data[i]?.id,
+          });
+        }
       }
     }
+
     setMarkers(markersArray);
   };
-
-  console.log(JSON.stringify(data)+"엥");
-  console.log(data);
 
   const onRegionChangeComplete = newRegion => {
     setZoom(getZoomFromRegion(newRegion));
@@ -74,8 +99,8 @@ export const Map = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    data && generateMarkers();
-  }, [data]);
+    generateMarkers();
+  }, [data, filtered]);
 
   if (isLoading) {
     return (
@@ -89,7 +114,7 @@ export const Map = ({ navigation, route }) => {
         {data && (
           <ClusteredMapView
             clusterColor="#00B386"
-            ref={mapRef}
+            ref={map}
             mapType="standard"
             style={styles.mapView}
             initialRegion={region}
@@ -122,3 +147,5 @@ export const Map = ({ navigation, route }) => {
     );
   }
 };
+
+export default MapSearch;

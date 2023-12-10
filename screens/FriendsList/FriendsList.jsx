@@ -71,6 +71,12 @@ const FriendsList = () => {
         textStyle: { color: '#E53A40' },
         onPress: toggleRemove,
       },
+      {
+        text: '닫기',
+        icon: require('../../assets/icons/exit_icon.png'),
+        iconStyle: styles.modalIcon,
+        onPress: toggleModal,
+      },
     ],
     [],
   );
