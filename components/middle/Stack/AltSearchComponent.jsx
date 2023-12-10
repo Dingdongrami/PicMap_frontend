@@ -53,23 +53,23 @@ const AltSearchComponent = () => {
 
   const searchPress = async () => {
     if (searchText.trim() === '') {
-      Alert('검색어가 입력되지 않았습니다.');
+      Alert.alert('알림', '검색어가 입력되지 않았습니다.');
       return;
     }
-    if (filtered != 0) {
-      Alert('검색결과가 없습니다.');
-    }
+
     if (routeName === '지도') {
-      myList = async () => {
-        try {
-          const result = await searchLocations(searchText);
-          return result;
-        } catch (error) {
-          console.error(error);
+      try {
+        const result = await searchLocations(searchText);
+        setFiltered(result);
+
+        // '지도' 탭에서 검색 결과가 없는 경우 알림을 표시합니다.
+        if (result?.length === 0) {
+          Alert.alert('알림', '검색 결과가 없습니다.');
         }
-      };
-      result = await myList();
-      setFiltered(result);
+      } catch (error) {
+        console.error(error);
+        Alert.alert('알림', '검색 중 오류가 발생했습니다.');
+      }
     } else {
       handleFilter(searchText);
     }
@@ -94,7 +94,7 @@ const AltSearchComponent = () => {
           returnKeyType="search"
           onSubmitEditing={searchPress}
         />
-        {searchText.length > 0 && (
+        {searchText?.length > 0 && (
           <Pressable onPress={clearSearch} style={styles.clearButton}>
             <Ionicons name="close" size={17} color="#78716C" />
           </Pressable>

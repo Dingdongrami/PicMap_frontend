@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT } from '../MyPage/Map/examples';
@@ -129,7 +129,7 @@ const MapSearch = ({ navigation, route, filtered }) => {
                 imageUri={item.thumbnail}
                 photoId={item.photoId}
                 tracksViewChanges={false}>
-                <Pressable onPress={() => navigateToPhotoCom(item)}>
+                <TouchableOpacity onPress={() => navigateToPhotoCom(item)}>
                   <Image
                     source={item.thumbnail}
                     style={{
@@ -138,7 +138,7 @@ const MapSearch = ({ navigation, route, filtered }) => {
                       borderRadius: 10,
                     }}
                   />
-                </Pressable>
+                </TouchableOpacity>
               </Marker>
             ))}
           </ClusteredMapView>
