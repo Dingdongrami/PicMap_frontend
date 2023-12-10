@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchMembers } from '../../../api/circleApi';
 import { s3BaseUrl } from '../../../constants/config';
 import { Modal } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
 
 export const SplashUI = ({ route }) => {
   const inputRef = useRef(null)
@@ -42,7 +41,7 @@ export const SplashUI = ({ route }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setModalVisible(false);
+      // setModalVisible(false);
       navigation.navigate('SingleCircle', { circle: circle });
       setIsReady(true);
     }, 1000);
@@ -50,7 +49,7 @@ export const SplashUI = ({ route }) => {
 
   
   return( 
-    <Modal visible={modalVisible} animationType="fade">
+    // <Modal visible={modalVisible} animationType="fade">
       <View style={styles.splashContainer}>
         <View style={styles.memberContainer}>
           <FlatList
@@ -68,7 +67,7 @@ export const SplashUI = ({ route }) => {
         {/*애니메이션 추가 구현 필요 */}
         <Image source={require('../../../assets/icons/loading.png')} style={styles.splashImage} />
       </View>
-     </Modal>
+    //  </Modal>
     );
     // <View style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
     //   <Pressable onPress={()=>navigation.navigate('MyPage')}>
