@@ -50,7 +50,8 @@ const MapSearch = ({ navigation, route, filtered,}) => {
 
   const generateMarkers = () => {
     const markersArray = [];
-    if(filtered != 0) {
+    if(filtered?.length != 0) {
+      // console.log(filtered);
       for (let i = 0; i < filtered?.length; i++) {
         if (filtered[i].photo.latitude && filtered[i].photo.longitude) {
           markersArray.push({

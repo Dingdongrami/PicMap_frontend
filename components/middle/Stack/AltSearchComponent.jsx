@@ -53,19 +53,23 @@ const AltSearchComponent = () => {
 
   const searchPress = async() => {
     if(searchText.trim() === ''){
-      Alert('검색어가 입력되지 않았습니다.');
+      Alert.alert('검색어가 입력되지 않았습니다.');
       return ;
     }
     if(filtered != 0) {
-      Alert('검색결과가 없습니다.');
+      Alert.alert('검색결과가 없습니다.');
     }
     if(routeName === '지도'){
       myList = async() => {
         try{
           const result = await searchLocations(searchText);
+          if(!result) {
+            Alert.alert('검색결과가 없습니다.');
+          }
           return result;
         }catch(error){
-          console.error(error);
+          // console.error(error);
+          Alert.alert('검색결과가 없습니다.');
         }
       }
       result = await myList();

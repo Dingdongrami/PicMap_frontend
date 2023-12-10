@@ -6,6 +6,7 @@ export const searchLocations = async address => {
     const { data } = await searchInstance.get(`/location?address=${address}`,  { headers: {'Content-Type': 'text/plain'} });
     return data;  
   }catch(error){
-    console.error(error.config);
+    // console.error(error.config);
+    // Alert.alert("장소가 검색되지 않았습니다.");
   }
 };
