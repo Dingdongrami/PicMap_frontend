@@ -74,7 +74,7 @@ const FriendsList = () => {
       {
         text: '닫기',
         icon: require('../../assets/icons/exit_icon.png'),
-        iconStyle: styles.modalIcon,
+        iconStyle: styles.closeIcon,
         onPress: toggleModal,
       },
     ],
@@ -93,7 +93,7 @@ const FriendsList = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBarWrapper}>
+      {/* <View style={styles.searchBarWrapper}>
         <Ionicons name="search-sharp" size={17} color="black" style={styles.searchIcon} />
         <TextInput style={styles.searchBar} placeholder="검색" value={searchText} onChangeText={setSearchText} />
         {searchText.length > 0 && (
@@ -101,7 +101,7 @@ const FriendsList = () => {
             <Ionicons name="close" size={17} color="#78716C" />
           </Pressable>
         )}
-      </View>
+      </View> */}
       <FlatList
         style={{ width: '100%' }}
         data={friendsList}

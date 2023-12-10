@@ -38,6 +38,11 @@ export const styles = StyleSheet.create({
     width: 21.5,
     height: 21.5,
   },
+  closeIcon: {
+    width: 18,
+    height: 18,
+    paddingRight: 8,
+  },
   removeIcon: {
     width: 8,
     height: 8,
