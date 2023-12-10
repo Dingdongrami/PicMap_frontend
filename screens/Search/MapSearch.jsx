@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT } from '../MyPage/Map/examples';
@@ -21,7 +21,7 @@ const getZoomFromRegion = region => {
   return Math.round(Math.log(360 / region.longitudeDelta) / Math.LN2);
 };
 
-const MapSearch = ({ navigation, route, filtered,}) => {
+const MapSearch = ({ navigation, route, filtered }) => {
   const [routeName, setRouteName] = useRecoilState(tabState);
   const map = useRef(null);
   const queryClient = useQueryClient();
@@ -39,32 +39,31 @@ const MapSearch = ({ navigation, route, filtered,}) => {
     queryKey: ['allPhotos', 'public'],
     queryFn: () => allPublicPhotos(),
     refetchWindowFocus: true,
-    staleTime: 1000 * 60 
+    staleTime: 1000 * 60,
   });
 
-  useEffect(()=>{
-    if(isFocused){
+  useEffect(() => {
+    if (isFocused) {
       setRouteName(route.name);
     }
-  },[isFocused]);
+  }, [isFocused]);
 
   const generateMarkers = () => {
     const markersArray = [];
-    if(filtered?.length != 0) {
-      // console.log(filtered);
+    if (filtered != 0) {
       for (let i = 0; i < filtered?.length; i++) {
-        if (filtered[i].photo.latitude && filtered[i].photo.longitude) {
+        if (filtered[i].photo?.latitude && filtered[i].photo?.longitude) {
           markersArray.push({
             id: i,
             latitude: filtered[i]?.photo.latitude,
             longitude: filtered[i]?.photo.longitude,
             thumbnail: s3BaseUrl + filtered[i]?.photo.filePath,
             photoId: filtered[i]?.photo.id,
-            circleName: filtered[i]?.circleName
+            circleName: filtered[i]?.circleName,
           });
         }
       }
-    }else{
+    } else {
       for (let i = 0; i < data?.length; i++) {
         if (data[i].latitude && data[i].longitude) {
           markersArray.push({
@@ -130,7 +129,7 @@ const MapSearch = ({ navigation, route, filtered,}) => {
                 imageUri={item.thumbnail}
                 photoId={item.photoId}
                 tracksViewChanges={false}>
-                <Pressable onPress={() => navigateToPhotoCom(item)}>
+                <TouchableOpacity onPress={() => navigateToPhotoCom(item)}>
                   <Image
                     source={item.thumbnail}
                     style={{
@@ -139,7 +138,7 @@ const MapSearch = ({ navigation, route, filtered,}) => {
                       borderRadius: 10,
                     }}
                   />
-                </Pressable>
+                </TouchableOpacity>
               </Marker>
             ))}
           </ClusteredMapView>
