@@ -4,7 +4,7 @@ import { styles } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { Map } from '../../../screens/MyPage/Map/Map';
 import { View } from 'react-native';
-import { Image } from 'expo-image';
+// import { Image } from 'expo-image';
 import { INIT } from './examples';
 import React from 'react';
 import { useRecoilState } from 'recoil';
@@ -14,7 +14,7 @@ import { s3BaseUrl } from '../../../constants/config';
 import ForCircleMap from '../../MapMarker/ForCircleMap';
 import { useQueryClient } from '@tanstack/react-query';
 import { fetchOnePhoto } from '../../../api/photoApi';
-import { Pressable } from 'react-native';
+import { Pressable, Image } from 'react-native';
 
 const ZOOM_THRESHOLD = 10;
 
@@ -101,7 +101,7 @@ export const SingleMap = ({ data }) => {
                 tracksViewChanges={false}>
                 <Pressable onPress={() => onPressPhotoCom(item)}>
                   <Image
-                    source={item.thumbnail}
+                    source={{uri: item.thumbnail}}
                     style={{
                       width: 50,
                       height: 50,

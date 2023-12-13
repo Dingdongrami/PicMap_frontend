@@ -8,8 +8,8 @@ import { fetchOnePhoto } from '../../../api/photoApi';
 import { Zoom, createZoomListComponent } from 'react-native-reanimated-zoom';
 import Animated from 'react-native-reanimated';
 import { GestureHandlerGestureEvent, GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import { FlatList } from 'react-native';
-import { Image } from 'expo-image';
+import { FlatList, Image } from 'react-native';
+// import { Image } from 'expo-image';
 import { useCallback, useState } from 'react';
 
 // const SCREEN_WIDTH = Dimensions.get("screen").width;
@@ -20,7 +20,7 @@ export const CirclePhotoCom = () => {
   const route = useRoute();
   const photo = route.params.photo;
   const album = route.params.album;
-  console.log(photo);
+  // console.log(photo);
   const { data, isLoading, isError } = useQuery({
     queryKey: ['onePhoto', photo.id],
     queryFn: () => fetchOnePhoto(photo.id),

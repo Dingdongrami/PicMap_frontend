@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
-import { Image } from 'expo-image';
+import { View, Image } from 'react-native';
+// import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT } from './examples';
 import { styles } from './styles';
@@ -54,7 +54,7 @@ export const Map = ({ navigation }) => {
   };
 
   // console.log(JSON.stringify(data)+"엥");
-  console.log(data);
+  // console.log(data);
 
   const onRegionChangeComplete = newRegion => {
     setZoom(getZoomFromRegion(newRegion));
@@ -107,7 +107,9 @@ export const Map = ({ navigation }) => {
                 tracksViewChanges={false}>
                 <Pressable onPress={() => navigateToPhotoCom(item)}>
                   <Image
-                    source={item.thumbnail}
+                    key={item.thumbnail}
+                    // uri={item.thumbnail}
+                    source={{uri: item.thumbnail}}
                     style={{
                       width: 70,
                       height: 70,

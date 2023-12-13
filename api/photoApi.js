@@ -23,7 +23,7 @@ export const uploadPhotos = async (photos, circleId) => {
   try {
     const formData = new FormData();
 
-    console.log(photos[0].uri);
+    // console.log(photos[0].uri);
 
     photos.forEach(photo => {
       formData.append('images', {
@@ -54,22 +54,22 @@ export const uploadPhotos = async (photos, circleId) => {
 
     const { data } = await photoInstance.post('/upload', formData);
 
-    console.log(data);
+    // console.log(data);
     // 서버에 요청 보내기
     return data;
   } catch (error) {
     if (error.response) {
       // 서버 응답에 대한 정보가 있는 경우
-      console.error('응답 데이터:', error.response.data);
-      console.error('응답 상태:', error.response.status);
-      console.error('응답 헤더:', error.response.headers);
-      console.error('요청 데이터:', error.response.config.data);
+      // console.error('응답 데이터:', error.response.data);
+      // console.error('응답 상태:', error.response.status);
+      // console.error('응답 헤더:', error.response.headers);
+      // console.error('요청 데이터:', error.response.config.data);
     } else if (error.request) {
       // 요청이 이루어졌으나 응답을 받지 못한 경우
-      console.error('요청:', error);
+      // console.error('요청:', error);
     } else {
       // 요청을 설정하는 중에 오류가 발생한 경우
-      console.error('Error', error.message);
+      // console.error('Error', error.message);
     }
   }
 };
@@ -77,7 +77,7 @@ export const uploadPhotos = async (photos, circleId) => {
 export const uploadShootingPhoto = async (photo, circleId, location) => {
   try {
     const formData = new FormData();
-    console.log('받아온 uri', photo);
+    // console.log('받아온 uri', photo);
     formData.append('images', {
       uri: photo,
       type: 'image/jpeg',
@@ -106,11 +106,11 @@ export const uploadShootingPhoto = async (photo, circleId, location) => {
 
     return data;
   } catch (error) {
-    console.log('보내졌지만 에러가 났어요');
-    console.error('응답 데이터:', error.response.data);
-    console.error('응답 상태:', error.response.status);
-    console.error('응답 헤더:', error.response.headers);
-    console.error('요청 데이터:', error.response.config.data);
+    // console.log('보내졌지만 에러가 났어요');
+    // console.error('응답 데이터:', error.response.data);
+    // console.error('응답 상태:', error.response.status);
+    // console.error('응답 헤더:', error.response.headers);
+    // console.error('요청 데이터:', error.response.config.data);
   }
 };
 
@@ -121,10 +121,10 @@ export const deletePhoto = async photoIdList => {
     });
     return data;
   } catch (error) {
-    console.error(error.response.data);
-    console.error(error.response.status);
-    console.error(error.response.headers);
-    console.error(error.response.config.data);
+    // console.error(error.response.data);
+    // console.error(error.response.status);
+    // console.error(error.response.headers);
+    // console.error(error.response.config.data);
   }
 };
 
@@ -134,12 +134,12 @@ export const fetchSortedPhotos = async (circleId, sortType) => {
       circleId,
       sortType: sortType,
     });
-    console.log('성공', response.data);
+    // console.log('성공', response.data);
     return response.data;
   } catch (error) {
-    console.error(error.response.data);
-    console.error(error.response.status);
-    console.error(error.response.headers);
-    console.error(error.response.config.data);
+    // console.error(error.response.data);
+    // console.error(error.response.status);
+    // console.error(error.response.headers);
+    // console.error(error.response.config.data);
   }
 };

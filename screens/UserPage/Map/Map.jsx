@@ -52,8 +52,8 @@ export const Map = ({ navigation, route }) => {
     setMarkers(markersArray);
   };
 
-  console.log(JSON.stringify(data)+"엥");
-  console.log(data);
+  // console.log(JSON.stringify(data)+"엥");
+  // console.log(data);
 
   const onRegionChangeComplete = newRegion => {
     setZoom(getZoomFromRegion(newRegion));

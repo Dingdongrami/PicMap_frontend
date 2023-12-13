@@ -5,7 +5,7 @@ export const fetchUser = async userId => {
     const { data } = await userInstance.get(`/${userId}`);
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -15,7 +15,7 @@ export const updateUser = async (userId, userData) => {
     const { data } = await userInstance.put(`/${userId}`, rest);
     return data;
   } catch (error) {
-    console.log('updateUser 에러: ', error.response);
+    // console.log('updateUser 에러: ', error.response);
   }
 };
 
@@ -30,7 +30,7 @@ export const updateUserProfileImage = async (userId, userProfileImage) => {
     const { data } = await userInstance.put(`/${userId}/profile`, formData);
     return data;
   } catch (error) {
-    console.log('updateUserProfileImage 에러: ', error.response);
+    // console.log('updateUserProfileImage 에러: ', error.response);
   }
 };
 
@@ -39,7 +39,7 @@ export const updateUserProfileNoImage = async userId => {
     const { data } = await userInstance.put(`/${userId}/no-profile`);
     return data;
   } catch (error) {
-    console.log('updateUserProfileNoImage 에러: ', error.response);
+    // console.log('updateUserProfileNoImage 에러: ', error.response);
   }
 };
 
@@ -49,6 +49,6 @@ export const fetchAllUsers = async () => {
     const { data } = await userInstance.get(`/all`);
     return data;
   }catch(error){
-    console.error(error);
+    // console.error(error);
   }
 }

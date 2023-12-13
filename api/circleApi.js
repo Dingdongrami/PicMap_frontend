@@ -17,7 +17,7 @@ export const fetchMembers = async circleId => {
     } = await circleInstance.get(`/${circleId}/members`);
     return users;
   } catch (error) {
-    console.log(error.response);
+    // console.log(error.response);
   }
 };
 
@@ -50,16 +50,16 @@ export const createCircle = async newCircleData => {
   } catch (error) {
     if (error.response) {
       // 서버 응답에 대한 정보가 있는 경우
-      console.error('응답 데이터:', error.response.data);
-      console.error('응답 상태:', error.response.status);
-      console.error('응답 헤더:', error.response.headers);
-      console.error('요청 데이터:', error.response.config.data);
+      // console.error('응답 데이터:', error.response.data);
+      // console.error('응답 상태:', error.response.status);
+      // console.error('응답 헤더:', error.response.headers);
+      // console.error('요청 데이터:', error.response.config.data);
     } else if (error.request) {
       // 요청이 이루어졌으나 응답을 받지 못한 경우
-      console.error('요청:', error.request);
+      // console.error('요청:', error.request);
     } else {
       // 요청을 설정하는 중에 오류가 발생한 경우
-      console.error('Error', error.message);
+      // console.error('Error', error.message);
     }
   }
 };
@@ -72,10 +72,10 @@ export const joinPublicCircle = async (userId, circleId) => {
     });
     return data;
   } catch (error) {
-    console.error(error.response.data);
-    console.error(error.response.status);
-    console.error(error.response.headers);
-    console.error(error.response.config.data);
+    // console.error(error.response.data);
+    // console.error(error.response.status);
+    // console.error(error.response.headers);
+    // console.error(error.response.config.data);
   }
 };
 
@@ -89,6 +89,6 @@ export const editCircleName = async (circleId, newCircleData) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error.response);
+    // console.error(error.response);
   }
 };

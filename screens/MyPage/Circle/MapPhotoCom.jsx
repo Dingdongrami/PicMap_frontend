@@ -1,10 +1,10 @@
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { comStyles, PhotoComments } from '../../../components/circle';
 import { s3BaseUrl } from '../../../constants/config';
 import { useQuery } from '@tanstack/react-query';
 import { fetchOnePhoto } from '../../../api/photoApi';
-import { Image } from 'expo-image';
+// import { Image } from 'expo-image';
 
 export const MapPhotoCom = () => {
   const route = useRoute();
@@ -21,7 +21,7 @@ export const MapPhotoCom = () => {
       <View style={comStyles.imageContainer}>
         <Image
           style={comStyles.image}
-          source={s3BaseUrl + data?.filePath}
+          source={{ uri: s3BaseUrl + data?.filePath}}
           contentFit="contain"
         />
       </View>

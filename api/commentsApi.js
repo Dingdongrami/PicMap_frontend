@@ -9,7 +9,7 @@ export const fetchComments = async photoId => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -22,7 +22,7 @@ export const addComment = async (photoId, comment) => {
     });
     return data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -35,6 +35,6 @@ export const deleteComment = async commentId => {
     });
     return data;
   } catch (error) {
-    console.error(error.response);
+    // console.error(error.response);
   }
 };

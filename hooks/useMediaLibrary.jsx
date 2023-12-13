@@ -49,7 +49,7 @@ const useMediaLibrary = (onImageSelected, multiple = false) => {
       }
     } catch (error) {
       Alert.alert('미디어 라이브러리를 사용할 수 없습니다.', '다시 시도해주세요.');
-      console.log(error);
+      // console.log(error);
     }
   }
   return { selectImageHandler };

@@ -8,7 +8,7 @@ export const downloadFromUrl = async fileProps => {
     fileProps.uri,
     FileSystem.documentDirectory + fileProps.filename
   );
-  console.log(result);
+  // console.log(result);
   save(result.uri, fileProps.filename, result.headers["Content-Type"]);
 }
 
@@ -21,7 +21,7 @@ const save = async (uri, filename, mimetype) => {
         .then(async (uri) => {
           await FileSystem.writeAsStringAsync(uri, base64, {encoding: FileSystem.EncodingType.Base64});
         })
-        .catch(e => console.log(e));
+        // .catch(e => console.log(e));
     }else{
       shareAsync(uri);
     }

@@ -2,7 +2,7 @@ import { Animated, View, TouchableOpacity } from 'react-native';
 
 export const Middle = ({ state, descriptors, navigation, position }) => {
   const right = () => {
-    console.log("right");
+    // console.log("right");
   }
   return (
     <View style={{ flexDirection: 'row' }}>

@@ -38,13 +38,13 @@ const InviteUser = ({ route }) => {
       });
     },
     onSuccess: data => {
-      console.log('friendsList success');
+      // console.log('friendsList success');
     },
   });
   const { mutate: joinMutate } = useMutation({
     mutationFn: args => joinPublicCircle(args.userId, args.circleId),
     onSuccess: () => {
-      console.log('joinMutation success');
+      // console.log('joinMutation success');
       queryClient.invalidateQueries('circle');
     },
   });

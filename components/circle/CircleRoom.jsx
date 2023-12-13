@@ -27,7 +27,7 @@ export const CircleRoom = ({ circle, notMyPublicCircleData }) => {
   const joinMutation = useMutation({
     mutationFn: args => joinPublicCircle(args.userId, args.circleId),
     onSuccess: () => {
-      console.log('joinMutation success');
+      // console.log('joinMutation success');
       queryClient.invalidateQueries('circle');
     },
   });

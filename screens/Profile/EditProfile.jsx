@@ -65,7 +65,7 @@ export const EditProfile = ({ navigation }) => {
 
   // 이미지 선택이 완료되면 실행되는 함수 - 호이스팅을 위해 함수 선언식으로 작성
   function onImageSelected(photo) {
-    console.log('photo', photo);
+    // console.log('photo', photo);
     setUser({ ...user, profileImage: photo[0].uri });
     setModalVisible(!isModalVisible);
   }
@@ -135,7 +135,7 @@ export const EditProfile = ({ navigation }) => {
     [selectImageHandler, takeImageHandler, onDeleteImage],
   );
 
-  console.log('user', user);
+  // console.log('user', user);
 
   return (
     <ScrollView

@@ -50,7 +50,7 @@ export const AddMethod = ({ circleId }) => {
     }
     const location = await Location.getCurrentPositionAsync({});
 
-    console.log('ImageCaptured', photo);
+    // console.log('ImageCaptured', photo);
     cameraMutation.mutate({ photoUri: photo.uri, circleId, location });
   }
 
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   overlay: {
     position: 'absolute',
     left: 23,
-    bottom: 15,
+    bottom: 25,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   addition: {
     position: 'absolute',
     left: 23,
-    bottom: 82,
+    bottom: 110,
     width: 61,
     height: 136,
     borderRadius: 30,

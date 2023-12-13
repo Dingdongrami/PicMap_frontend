@@ -32,7 +32,7 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
   const { mutate: requestMutate } = useMutation({
     mutationFn: args => requestFriend(args.requesterId, args.receiverId),
     onSuccess: () => {
-      console.log('requestMutation success');
+      // console.log('requestMutation success');
     },
   });
 
@@ -98,8 +98,8 @@ const UserProfile = ({ user, onPressFriendRequest }) => {
     setIsRequesting(requesting);
   }, [receivedFriendsList]);
 
-  console.log('receivedFriendsList', receivedFriendsList);
-  console.log(user);
+  // console.log('receivedFriendsList', receivedFriendsList);
+  // console.log(user);
 
   return (
     <View style={styles.profileContainer}>

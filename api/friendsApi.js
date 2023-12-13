@@ -21,7 +21,7 @@ export const acceptFriend = async (requesterId, receiverId) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -34,6 +34,6 @@ export const requestFriend = async (requesterId, receiverId) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

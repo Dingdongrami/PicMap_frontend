@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { Image } from 'expo-image';
+import { TouchableOpacity, View, Image } from 'react-native';
+// import { Image } from 'expo-image';
 import { Marker } from 'react-native-maps';
 import { INIT } from '../MyPage/Map/examples';
 import { styles } from '../MyPage/Map/styles';
@@ -131,7 +131,7 @@ const MapSearch = ({ navigation, route, filtered }) => {
                 tracksViewChanges={false}>
                 <TouchableOpacity onPress={() => navigateToPhotoCom(item)}>
                   <Image
-                    source={item.thumbnail}
+                    source={{ uri: item.thumbnail}}
                     style={{
                       width: 70,
                       height: 70,

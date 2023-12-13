@@ -1,8 +1,8 @@
 import { Marker } from 'react-native-maps';
 import { styles } from './styles';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { useState, useEffect, useRef } from 'react';
-import { Image } from 'expo-image';
+// import { Image } from 'expo-image';
 import { INIT } from './examples';
 import { s3BaseUrl } from '../../../constants/config';
 
@@ -47,7 +47,7 @@ export const ZoomInMap = ({ route, navigation }) => {
   };
 
   const navigateToPhotoCom = async item => {
-    console.log("메롱")
+    // console.log("메롱")
     const photo = await queryClient.fetchQuery({
       queryKey: ['onePhoto', item.photoId],
       queryFn: () => fetchOnePhoto(item.photoId),
@@ -87,7 +87,7 @@ export const ZoomInMap = ({ route, navigation }) => {
                 tracksViewChanges={false}>
                 <Pressable onPress={() => navigateToPhotoCom(item)}>
                   <Image
-                    source={item.thumbnail}
+                    source={{ uri: item.thumbnail}}
                     style={{
                       width: 70,
                       height: 70,
