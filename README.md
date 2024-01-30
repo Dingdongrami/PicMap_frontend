@@ -20,7 +20,7 @@
 > **결과물 소개**
 
 1. **마이페이지 사진탭**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/9f142e93-eeef-4f0b-bb2c-52fc3d4b1135" width="50%" /></p>  
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/9f142e93-eeef-4f0b-bb2c-52fc3d4b1135" width="60%" /></p>  
 <div>마이페이지 사진탭은 자신이 속한 각 써클마다의 최신 사진 4장을 보여주는 탭이다. 이 부분에서 사진의 렌더링이 늦어지는 문제점을 AWS CloudFront를 이용하여 해결했다. 가장
 위로 스크롤할 시 사진 데이터를 새로고침(refetch)할 수 있다.</div>
 <div>써클 사진을 클릭할 시 두 번째 사진과 같이 해당 써클로 이동할 수 있다.    </div>
@@ -28,7 +28,7 @@
 <br />
 
 2. **마이페이지 지도탭**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/a646799b-af8a-4572-8b60-89e6aef940d1" width="70%" /></p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/a646799b-af8a-4572-8b60-89e6aef940d1" width="80%" /></p>
 <div>마이페이지의 지도탭은 자신이 속한 써클에 업로드된 사진들 중 위치 정보가 있는 사진들을
 지도 위에서 보여준다.   </div>
 <div>Supercluster와 map marker 등의 라이브러리를 이용하여 지도위에
@@ -43,67 +43,68 @@
 <br />
 
 3. **마이페이지 써클탭, 써클생성 스크린**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/dd64dabc-6b98-4be4-b11e-78f22ee424c4" width="50%" /></p>
-<p>마이페이지의 써클탭은 자신이 속한 써클의 목록을 보여준다. 써클을 클릭하면 해당 써클의
-공유앨범으로 이동할 수 있다. 왼쪽 하단의 ‘+’ 버튼을 클릭하면 새로운 써클을 생성할 수
-있다.   
-써클은 공개 써클과 비공개 써클로 나누었다. 공개 써클의 경우 친구의 초대와 타임라인
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/dd64dabc-6b98-4be4-b11e-78f22ee424c4" width="60%" /></p>
+<div>마이페이지의 써클탭은 자신이 속한 써클의 목록을 보여준다. 써클을 클릭하면 해당 써클의
+공유앨범으로 이동할 수 있다. </div>
+<div>왼쪽 하단의 ‘+’ 버튼을 클릭하면 새로운 써클을 생성할 수
+있다.</div>   
+<div>써클은 공개 써클과 비공개 써클로 나누었다. 공개 써클의 경우 친구의 초대와 타임라인
 페이지를 통해 가입할 수 있고, 비공개 써클의 경우 친구의 초대로만 가입할 수 있도록
-구현하였다.</p>
+구현하였다.</div>
 
 <br />
 
 4. **써클 공유앨범 스크린**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/41dbe88f-d3d1-43dc-a38c-ef6e6b4ffa3b" width="70%" /></p>
-<p>공유앨범 스크린의 상단에는 앨범에 속한 유저들의 리스트를 보여준다. 특정 유저를
-클릭하면 해당 유저의 프로필 페이지로 이동한다. 지도 부분에는 해당 공유앨범에 업로드
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/41dbe88f-d3d1-43dc-a38c-ef6e6b4ffa3b" width="80%" /></p>
+<div>공유앨범 스크린의 상단에는 앨범에 속한 유저들의 리스트를 보여준다. 특정 유저를
+클릭하면 해당 유저의 프로필 페이지로 이동한다. </div><div>지도 부분에는 해당 공유앨범에 업로드
 된 사진들 중 위치 정보가 있는 사진들을 띄워준다. 지도의 아래에는 업로드 된 사진들을
-3열로 보여준다. 사진 리스트의 오른쪽 상단에 ‘선택’ 버튼을 누르면, 사진을 선택하여
-삭제하거나 자신의 기기에 저장할 수 있다. 헤더에는 가장 왼쪽에 써클명이, 가장
-오른쪽에는 설정 버튼이 있다. 설정버튼을 통해 사진 정렬, 유저 추가 등을 할 수 있다.
+3열로 보여준다. </div><div>사진 리스트의 오른쪽 상단에 ‘선택’ 버튼을 누르면, 사진을 선택하여
+삭제하거나 자신의 기기에 저장할 수 있다. </div><div>헤더에는 가장 왼쪽에 써클명이, 가장
+오른쪽에는 설정 버튼이 있다. </div><div>설정버튼을 통해 사진 정렬, 유저 추가 등을 할 수 있다.
 여기서 사진 정렬은 최신순, 과거순, 좋아요순 중에서 선택할 수 있으며, 유저 추가를 통해
-친구를 해당 써클에 초대할 수 있다.
-써클 내의 지도의 클러스터를 클릭하면 확대된 지도 스크린으로 이동한다.
-각 사진을 클릭하면 [그림 2]의 세 번째 사진과 같은 사진 상세 스크린으로 이동한다.</p>
+친구를 해당 써클에 초대할 수 있다.</div>
+<div>써클 내의 지도의 클러스터를 클릭하면 확대된 지도 스크린으로 이동한다.</div>
+<div>각 사진을 클릭하면 [그림 2]의 세 번째 사진과 같은 사진 상세 스크린으로 이동한다.</div>
 
 <br />
 
 5. **써클 공유앨범 스크린 - 사진 업로드**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/b5f1f37b-d626-42d6-9e54-c0db51665abb" width="70%" /></p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/b5f1f37b-d626-42d6-9e54-c0db51665abb" width="80%" /></p>
 <p>왼쪽 하단의 버튼을 통해 사진을 업로드할 수 있다. 여러 장의 사진을 선택하여 업로드 할
 수 있으며, 직접 사진을 촬영하여 업로드할 수도 있다.</p>
 
 <br />
 
 6. **타임라인(공개써클 목록) 스크린**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/4819345d-d770-43c9-8899-739886db66c5" width="50%" /></p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/4819345d-d770-43c9-8899-739886db66c5" width="60%" /></p>
 <p>공개 써클의 목록을 볼 수 있으며, 미가입 써클에 가입할 수 있다. 가입 후 바로 접속이
 가능하다. 위의 두 번째 사진과 같은 퍼블릭 써클은 공적인 커뮤니티의 역할을 할 수 있다.</p>
 
 <br />
 
 7. **검색 스크린**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/5c4ba91b-febe-4d0a-8727-0e1fb277633f" width="70%" /></p>
-<p>유저의 경우 유저네임으로 검색할 수 있으며, 써클의 경우 써클명으로 검색할 수 있다.
-지도의 경우 특정 지역을 검색하면 해당 지역에 대한 사진이 있는 퍼블릭 써클의 사진을
-조회할 수 있다.</p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/5c4ba91b-febe-4d0a-8727-0e1fb277633f" width="80%" /></p>
+<div>유저의 경우 유저네임으로 검색할 수 있으며, 써클의 경우 써클명으로 검색할 수 있다.</div>
+<div>지도의 경우 특정 지역을 검색하면 해당 지역에 대한 사진이 있는 퍼블릭 써클의 사진을
+조회할 수 있다.</div>
 
 <br />
 
 8. **프로필 편집 및 친구목록**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/0fc6a783-80d5-4e6b-a5e8-3df242304cdb" width="70%" /></p>
-<p>마이페이지의 상단의 프로필에서 프로필 편집 버튼을 통해 자신의 프로필을 수정할 수
-있다. 프로필 사진을 직접 자신의 갤러리로부터 혹은 촬영하여 수정할 수 있다.
-또한 프로필의 친구목록 버튼을 통해 친구목록을 조회할 수 있다. 상단 헤더의 오른쪽 설정
-버튼을 클릭하면 받은 친구요청을 확인할 수 있고, 친구를 삭제할 수도 있다.</p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/0fc6a783-80d5-4e6b-a5e8-3df242304cdb" width="80%" /></p>
+<div>마이페이지의 상단의 프로필에서 프로필 편집 버튼을 통해 자신의 프로필을 수정할 수
+있다. 프로필 사진을 직접 자신의 갤러리로부터 혹은 촬영하여 수정할 수 있다.</div>
+<div>또한 프로필의 친구목록 버튼을 통해 친구목록을 조회할 수 있다. 상단 헤더의 오른쪽 설정
+버튼을 클릭하면 받은 친구요청을 확인할 수 있고, 친구를 삭제할 수도 있다.</div>
 
 <br />
 
 9. **다른 유저 페이지 스크린**
-<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/88afc2b9-0d5d-4fad-b0bb-8dfb9033dfdf" width="70%" /></p>
-<p>다른 유저를 클릭하면 해당 유저의 페이지에 접속할 수 있다. 이미 친구인 경우 ‘친구’라는
-텍스트가 표시된다.
-친구가 아닌 비공개 계정 사용자의 경우 사진탭과 지도탭 또한 비공개 된다.</p>
+<p><img src="https://github.com/Dingdongrami/PicMap_frontend/assets/87259219/88afc2b9-0d5d-4fad-b0bb-8dfb9033dfdf" width="80%" /></p>
+<div>다른 유저를 클릭하면 해당 유저의 페이지에 접속할 수 있다. 이미 친구인 경우 ‘친구’라는
+텍스트가 표시된다.</div>
+<div>친구가 아닌 비공개 계정 사용자의 경우 사진탭과 지도탭 또한 비공개 된다.</div>
 
 <br />
 
